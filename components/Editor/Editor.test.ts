@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
-import { mount } from '@vue/test-utils'
-import Editor from '~/components/Editor/Editor.vue'
+import { flushPromises, mount } from '@vue/test-utils'
+import Editor from '~/components/Editor/Editor.client.vue'
 
 describe('Editor', () => {
   test('should be defined', () => {
@@ -10,18 +10,22 @@ describe('Editor', () => {
   test('renders the correct markup without content', () => {
     const wrapper = mount(Editor)
 
-    expect(wrapper.find('#editor').html()).toContain('<div></div>')
+    expect(wrapper.element.innerHTML).toBe('')
   })
 
-  /* test('renders the correct markup with content', async () => {
+  test('renders the correct markup with content', async () => {
     const wrapper = mount(Editor, {
       props: {
-        content: `<h1>Всем привет!</h1>`,
+        content: '<h1>Всем привет!</h1>',
       },
     })
 
-    await nextTick()
+    await flushPromises()
 
-    expect(wrapper.html()).toContain('<div><h1>Всем привет!</h1></div>')
-  }) */
+    expect(wrapper.element.innerHTML).toBe(
+      '<div contenteditable="true" role="textbox" translate="no" class="tiptap ProseMirror" tabindex="0">' +
+        '<h1>Всем привет!</h1>' +
+      '</div>'
+    )
+  })
 })

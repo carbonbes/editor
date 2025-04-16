@@ -1,5 +1,4 @@
-import { flushPromises } from '@vue/test-utils'
-import { afterEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 describe('useEditor', () => {
   test('should be defined', () => {
@@ -8,10 +7,6 @@ describe('useEditor', () => {
 
   describe('editor', () => {
     const { editor, init, destroy } = useEditor()
-
-    afterEach(() => {
-      destroy()
-    })
 
     test('should be defined', () => {
       expect(editor).toBeDefined()
@@ -25,6 +20,8 @@ describe('useEditor', () => {
       init()
 
       expect(editor.value).toBeDefined()
+
+      destroy()
     })
 
     test('must be undefined after editor destroy', () => {

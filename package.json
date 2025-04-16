@@ -11,10 +11,14 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.4",
     "@tiptap/pm": "^2.11.7",
     "@tiptap/starter-kit": "^2.11.7",
     "@tiptap/vue-3": "^2.11.7",
+    "@use-gesture/vanilla": "^10.3.1",
+    "@vueuse/nuxt": "13.1.0",
     "nuxt": "^3.16.2",
+    "tailwindcss": "^4.1.4",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },

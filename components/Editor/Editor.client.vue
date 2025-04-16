@@ -14,4 +14,12 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(destroy)
+
+useEditorNodesSwipingTracking({
+  onSwipeEnd({ xy: [x, y] }) {
+    const node = getEditorNodeByCoords(x, y)
+
+    console.log(node)
+  },
+})
 </script>

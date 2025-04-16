@@ -2,9 +2,13 @@ type SwipeState = DragGestureState
 
 type SwipeHandler = (state: SwipeState) => void
 
-type InputArgs = { onSwipeEnd?: SwipeHandler }
+type InputArgs = {
+  onSwipeStart?: SwipeHandler
+  onSwipe?: SwipeHandler
+  onSwipeEnd?: SwipeHandler
+}
 
-export default function ({ onSwipeEnd }: InputArgs) {
+export default function ({ onSwipeStart, onSwipe, onSwipeEnd }: InputArgs) {
   const swipingNode = useState<Element | undefined>()
 
   const { editor } = useEditor()
@@ -43,11 +47,31 @@ export default function ({ onSwipeEnd }: InputArgs) {
     element: editorElement as Ref<Element>,
 
     handlers: {
-      onDragStart({ initial: [initialX, initialY] }) {
-        swipingNode.value = getEditorNodeByCoords(initialX, initialY)
+      onDragStart(state) {
+        const {
+          tap,
+          cancel,
+          xy: [x, y],
+        } = state
+
+        if (tap) cancel()
+
+        const node = getEditorNodeByCoords(x, y)
+
+        if (!node) cancel()
+
+        onSwipeStart?.(state)
+
+        swipingNode.value = getEditorNodeByCoords(x, y)
       },
 
-      onDrag({ movement: [movementX] }) {
+      onDrag(state) {
+        onSwipe?.(state)
+
+        const {
+          movement: [movementX],
+        } = state
+
         setNodeTranslateX(movementX)
       },
 

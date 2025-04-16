@@ -9,17 +9,21 @@ const { content } = defineProps<{ content?: Content }>()
 
 const { editor, init, destroy } = useEditor()
 
-onMounted(async () => {
+onMounted(() => {
   init(content)
 })
 
 onBeforeUnmount(destroy)
 
 useEditorNodesSwipingTracking({
-  onSwipeEnd({ xy: [x, y] }) {
+  onSwipeStart({ xy: [x, y] }) {
     const node = getEditorNodeByCoords(x, y)
 
     console.log(node)
+  },
+
+  onSwipeEnd() {
+    
   },
 })
 </script>

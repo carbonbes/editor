@@ -34,22 +34,4 @@ describe('useEditor', () => {
       expect(editor.value).toBeUndefined()
     })
   })
-
-  describe('isInitialized', () => {
-    const { isInitialized, init } = useEditor()
-
-    test('should be defined', () => {
-      expect(isInitialized).toBeDefined()
-    })
-
-    test('must be false before editor init', () => {
-      expect(isInitialized.value).toBe(false)
-    })
-
-    test('must be true after editor init', () => {
-      init()
-
-      expect(isInitialized.value).toBe(true)
-    })
-  })
 })

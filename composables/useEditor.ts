@@ -6,12 +6,6 @@ import { addGlobalTestIdAttrPlugin } from '~/tiptap-extensions/addGlobalTestIdAt
 export default function () {
   const editor = useState<Editor | undefined>()
 
-  const isInitialized = computed(() => {
-    if (!editor.value) return false
-
-    return editor.value.isInitialized
-  })
-
   function init(content?: Content) {
     if (editor.value) return
 
@@ -39,5 +33,5 @@ export default function () {
     editor.value = undefined
   }
 
-  return { editor, isInitialized, init, destroy }
+  return { editor, init, destroy }
 }

@@ -1,6 +1,7 @@
 import { Editor, type Content } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import { setNodeHtmlAttrsPlugin } from '~/tiptap-extensions/setNodeHtmlAttrsPlugin'
+import { addGlobalTestIdAttrPlugin } from '~/tiptap-extensions/addGlobalTestIdAttrPlugin'
 
 export default function () {
   const editor = useState<Editor | undefined>()
@@ -16,13 +17,18 @@ export default function () {
 
     editor.value = new Editor({
       content,
-      extensions: [StarterKit, setNodeHtmlAttrsPlugin],
+
+      extensions: [
+        StarterKit,
+        setNodeHtmlAttrsPlugin,
+        addGlobalTestIdAttrPlugin,
+      ],
 
       editorProps: {
         attributes: {
-          class: '[&>*]:transition-transform touch-pan-y focus:outline-none'
-        }
-      }
+          class: '[&>*]:transition-transform touch-pan-y focus:outline-none',
+        },
+      },
     })
   }
 

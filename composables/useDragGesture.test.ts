@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import type Editor from '~/components/Editor/Editor.client.vue'
 
 describe('useDragGesture', () => {
   test('should be defined', () => {
@@ -7,45 +8,46 @@ describe('useDragGesture', () => {
   })
 
   describe('gesture', () => {
-    function mountComponent() {
-      let result: ReturnType<typeof useDragGesture>
+    let dragGesture: ReturnType<typeof useDragGesture>['gesture']
+    let wrapper: ReturnType<typeof mount<typeof Editor>>
 
+    function mountComponent() {
       const Component = defineComponent({
         template: '<div ref="element"></div>',
-        setup() {
-          const element = useTemplateRef<Element>('element')
 
-          result = useDragGesture({ element, handlers: {} })
+        setup() {
+          const element = useTemplateRef('element')
+
+          const { gesture } = useDragGesture({
+            element: element as Ref<Element>,
+            handlers: {},
+          })
+
+          dragGesture = gesture
         },
       })
 
-      const wrapper = mount(Component)
-
-      return { result, wrapper }
+      wrapper = mount(Component)
     }
 
-    test('must be defined after some component has been mounted', () => {
-      const {
-        result: { gesture },
-        wrapper,
-      } = mountComponent()
+    beforeEach(() => {
+      mountComponent()
+    })
 
-      expect(gesture.value).toBeDefined()
-
+    afterEach(() => {
       wrapper.unmount()
     })
 
-    test('must be undefined after some component has been unmounted', () => {
-      const {
-        result: { gesture },
-        wrapper,
-      } = mountComponent()
+    test('must be defined after some component has been mounted', () => {
+      expect(dragGesture.value).toBeDefined()
+    })
 
-      expect(gesture.value).toBeDefined()
+    test('must be undefined after some component has been unmounted', () => {
+      expect(dragGesture.value).toBeDefined()
 
       wrapper.unmount()
 
-      expect(gesture.value).toBeUndefined()
+      expect(dragGesture.value).toBeUndefined()
     })
   })
 })

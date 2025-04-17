@@ -1,5 +1,5 @@
 <template>
-  <Editor content="<h1>Всем привет!</h1>" />
+  <Editor />
 </template>
 
 <script lang="ts" setup>

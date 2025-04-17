@@ -8,7 +8,9 @@ export default function () {
 
     const view = editor.value.view
 
-    return getEditorNodePos(view, node.value)
+    const pos = getEditorNodePos(view, node.value)
+
+    return pos && pos >= 0 ? pos : undefined
   })
 
   function setFocusedNode(element: Element | undefined) {

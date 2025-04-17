@@ -52,4 +52,6 @@ export default function ({ element, handlers, config }: InputArgs) {
 
   onMounted(init)
   onBeforeUnmount(destroy)
+
+  return { gesture }
 }

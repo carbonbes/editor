@@ -8,9 +8,9 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  modules: ['@nuxt/test-utils/module', '@vueuse/nuxt'],
-
   vite: {
     plugins: [tailwindcss()],
   },
+
+  modules: ['@nuxt/test-utils/module', '@nuxt/eslint', '@vueuse/nuxt'],
 })

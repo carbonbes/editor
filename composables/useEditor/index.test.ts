@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest'
 
 describe('useEditor', () => {
   test('should be defined', () => {
-    expect(useEditor()).toBeDefined()
+    expect(useEditor).toBeDefined()
   })
 
   describe('editor', () => {
@@ -32,6 +32,17 @@ describe('useEditor', () => {
       destroy()
 
       expect(editor.value).toBeUndefined()
+    })
+
+    test('must be mounted with the specified content', () => {
+      const content = '<h1>Test</h1>'
+
+      init(content)
+
+      expect(editor.value).toBeDefined()
+      expect(editor.value?.getHTML()).toBe(content)
+
+      destroy()
     })
   })
 })

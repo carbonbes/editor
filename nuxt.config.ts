@@ -11,5 +11,14 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  modules: ['@nuxt/test-utils/module', '@nuxt/eslint'],
+  modules: [
+    '@nuxt/test-utils/module',
+    '@nuxt/eslint',
+    '@nuxt/fonts',
+    '@nuxt/icon',
+  ],
+
+  fonts: {
+    families: [{ name: 'Inter', provider: 'google' }],
+  },
 })

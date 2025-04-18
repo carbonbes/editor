@@ -20,7 +20,7 @@ export default function () {
 
       editorProps: {
         attributes: {
-          class: '[&>*]:transition-transform touch-pan-y focus:outline-none',
+          class: '[&>*]:transition-transform prose touch-pan-y focus:outline-none',
         },
       },
     })

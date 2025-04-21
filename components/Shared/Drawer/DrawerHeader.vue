@@ -1,5 +1,5 @@
 <template>
-  <Flex items-center class="p-6">
+  <Flex items-center>
     <p v-if="title" class="text-xl font-bold">
       {{ title }}
     </p>
@@ -9,18 +9,16 @@
       as-child
       class="ml-auto p-1.5 rounded-full bg-gray-200/50"
     >
-      <button @click="updateState({ open: false })">
+      <DrawerClose>
         <Icon name="tabler:x" class="size-5" />
-      </button>
+      </DrawerClose>
     </Flex>
   </Flex>
 </template>
 
 <script setup lang="ts">
 import Flex from '~/components/Shared/Flex.vue'
-import { drawerContextKey } from '~/keys'
+import { DrawerClose } from 'vaul-vue'
 
 const { title } = defineProps<{ title?: string }>()
-
-const { updateState } = inject(drawerContextKey)
 </script>

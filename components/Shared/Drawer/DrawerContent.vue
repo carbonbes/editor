@@ -1,20 +1,49 @@
 <template>
-  <DrawerPortal to="#teleports">
-    <DrawerOverlay class="fixed inset-0 bg-black/50" />
-
-    <DrawerContent
-      v-bind="$attrs"
-      aria-describedby=""
-      class="fixed right-0 bottom-0 left-0 w-full h-full max-h-[95%] bg-white rounded-t-3xl"
-    >
-      <slot />
-    </DrawerContent>
-  </DrawerPortal>
+  <Primitive
+    v-bind="props"
+    ref="drawerScrollableContent"
+    class="overflow-y-auto"
+    :class="scrollableContentClasses"
+  >
+    <slot />
+  </Primitive>
 </template>
 
 <script setup lang="ts">
-import { DrawerPortal, DrawerOverlay, DrawerContent } from 'vaul-vue'
-import { drawerContextKey } from '~/keys'
+import { Primitive, type PrimitiveProps } from 'reka-ui'
+import { usePointerSwipe, useScroll } from '@vueuse/core'
+import { injectDrawerContext } from './Drawer.vue'
 
-const { state, updateState } = inject(drawerContextKey)
+const props = withDefaults(
+  defineProps<PrimitiveProps>(),
+  {
+    asChild: true,
+  },
+)
+
+const drawerScrollableContent = useTemplateRef<HTMLElement>('drawerScrollableContent')
+
+const { activeSnapPoint } = injectDrawerContext()
+
+const { isSwiping, direction: swipeDirection } = usePointerSwipe(
+  drawerScrollableContent,
+  { threshold: 0 },
+)
+
+const { y } = useScroll(drawerScrollableContent)
+
+const scrollableContentClasses = computed(() => ({
+  '!overflow-y-hidden':
+    activeSnapPoint.value !== 1 ||
+    (activeSnapPoint.value === 1 &&
+      y.value === 0 &&
+      isSwiping.value &&
+      swipeDirection.value === 'down'),
+
+  '!overflow-y-auto':
+    activeSnapPoint.value === 1 &&
+    y.value === 0 &&
+    isSwiping.value &&
+    swipeDirection.value === 'up',
+}))
 </script>

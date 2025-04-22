@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --host 0.0.0.0",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -21,7 +21,7 @@
     "nuxt": "^3.16.2",
     "reka-ui": "^2.2.0",
     "tailwindcss": "^4.1.4",
-    "vaul-vue": "0.2.0",
+    "vaul-vue": "^0.4.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },

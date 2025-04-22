@@ -1,7 +1,7 @@
 <template>
   <Primitive
-    v-bind="props"
     ref="drawerScrollableContent"
+    as-child
     class="overflow-y-auto"
     :class="scrollableContentClasses"
   >
@@ -10,20 +10,13 @@
 </template>
 
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from 'reka-ui'
-import { usePointerSwipe, useScroll } from '@vueuse/core'
+import { Primitive } from 'reka-ui'
 import { injectDrawerContext } from './Drawer.vue'
-
-const props = withDefaults(
-  defineProps<PrimitiveProps>(),
-  {
-    asChild: true,
-  },
-)
+import { usePointerSwipe, useScroll } from '@vueuse/core'
 
 const drawerScrollableContent = useTemplateRef<HTMLElement>('drawerScrollableContent')
 
-const { activeSnapPoint } = injectDrawerContext()
+const { activeSnapPoint, YScrollOffset } = injectDrawerContext()
 
 const { isSwiping, direction: swipeDirection } = usePointerSwipe(
   drawerScrollableContent,
@@ -31,6 +24,10 @@ const { isSwiping, direction: swipeDirection } = usePointerSwipe(
 )
 
 const { y } = useScroll(drawerScrollableContent)
+
+watch(y, (y) => {
+  YScrollOffset.value = y
+}, { immediate: true })
 
 const scrollableContentClasses = computed(() => ({
   '!overflow-y-hidden':

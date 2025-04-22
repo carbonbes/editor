@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DrawerContent > should display > correctly with the slot 1`] = `
+"<div data-dismissable-layer="" style="--snap-point-height: 0; pointer-events: auto;" id="" role="dialog" aria-describedby="" aria-labelledby="radix-vue-dialog-title-v-0" data-state="open" vaul-drawer="" vaul-drawer-direction="bottom" vaul-drawer-visible="true" tabindex="-1" class="fixed right-0 bottom-0 left-0 w-full h-full max-h-[95%] bg-white rounded-t-3xl">
+  <p class="overflow-y-auto !overflow-y-hidden">Test</p>
+</div>"
+`;
+
+exports[`DrawerContent > should display > correctly without the slot 1`] = `"<div data-dismissable-layer="" style="--snap-point-height: 0; pointer-events: auto;" id="" role="dialog" aria-describedby="" aria-labelledby="radix-vue-dialog-title-v-0" data-state="open" vaul-drawer="" vaul-drawer-direction="bottom" vaul-drawer-visible="false" tabindex="-1" class="fixed right-0 bottom-0 left-0 w-full h-full max-h-[95%] bg-white rounded-t-3xl"></div>"`;

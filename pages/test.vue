@@ -2,7 +2,19 @@
   <button @click="open = true">Открыть</button>
 
   <Drawer v-model:open="open" :snap-points="[0.5, 1]" :fade-from-index="0">
-    <DrawerHeader class="p-6" />
+    <DrawerHeader class="p-6">
+      <Flex items-center class="gap-3">
+        <Flex center as-child>
+          <button>
+            <Icon name="tabler:chevron-left" class="!size-6" />
+          </button>
+        </Flex>
+
+        <p class="text-xl font-bold overflow-hidden overflow-ellipsis whitespace-nowrap">
+          Тестовый заголовок
+        </p>
+      </Flex>
+    </DrawerHeader>
 
     <DrawerContent>
       <Flex col class="px-6 pb-6">

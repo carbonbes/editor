@@ -1,16 +1,16 @@
 <template>
-  <Flex items-center>
-    <p v-if="title" class="text-xl font-bold">
-      {{ title }}
-    </p>
+  <Flex items-center :class="{ 'shadow': YScrollOffset > 0 }">
+    <slot />
 
     <Flex
       center
       as-child
       class="ml-auto p-1.5 rounded-full bg-gray-200/50"
     >
-      <DrawerClose>
-        <Icon name="tabler:x" class="size-5" />
+      <DrawerClose as-child>
+        <button>
+          <Icon name="tabler:x" class="size-5" />
+        </button>
       </DrawerClose>
     </Flex>
   </Flex>
@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import Flex from '~/components/Shared/Flex.vue'
 import { DrawerClose } from 'vaul-vue'
+import { injectDrawerContext } from './Drawer.vue'
 
-const { title } = defineProps<{ title?: string }>()
+const { YScrollOffset } = injectDrawerContext()
 </script>

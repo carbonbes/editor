@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DrawerOverlay > should display correctly 1`] = `"<div data-state="open" style="pointer-events: auto;" data-vaul-overlay="" data-vaul-snap-points="false" data-vaul-snap-points-overlay="true" class="fixed inset-0 bg-black/50"></div>"`;

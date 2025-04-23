@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DrawerContent > should display > correctly with the slot 1`] = `"<p class="overflow-y-auto !overflow-y-hidden">Test</p>"`;
+
+exports[`DrawerContent > should display > correctly without the slot 1`] = `""`;

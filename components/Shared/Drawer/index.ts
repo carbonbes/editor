@@ -6,4 +6,12 @@ import DrawerBody from './DrawerBody.vue'
 import DrawerHeader from './DrawerHeader.vue'
 import DrawerContent from './DrawerContent.vue'
 
-export { DrawerRoot as Drawer, DrawerTrigger, DrawerPortal, DrawerOverlay, DrawerBody, DrawerHeader, DrawerContent }
+export {
+  DrawerRoot as Drawer,
+  DrawerTrigger,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerBody,
+  DrawerHeader,
+  DrawerContent,
+}

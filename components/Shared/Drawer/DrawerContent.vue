@@ -1,7 +1,6 @@
 <template>
   <Primitive
     ref="drawerScrollableContent"
-    as-child
     class="overflow-y-auto"
     :class="scrollableContentClasses"
   >

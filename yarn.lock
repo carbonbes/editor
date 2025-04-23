@@ -6957,10 +6957,10 @@ validate-npm-package-license@^3.0.4:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vaul-vue@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/vaul-vue/-/vaul-vue-0.4.1.tgz#76ad8ccf8f9a61ea89ae51874defd3e36a5cef6d"
-  integrity sha512-A6jOWOZX5yvyo1qMn7IveoWN91mJI5L3BUKsIwkg6qrTGgHs1Sb1JF/vyLJgnbN1rH4OOOxFbtqL9A46bOyGUQ==
+vaul-vue@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/vaul-vue/-/vaul-vue-0.3.0.tgz#b952a908f622d9c4f27f95bbe17dded6342cc096"
+  integrity sha512-LwhBd7xLJtbdhq+vnQk9etOjZxr09GNFtMjOEYh969y5f8JKV5oR30CfB4toPkbtVMxFAFhMrp77EVWQgbtpHA==
   dependencies:
     "@vueuse/core" "^10.8.0"
     reka-ui "^2.0.0"

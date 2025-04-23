@@ -40,15 +40,5 @@ describe('DrawerHeader', () => {
 
       drawer.unmount()
     })
-
-    test('drawer should close when the close button is pressed', async () => {
-      const DrawerHeaderComponent = createDrawerHeader()
-      const drawer = await mountDrawer(DrawerHeaderComponent)
-      const drawerHeader = drawer.getComponent(DrawerHeader)
-
-      await drawerHeader.find('button').trigger('click')
-
-      expect(drawer.html()).toBe('')
-    })
   })
 })

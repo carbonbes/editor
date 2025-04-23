@@ -24,7 +24,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 const open = defineModel<boolean>('open', { default: false })
 
-const activeSnapPoint = ref(props.activeSnapPoint && 1)
+const activeSnapPoint = ref(props.activeSnapPoint ? props.activeSnapPoint : 1)
 const contentScrollOffset = ref(0)
 
 provideDrawerContext({ open, activeSnapPoint, contentScrollOffset })
@@ -32,8 +32,8 @@ provideDrawerContext({ open, activeSnapPoint, contentScrollOffset })
 
 <script lang="ts">
 export type DrawerContext = {
-  open: Ref<boolean>
-  activeSnapPoint: Ref<number>
+  open: Ref<DrawerRootProps['open']>
+  activeSnapPoint: Ref<DrawerRootProps['activeSnapPoint']>
   contentScrollOffset: Ref<number>
 }
 

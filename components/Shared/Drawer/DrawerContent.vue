@@ -11,12 +11,12 @@
 
 <script setup lang="ts">
 import { Primitive } from 'reka-ui'
-import { injectDrawerContext } from './Drawer.vue'
+import { injectDrawerContext } from './DrawerRoot.vue'
 import { usePointerSwipe, useScroll } from '@vueuse/core'
 
 const drawerScrollableContent = useTemplateRef<HTMLElement>('drawerScrollableContent')
 
-const { activeSnapPoint, YScrollOffset } = injectDrawerContext()
+const { activeSnapPoint, contentScrollOffset } = injectDrawerContext()
 
 const { isSwiping, direction: swipeDirection } = usePointerSwipe(
   drawerScrollableContent,
@@ -25,8 +25,8 @@ const { isSwiping, direction: swipeDirection } = usePointerSwipe(
 
 const { y } = useScroll(drawerScrollableContent)
 
-watch(y, (y) => {
-  YScrollOffset.value = y
+watch(y, (scrollOffset) => {
+  contentScrollOffset.value = scrollOffset
 }, { immediate: true })
 
 const scrollableContentClasses = computed(() => ({

@@ -8,40 +8,35 @@ describe('DrawerContent', () => {
   })
 
   describe('should display', () => {
-    test('correctly without the slot', async () => {
-      const DrawerContentComponent = defineComponent({
-        components: {
-          DrawerContent,
-        },
-        template: '<DrawerContent></DrawerContent>',
-      })
-
-      const wrapper = await mountDrawer(DrawerContentComponent)
-
-      const drawerContent = wrapper.getComponent(DrawerContent)
-
-      expect(drawerContent.html()).toMatchSnapshot()
-
-      wrapper.unmount()
-    })
-
-    test('correctly with the slot', async () => {
-      const DrawerContentComponent = defineComponent({
+    function createDrawerContent(slot?: string) {
+      return defineComponent({
         components: { DrawerContent },
         template: `
           <DrawerContent>
-            <p>Test</p>
+            ${slot ? slot : ''}
           </DrawerContent>
         `,
       })
+    }
 
-      const wrapper = await mountDrawer(DrawerContentComponent)
-
-      const drawerContent = wrapper.getComponent(DrawerContent)
+    test('correctly without the slot', async () => {
+      const DrawerContentComponent = createDrawerContent()
+      const drawer = await mountDrawer(DrawerContentComponent)
+      const drawerContent = drawer.getComponent(DrawerContent)
 
       expect(drawerContent.html()).toMatchSnapshot()
 
-      wrapper.unmount()
+      drawer.unmount()
+    })
+
+    test('correctly with the slot', async () => {
+      const DrawerContentComponent = createDrawerContent('<p>Test</p>')
+      const drawer = await mountDrawer(DrawerContentComponent)
+      const drawerContent = drawer.getComponent(DrawerContent)
+
+      expect(drawerContent.html()).toMatchSnapshot()
+
+      drawer.unmount()
     })
   })
 })

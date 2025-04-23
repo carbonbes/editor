@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { DrawerHeader } from './'
+import { DrawerBody, DrawerHeader } from '~/components/Shared/Drawer'
 import mountDrawer from '~/tests/utils/mountDrawer'
 
 describe('DrawerHeader', () => {
@@ -7,38 +7,48 @@ describe('DrawerHeader', () => {
     expect(DrawerHeader).toBeDefined()
   })
 
-  test('should display correctly', async () => {
-    const wrapper = await mountDrawer(DrawerHeader)
+  describe('renders', () => {
+    function createDrawerHeader(slot?: string) {
+      return defineComponent({
+        components: { DrawerBody, DrawerHeader },
+        template: `
+          <DrawerBody>
+            <DrawerHeader>
+              ${slot ? slot : ''}
+            </DrawerHeader>
+          </DrawerBody>
+        `,
+      })
+    }
 
-    const drawerHeader = wrapper.getComponent(DrawerHeader)
+    test('correctly without the slot', async () => {
+      const DrawerHeaderComponent = createDrawerHeader()
+      const drawer = await mountDrawer(DrawerHeaderComponent)
+      const drawerHeader = drawer.getComponent(DrawerHeader)
 
-    expect(drawerHeader.html()).toMatchSnapshot()
+      expect(drawerHeader.html()).toMatchSnapshot()
 
-    wrapper.unmount()
-  })
-
-  test('must be displayed correctly with the title', async () => {
-    const DrawerHeaderComponent = defineComponent({
-      components: { DrawerHeader },
-      template: '<DrawerHeader title="Test"></DrawerHeader>',
+      drawer.unmount()
     })
 
-    const wrapper = await mountDrawer(DrawerHeaderComponent)
+    test('correctly with the slot', async () => {
+      const DrawerHeaderComponent = createDrawerHeader('<p>Test</p>')
+      const drawer = await mountDrawer(DrawerHeaderComponent)
+      const drawerHeader = drawer.getComponent(DrawerHeader)
 
-    const drawerHeader = wrapper.getComponent(DrawerHeader)
-    const title = drawerHeader.find('p')
+      expect(drawerHeader.html()).toMatchSnapshot()
 
-    expect(title.text()).toBe('Test')
-  })
+      drawer.unmount()
+    })
 
-  test('the drawer should close after clicking on the close button', async () => {
-    const wrapper = await mountDrawer(DrawerHeader)
+    test('drawer should close when the close button is pressed', async () => {
+      const DrawerHeaderComponent = createDrawerHeader()
+      const drawer = await mountDrawer(DrawerHeaderComponent)
+      const drawerHeader = drawer.getComponent(DrawerHeader)
 
-    const drawerHeader = wrapper.getComponent(DrawerHeader)
-    await drawerHeader.find('button').trigger('click')
+      await drawerHeader.find('button').trigger('click')
 
-    expect(wrapper.html()).toBe('')
-
-    wrapper.unmount()
+      expect(drawer.html()).toBe('')
+    })
   })
 })

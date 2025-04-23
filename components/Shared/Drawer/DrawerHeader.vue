@@ -1,5 +1,8 @@
 <template>
-  <Flex items-center :class="{ 'shadow': YScrollOffset > 0 }">
+  <Flex
+    items-center
+    :class="{ 'shadow': contentScrollOffset > 0 }"
+  >
     <slot />
 
     <Flex
@@ -19,7 +22,7 @@
 <script setup lang="ts">
 import Flex from '~/components/Shared/Flex.vue'
 import { DrawerClose } from 'vaul-vue'
-import { injectDrawerContext } from './Drawer.vue'
+import { injectDrawerContext } from './DrawerRoot.vue'
 
-const { YScrollOffset } = injectDrawerContext()
+const { contentScrollOffset } = injectDrawerContext()
 </script>

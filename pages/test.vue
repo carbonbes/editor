@@ -1,80 +1,81 @@
 <template>
   <button @click="open = true">Открыть</button>
 
-  <Drawer v-model:open="open" :snap-points="[0.5, 1]" :fade-from-index="0">
-    <DrawerHeader class="p-6">
-      <Flex items-center class="gap-3">
-        <Flex center as-child>
-          <button>
-            <Icon name="tabler:chevron-left" class="!size-6" />
-          </button>
-        </Flex>
+  <ClientOnly>
+    <Drawer v-model:open="open" :snap-points="[0.5, 1]" :fadeFromIndex="0">
+      <DrawerPortal to="#teleports">
+        <DrawerOverlay />
 
-        <p class="text-xl font-bold overflow-hidden overflow-ellipsis whitespace-nowrap">
-          Тестовый заголовок
-        </p>
-      </Flex>
-    </DrawerHeader>
+        <DrawerBody>
+          <DrawerHeader class="p-6" />
 
-    <DrawerContent>
-      <Flex col class="px-6 pb-6">
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-        <div>Тест</div>
-      </Flex>
-    </DrawerContent>
-  </Drawer>
+          <DrawerContent>
+            <Flex col class="px-6 pb-6">
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+              <div>Тест</div>
+            </Flex>
+          </DrawerContent>
+        </DrawerBody>
+      </DrawerPortal>
+    </Drawer>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
-import Drawer from '~/components/Shared/Drawer/Drawer.vue'
-import DrawerHeader from '~/components/Shared/Drawer/DrawerHeader.vue'
-import DrawerContent from '~/components/Shared/Drawer/DrawerContent.vue'
+import {
+  Drawer,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerBody,
+  DrawerHeader,
+  DrawerContent,
+} from '~/components/Shared/Drawer'
 import Flex from '~/components/Shared/Flex.vue'
 
 const open = ref(false)

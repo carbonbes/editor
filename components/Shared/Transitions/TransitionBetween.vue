@@ -7,6 +7,14 @@
       leave-active-class="absolute transition-[translate,opacity] duration-(--transition-between-duration)"
       leave-from-class="translate-x-0 opacity-100"
       :leave-to-class
+      @before-enter="emits('beforeEnter')"
+      @enter="emits('enter')"
+      @after-enter="emits('afterEnter')"
+      @enter-cancelled="emits('enterCancelled')"
+      @before-leave="emits('beforeLeave')"
+      @leave="emits('leave')"
+      @after-leave="emits('afterLeave')"
+      @leave-cancelled="emits('leaveCancelled')"
     >
       <slot />
     </Transition>
@@ -17,6 +25,17 @@
 const { duration = 250 } = defineProps<{
   duration?: number
 }>()
+
+const emits = defineEmits([
+  'beforeEnter',
+  'enter',
+  'afterEnter',
+  'enterCancelled',
+  'beforeLeave',
+  'leave',
+  'afterLeave',
+  'leaveCancelled',
+])
 
 const index = defineModel<number>('index', { default: 0 })
 

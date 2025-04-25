@@ -1,42 +1,41 @@
 import { describe, expect, test } from 'vitest'
-import { DrawerContent } from './'
+import { DrawerContent } from '~/components/Shared/Drawer/index'
 import mountDrawer from '~/tests/utils/mountDrawer'
 
 describe('DrawerContent', () => {
+  const template = `
+    <DrawerBody>
+      <DrawerContent>
+        <slot />
+      </DrawerContent>
+    </DrawerBody>
+  `
+
   test('should be defined', () => {
     expect(DrawerContent).toBeDefined()
   })
 
-  describe('should display', () => {
-    function createDrawerContent(slot?: string) {
-      return defineComponent({
-        components: { DrawerContent },
-        template: `
-          <DrawerContent>
-            ${slot ? slot : ''}
-          </DrawerContent>
-        `,
-      })
-    }
+  test('should be displayed without the slot', async () => {
+    const wrapper = await mountDrawer({ template })
+    const content = wrapper.getComponent(DrawerContent)
 
-    test('correctly without the slot', async () => {
-      const DrawerContentComponent = createDrawerContent()
-      const drawer = await mountDrawer(DrawerContentComponent)
-      const drawerContent = drawer.getComponent(DrawerContent)
+    expect(content.html()).toMatchSnapshot()
 
-      expect(drawerContent.html()).toMatchSnapshot()
+    wrapper.unmount()
+  })
 
-      drawer.unmount()
+  test('should be displayed with a slot', async () => {
+    const Content = defineComponent({
+      template: `
+        <p>Test</p>
+      `,
     })
 
-    test('correctly with the slot', async () => {
-      const DrawerContentComponent = createDrawerContent('<p>Test</p>')
-      const drawer = await mountDrawer(DrawerContentComponent)
-      const drawerContent = drawer.getComponent(DrawerContent)
+    const wrapper = await mountDrawer({ template, slot: Content })
+    const content = wrapper.getComponent(DrawerContent)
 
-      expect(drawerContent.html()).toMatchSnapshot()
+    expect(content.html()).toMatchSnapshot()
 
-      drawer.unmount()
-    })
+    wrapper.unmount()
   })
 })

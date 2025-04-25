@@ -6,9 +6,9 @@ export default function() {
     document.body.appendChild(el)
   }
 
-  function clear() {
+  function remove() {
     document.body.innerHTML = ''
   }
 
-  return { create, clear }
+  return { create, remove }
 }

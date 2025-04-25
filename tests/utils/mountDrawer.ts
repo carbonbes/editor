@@ -1,22 +1,38 @@
-import { Drawer } from '~/components/Shared/Drawer'
+import {
+  Drawer,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerBody,
+  DrawerHeader,
+  DrawerContent,
+} from '~/components/Shared/Drawer'
 import { flushPromises, mount } from '@vue/test-utils'
 import useTeleportsElement from '~/tests/utils/useTeleportsElement'
 
-export default async function(slot?: Component) {
+export default async function({ template, slot }: {
+  template?: string, slot?: Component
+}) {
   const Component = defineComponent({
     components: {
       Drawer,
+      DrawerPortal,
+      DrawerOverlay,
+      DrawerBody,
+      DrawerHeader,
+      DrawerContent,
     },
     template: `
-      <Drawer>
-        <slot />
+      <Drawer v-model:open="open">
+        <DrawerPortal>${template}</DrawerPortal>
       </Drawer>
     `,
     setup() {
-      const { create, clear } = useTeleportsElement()
+      const open = ref(false)
+
+      const { create, remove } = useTeleportsElement()
 
       onBeforeMount(create)
-      onUnmounted(clear)
+      onUnmounted(remove)
     },
   })
 

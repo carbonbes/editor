@@ -1,44 +1,65 @@
 import { describe, expect, test } from 'vitest'
-import { DrawerBody, DrawerHeader } from '~/components/Shared/Drawer'
+import { DrawerHeader } from './'
 import mountDrawer from '~/tests/utils/mountDrawer'
 
 describe('DrawerHeader', () => {
+  const template = `
+    <DrawerBody>
+      <DrawerHeader>
+        <slot />
+      </DrawerHeader>
+    </DrawerBody>
+  `
+
   test('should be defined', () => {
     expect(DrawerHeader).toBeDefined()
   })
 
-  describe('renders', () => {
-    function createDrawerHeader(slot?: string) {
-      return defineComponent({
-        components: { DrawerBody, DrawerHeader },
-        template: `
-          <DrawerBody>
-            <DrawerHeader>
-              ${slot ? slot : ''}
-            </DrawerHeader>
-          </DrawerBody>
-        `,
-      })
-    }
+  test('should be displayed without the slot', async () => {
+    const wrapper = await mountDrawer({ template })
+    const header = wrapper.getComponent(DrawerHeader)
 
-    test('correctly without the slot', async () => {
-      const DrawerHeaderComponent = createDrawerHeader()
-      const drawer = await mountDrawer(DrawerHeaderComponent)
-      const drawerHeader = drawer.getComponent(DrawerHeader)
+    expect(header.html()).toMatchSnapshot()
 
-      expect(drawerHeader.html()).toMatchSnapshot()
+    wrapper.unmount()
+  })
 
-      drawer.unmount()
+  test('should be displayed with a slot', async () => {
+    const Content = defineComponent({
+      template: `
+        <p>Test</p>
+      `,
     })
 
-    test('correctly with the slot', async () => {
-      const DrawerHeaderComponent = createDrawerHeader('<p>Test</p>')
-      const drawer = await mountDrawer(DrawerHeaderComponent)
-      const drawerHeader = drawer.getComponent(DrawerHeader)
+    const wrapper = await mountDrawer({ template, slot: Content })
+    const header = wrapper.getComponent(DrawerHeader)
 
-      expect(drawerHeader.html()).toMatchSnapshot()
+    expect(header.html()).toMatchSnapshot()
 
-      drawer.unmount()
-    })
+    wrapper.unmount()
+  })
+
+  test('must have a close button', async () => {
+    const wrapper = await mountDrawer({ template })
+    const header = wrapper.getComponent(DrawerHeader)
+    const button = header.get('button')
+
+    expect(button).toBeDefined()
+
+    wrapper.unmount()
+  })
+
+  test('clicking on the close button should close the Drawer', async () => {
+    const wrapper = await mountDrawer({ template })
+    const header = wrapper.getComponent(DrawerHeader)
+    const button = header.get('button')
+
+    expect(wrapper.vm.open).toBe(true)
+
+    await button.trigger('click')
+
+    expect(wrapper.vm.open).toBe(false)
+
+    wrapper.unmount()
   })
 })

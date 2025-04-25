@@ -1,9 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DrawerContent > should display > correctly with the slot 1`] = `
+exports[`DrawerContent > should be displayed with a slot 1`] = `
 "<div class="overflow-y-auto">
   <p>Test</p>
 </div>"
 `;
 
-exports[`DrawerContent > should display > correctly without the slot 1`] = `"<div class="overflow-y-auto"></div>"`;
+exports[`DrawerContent > should be displayed without the slot 1`] = `"<div class="overflow-y-auto"></div>"`;

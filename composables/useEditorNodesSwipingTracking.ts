@@ -92,10 +92,10 @@ export default function ({ onSwipeStart, onSwipe, onSwipeEnd }: InputArgs) {
     },
   })
 
-  function init() {
-    if (!editor.value) return
+  async function init() {
+    await until(editor).toBeTruthy()
 
-    editorElement.value = editor.value.view.dom
+    editorElement.value = editor.value!.view.dom
   }
 
   onMounted(init)

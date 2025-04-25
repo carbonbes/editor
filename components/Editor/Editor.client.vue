@@ -1,5 +1,7 @@
 <template>
   <EditorContent :editor />
+
+  <EditorNodeMenuBottomsheetNodeActionsList />
 </template>
 
 <script lang="ts" setup>

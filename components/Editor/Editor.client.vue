@@ -1,6 +1,7 @@
 <template>
-  <EditorContent :editor />
+  <EditorContent :editor class="h-full" />
 
+  <EditorNodeMenuBottomsheetNodesList />
   <EditorNodeMenuBottomsheetNodeActionsList />
 </template>
 

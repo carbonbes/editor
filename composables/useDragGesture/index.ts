@@ -25,7 +25,7 @@ type InputArgs = {
   config?: DragGestureConfig
 }
 
-export default function ({ element, handlers, config }: InputArgs) {
+export function useDragGesture({ element, handlers, config }: InputArgs) {
   const gesture = useState<Gesture | undefined>()
 
   const unwatch = watch(element, (el) => {

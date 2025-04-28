@@ -1,17 +1,22 @@
 <template>
-  <Drawer v-model:open="state.open" :snap-points="[0.5, 1]" :active-snap-point="0.5" :fade-from-index="0">
+  <Drawer
+    v-model:open="open"
+    :snap-points="[0.5, 1]"
+    :active-snap-point="0.5"
+    :fade-from-index="0"
+  >
     <DrawerPortal>
       <DrawerOverlay />
 
       <DrawerBody>
         <DrawerHeader class="p-6">
-          <TransitionBetween v-model:index="state.page" class="size-full">
-            <div v-if="state.page === 1" class="flex items-center gap-3">
+          <TransitionBetween v-model:index="page" class="size-full">
+            <div v-if="page === 1" class="flex items-center">
               <p class="text-xl font-bold whitespace-nowrap">Настройки узла</p>
             </div>
 
             <div v-else class="flex items-center gap-4">
-              <button class="flex items-center justify-center" @click="state.page = 1">
+              <button class="flex items-center justify-center" @click="page = 1">
                 <Icon name="tabler:chevron-left" class="!size-6" />
               </button>
 
@@ -21,11 +26,12 @@
         </DrawerHeader>
 
         <DrawerContent class="h-full">
-          <TransitionBetween v-model:index="state.page">
-            <EditorNodeMenuBottomsheetButtons v-if="state.page === 1">
+          <TransitionBetween v-model:index="page">
+            <EditorNodeMenuBottomsheetButtons v-if="page === 1">
               <EditorNodeMenuBottomsheetButton
                 v-for="button in buttons1"
                 :key="button.label"
+                :next-page-trigger="button.nextPageTrigger"
                 :prevent-close="button.preventClose"
                 @click="button.action"
               >
@@ -61,16 +67,18 @@ import {
 } from '~/components/Shared/Drawer'
 import TransitionBetween from '~/components/Shared/Transitions/TransitionBetween.vue'
 
-const state = reactive({
-  open: false,
-  page: 1,
+const page = ref(1)
+
+const { open } = useEditorNodeMenuBottomsheet({
+  direction: 'left', threshold: 100,
 })
 
 const buttons1 = [
   {
     icon: 'tabler:refresh',
     label: 'Поменять на',
-    action: () => state.page = 2,
+    action: () => page.value = 2,
+    nextPageTrigger: true,
     preventClose: true,
   },
 ]
@@ -85,13 +93,4 @@ const buttons2 = [
     label: 'Текст',
   },
 ]
-
-useEditorNodesSwipingTracking({
-  onSwipeStart() {
-  },
-
-  onSwipeEnd() {
-    state.open = true
-  },
-})
 </script>

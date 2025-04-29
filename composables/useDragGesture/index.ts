@@ -28,16 +28,13 @@ type InputArgs = {
 export function useDragGesture({ element, handlers, config }: InputArgs) {
   const gesture = useState<Gesture | undefined>()
 
-  const unwatch = watch(element, (el) => {
+  watch(element, (el) => {
     if (el) {
       init()
-      unwatch()
     }
   })
 
-  async function init() {
-    if (!element.value) return
-
+  function init() {
     gesture.value = new Gesture(element.value, handlers, {
       drag: config,
     })

@@ -5,7 +5,6 @@ type InputArgs = {
 
 export function useEditorNodeMenuBottomsheet({ direction, threshold }: InputArgs) {
   const open = ref(false)
-  const directionX = ref<number | null>(null)
 
   const { setNodeSelection, clearNodeSelection } = useEditorCommands()
   const { setFocusedNode } = useEditorFocusedNode()
@@ -16,7 +15,6 @@ export function useEditorNodeMenuBottomsheet({ direction, threshold }: InputArgs
     } else {
       clearNodeSelection()
       setFocusedNode(null)
-      directionX.value = null
     }
   })
 
@@ -24,23 +22,16 @@ export function useEditorNodeMenuBottomsheet({ direction, threshold }: InputArgs
     return direction === 'left' ? directionX === -1 : directionX === 1
   }
 
-  function handleSwipeStart({ xy: [x, y], direction: [dirX] }: DragGestureState) {
-    directionX.value = dirX
-
-    if (isExpectedDirection(dirX)) {
+  function handleSwipeEnd({ direction: [directionX], movement: [movementX], xy: [x, y] }: DragGestureState) {
+    if (isExpectedDirection(directionX) && Math.abs(movementX) >= threshold) {
       const node = getEditorNodeByCoords(x, y)
 
       if (!node) return
 
       setFocusedNode(node)
-    }
-  }
 
-  function handleSwipeEnd({ movement: [movementX] }: DragGestureState) {
-    if (isExpectedDirection(directionX.value as number) && Math.abs(movementX) >= threshold) {
       open.value = true
     } else {
-      directionX.value = null
       setFocusedNode(null)
     }
   }
@@ -48,7 +39,6 @@ export function useEditorNodeMenuBottomsheet({ direction, threshold }: InputArgs
   useEditorNodesSwipingTracking({
     bound: threshold,
     handlers: {
-      onSwipeStart: handleSwipeStart,
       onSwipeEnd: handleSwipeEnd,
     },
   })

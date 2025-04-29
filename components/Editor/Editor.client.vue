@@ -12,9 +12,6 @@ const { content } = defineProps<{ content?: Content }>()
 
 const { editor, init, destroy } = useEditor()
 
-onMounted(() => {
-  init(content)
-})
-
+onMounted(() => init(content))
 onBeforeUnmount(destroy)
 </script>

@@ -30,7 +30,7 @@ export function useEditorCommands() {
     dispatch(
       tr
         .setMeta('clearNodeSelection', true)
-        .setSelection(TextSelection.create(doc, 0)),
+        .setSelection(TextSelection.create(doc, 0, 0)),
     )
   }
 

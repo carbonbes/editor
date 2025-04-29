@@ -29,10 +29,7 @@ export function useEditorNodeMenuBottomsheet({ direction, threshold }: InputArgs
       if (!node) return
 
       setFocusedNode(node)
-
       open.value = true
-    } else {
-      setFocusedNode(null)
     }
   }
 

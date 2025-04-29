@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Buttons > correctly displayed > with a slot 1`] = `
-"<div class="px-6 pb-6 w-full flex flex-col gap-2">
-  <p>Test</p>
-</div>"
-`;
-
-exports[`Buttons > correctly displayed > without a slot 1`] = `"<div class="px-6 pb-6 w-full flex flex-col gap-2"></div>"`;

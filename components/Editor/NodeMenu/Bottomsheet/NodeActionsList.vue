@@ -70,7 +70,7 @@ import TransitionBetween from '~/components/Shared/Transitions/TransitionBetween
 const page = ref(1)
 
 const { open } = useEditorNodeMenuBottomsheet({
-  direction: 'left', threshold: 100,
+  direction: 'left', threshold: 75,
 })
 
 const buttons1 = [

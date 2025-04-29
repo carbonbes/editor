@@ -40,7 +40,7 @@ import {
 } from '~/components/Shared/Drawer'
 
 const { open } = useEditorNodeMenuBottomsheet({
-  direction: 'right', threshold: 100,
+  direction: 'right', threshold: 75,
 })
 
 const buttons = [

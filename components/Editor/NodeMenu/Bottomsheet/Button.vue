@@ -1,11 +1,11 @@
 <template>
-  <div class="flex items-center justify-between">
-    <button class="h-12 flex items-center gap-4 [&>.iconify]:!size-7 " @click="onClick">
+  <button class="h-12 flex items-center justify-between" @click="onClick">
+    <div class="flex items-center gap-4 [&>.iconify]:!size-7 ">
       <slot />
-    </button>
+    </div>
 
     <Icon v-if="nextPageTrigger" name="tabler:chevron-right" class="!size-5" />
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts">

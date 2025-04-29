@@ -1,9 +1,9 @@
 type InputArgs = {
-  direction: 'left' | 'right'
+  directionTrigger: 'left' | 'right'
   threshold: number,
 }
 
-export function useEditorNodeMenuBottomsheet({ direction, threshold }: InputArgs) {
+export function useEditorNodeMenuBottomsheet({ directionTrigger, threshold }: InputArgs) {
   const open = ref(false)
 
   const { setNodeSelection, clearNodeSelection } = useEditorCommands()
@@ -19,7 +19,7 @@ export function useEditorNodeMenuBottomsheet({ direction, threshold }: InputArgs
   })
 
   function isExpectedDirection(directionX: number) {
-    return direction === 'left' ? directionX === -1 : directionX === 1
+    return directionTrigger === 'left' ? directionX === -1 : directionX === 1
   }
 
   function handleSwipeEnd({ direction: [directionX], movement: [movementX], xy: [x, y] }: DragGestureState) {

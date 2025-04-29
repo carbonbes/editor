@@ -23,7 +23,7 @@ export function useEditor() {
 
       editorProps: {
         attributes: {
-          class: 'h-full overflow-hidden prose touch-pan-y focus:outline-none [&>*]:relative [&>.ProseMirror-selectednode]:after:absolute [&>.ProseMirror-selectednode]:after:inset-0 [&>.ProseMirror-selectednode]:after:-m-2 [&>.ProseMirror-selectednode]:after:bg-blue-50 [&>.ProseMirror-selectednode]:after:rounded-xl [&>.ProseMirror-selectednode]:after:z-[-1] [&>*]:transition-transform',
+          class: 'h-full overflow-x-hidden prose touch-pan-y focus:outline-none [&>*]:relative [&>.ProseMirror-selectednode]:after:absolute [&>.ProseMirror-selectednode]:after:inset-0 [&>.ProseMirror-selectednode]:after:-m-2 [&>.ProseMirror-selectednode]:after:bg-blue-50 [&>.ProseMirror-selectednode]:after:rounded-xl [&>.ProseMirror-selectednode]:after:z-[-1] [&>*]:transition-transform',
         },
       },
 

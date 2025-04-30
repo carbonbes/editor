@@ -6,7 +6,7 @@ describe('useEditorNodeMenuBottomsheet', () => {
   })
 
   describe('open', () => {
-    const { open } = useEditorNodeMenuBottomsheet({ direction: 'left', threshold: 0 })
+    const { open } = useEditorNodeMenuBottomsheet({ directionTrigger: 'left', threshold: 0 })
 
     test('should be defined', () => {
       expect(open).toBeDefined()

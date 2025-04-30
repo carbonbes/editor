@@ -4,6 +4,7 @@ import { setNodeHtmlAttrsPlugin } from '~/tiptap-extensions/setNodeHtmlAttrsPlug
 import { addGlobalTestIdAttrPlugin } from '~/tiptap-extensions/addGlobalTestIdAttrPlugin'
 import type { EditorEvents } from '@tiptap/core'
 import type { NodeSelection } from '@tiptap/pm/state'
+import { movingNodesPlugin } from '~/tiptap-extensions/movingNodesPlugin'
 
 export function useEditor() {
   const editor = useState<Editor | undefined>()
@@ -19,6 +20,7 @@ export function useEditor() {
         StarterKit,
         setNodeHtmlAttrsPlugin,
         addGlobalTestIdAttrPlugin,
+        movingNodesPlugin,
       ],
 
       editorProps: {

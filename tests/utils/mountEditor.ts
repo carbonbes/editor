@@ -1,11 +1,9 @@
 import type { Content } from '@tiptap/vue-3'
 import { flushPromises, mount } from '@vue/test-utils'
-import Editor from '~/components/Editor/Editor.client.vue'
-
-export type Editor = typeof Editor
+import EditorContent from '~/components/Editor/EditorContent.client.vue'
 
 export default async function (content?: Content) {
-  const wrapper = mount(Editor, { props: { content } })
+  const wrapper = mount(EditorContent, { props: { content } })
 
   await flushPromises()
 

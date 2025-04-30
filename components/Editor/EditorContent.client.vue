@@ -1,8 +1,5 @@
 <template>
   <EditorContent :editor class="h-full" />
-
-  <EditorNodeMenuNodesListBottomsheet />
-  <EditorNodeMenuNodeActionsListBottomsheet />
 </template>
 
 <script lang="ts" setup>

@@ -47,7 +47,7 @@ export function useEditorNodesSwipingTracking({ bound, handlers: { onSwipeStart,
   const editorElement = useState<Element | undefined>()
 
   useDragGesture({
-    element: editorElement as Ref<Element>,
+    target: editorElement,
 
     handlers: {
       onDragStart(state) {

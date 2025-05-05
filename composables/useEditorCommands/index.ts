@@ -44,9 +44,33 @@ export function useEditorCommands() {
     })
   }
 
+  const canMoveNodeToUp = computed(() => {
+    if (!editor.value) return false
+
+    return editor.value.can().moveUp()
+  })
+
+  const canMoveNodeToDown = computed(() => {
+    if (!editor.value) return false
+
+    return editor.value.can().moveDown()
+  })
+
+  function moveNodeToUp() {
+    editor.value?.chain().focus().moveUp().run()
+  }
+
+  function moveNodeToDown() {
+    editor.value?.chain().focus().moveDown().run()
+  }
+
   return {
     setNodeSelection,
     clearNodeSelection,
     setNodeHtmlAttrs,
+    canMoveNodeToUp,
+    canMoveNodeToDown,
+    moveNodeToUp,
+    moveNodeToDown,
   }
 }

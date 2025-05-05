@@ -1,3 +1,6 @@
 export { default as Bottomsheet } from './Bottomsheet.vue'
 export { default as BottomsheetContent } from './BottomsheetContent.vue'
 export { default as BottomsheetHeader } from './BottomsheetHeader.vue'
+export { default as BottomsheetHeaderTitle } from './BottomsheetHeaderTitle.vue'
+export { default as BottomsheetContentButton } from './BottomsheetContentButton.vue'
+export { default as BottomsheetContentButtons } from './BottomsheetContentButtons.vue'

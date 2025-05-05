@@ -19,7 +19,7 @@ describe('useDragGesture', () => {
           const element = useTemplateRef('element')
 
           const { gesture } = useDragGesture({
-            element: element as Ref<Element>,
+            target: element as Ref<Element>,
             handlers: {},
           })
 

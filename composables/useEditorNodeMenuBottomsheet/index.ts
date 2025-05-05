@@ -22,12 +22,8 @@ export function useEditorNodeMenuBottomsheet({ directionTrigger, threshold }: In
     return directionTrigger === 'left' ? directionX === -1 : directionX === 1
   }
 
-  function handleSwipeEnd({ direction: [directionX], movement: [movementX], xy: [x, y] }: DragGestureState) {
+  function handleSwipeEnd({ direction: [directionX], movement: [movementX], node }: EditorSwipeGestureState) {
     if (isExpectedDirection(directionX) && Math.abs(movementX) >= threshold) {
-      const node = getEditorNodeByCoords(x, y)
-
-      if (!node) return
-
       setFocusedNode(node)
       open.value = true
     }

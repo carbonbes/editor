@@ -1,7 +1,8 @@
 import { NodeSelection, TextSelection } from '@tiptap/pm/state'
+import type { Level as HeadingLevel } from '@tiptap/extension-heading'
 
 export function useEditorCommands() {
-  const { editor } = useEditor()
+  const { editor, nodeSelection } = useEditor()
   const { pos } = useEditorFocusedNode()
 
   function setNodeSelection() {
@@ -64,6 +65,34 @@ export function useEditorCommands() {
     editor.value?.chain().focus().moveDown().run()
   }
 
+  const canSetHeading2 = computed(() => {
+    if (!editor.value) return false
+
+    return editor.value.can().setHeading(2)
+  })
+
+  const canSetHeading3 = computed(() => {
+    if (!editor.value) return false
+
+    return editor.value.can().setHeading(3)
+  })
+
+  function setHeading(level: HeadingLevel) {
+    editor.value?.chain().focus().setHeading(level).run()
+  }
+
+  function setParagraph() {
+    editor.value?.chain().focus().setParagraph().run()
+  }
+
+  function setList(type?: 'bullet' | 'ordered') {
+    if (type === 'bullet') {
+      editor.value?.chain().focus().setList('bulletList').run()
+    } else {
+      editor.value?.chain().focus().setList('orderedList').run()
+    }
+  }
+
   return {
     setNodeSelection,
     clearNodeSelection,
@@ -72,5 +101,10 @@ export function useEditorCommands() {
     canMoveNodeToDown,
     moveNodeToUp,
     moveNodeToDown,
+    canSetHeading2,
+    canSetHeading3,
+    setHeading,
+    setParagraph,
+    setList,
   }
 }

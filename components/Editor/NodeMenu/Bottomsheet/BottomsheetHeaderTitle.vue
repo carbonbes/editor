@@ -1,9 +1,5 @@
 <template>
-  <p class="text-xl font-bold">
+  <p class="text-xl font-bold whitespace-nowrap">
     <slot />
   </p>
 </template>
-
-<script setup lang="ts">
-
-</script>

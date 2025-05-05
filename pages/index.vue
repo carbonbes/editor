@@ -16,4 +16,5 @@
 </template>
 
 <script lang="ts" setup>
+const { nodeSelection } = useEditor()
 </script>

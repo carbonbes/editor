@@ -65,7 +65,7 @@ export function useEditorNodesSwipingTracking({ bound = 0, handlers: { onSwipeSt
       return
     }
 
-    swipingNode.value = getEditorNodeByCoords(x, y)
+    swipingNode.value = node
 
     emitSwipe('start', state)
   }

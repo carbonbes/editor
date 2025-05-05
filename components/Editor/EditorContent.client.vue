@@ -1,5 +1,5 @@
 <template>
-  <EditorContent :editor />
+  <EditorContent :editor class="h-full" />
 </template>
 
 <script lang="ts" setup>
@@ -9,9 +9,6 @@ const { content } = defineProps<{ content?: Content }>()
 
 const { editor, init, destroy } = useEditor()
 
-onMounted(() => {
-  init(content)
-})
-
+onMounted(() => init(content))
 onBeforeUnmount(destroy)
 </script>

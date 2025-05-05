@@ -1,5 +1,5 @@
-export default function () {
-  const node = useState<Element | undefined>()
+export function useEditorFocusedNode() {
+  const node = useState<Element | null>(() => null)
 
   const { editor } = useEditor()
 
@@ -8,12 +8,10 @@ export default function () {
 
     const view = editor.value.view
 
-    const pos = getEditorNodePos(view, node.value)
-
-    return pos && pos >= 0 ? pos : undefined
+    return getEditorNodePos(view, node.value)
   })
 
-  function setFocusedNode(element: Element | undefined) {
+  function setFocusedNode(element: Element | null) {
     node.value = element
   }
 

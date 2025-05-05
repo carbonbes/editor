@@ -3,12 +3,15 @@ type SwipeState = DragGestureState
 type SwipeHandler = (state: SwipeState) => void
 
 type InputArgs = {
-  onSwipeStart?: SwipeHandler
-  onSwipe?: SwipeHandler
-  onSwipeEnd?: SwipeHandler
+  bound: number
+  handlers: {
+    onSwipeStart?: SwipeHandler
+    onSwipe?: SwipeHandler
+    onSwipeEnd?: SwipeHandler
+  }
 }
 
-export default function ({ onSwipeStart, onSwipe, onSwipeEnd }: InputArgs) {
+export function useEditorNodesSwipingTracking({ bound, handlers: { onSwipeStart, onSwipe, onSwipeEnd } }: InputArgs) {
   const swipingNode = useState<Element | undefined>()
 
   const { editor } = useEditor()
@@ -49,12 +52,9 @@ export default function ({ onSwipeStart, onSwipe, onSwipeEnd }: InputArgs) {
     handlers: {
       onDragStart(state) {
         const {
-          tap,
           cancel,
           xy: [x, y],
         } = state
-
-        if (tap) cancel()
 
         const node = getEditorNodeByCoords(x, y)
 
@@ -85,17 +85,16 @@ export default function ({ onSwipeStart, onSwipe, onSwipeEnd }: InputArgs) {
 
     config: {
       axis: 'x',
-      bounds: { left: -100, right: 100 },
+      bounds: { left: bound * -1, right: bound },
       rubberband: true,
       from: [0, 0],
-      filterTaps: true,
     },
   })
 
-  function init() {
-    if (!editor.value) return
+  async function init() {
+    await until(editor).not.toBeUndefined()
 
-    editorElement.value = editor.value.view.dom
+    editorElement.value = editor.value!.view.dom
   }
 
   onMounted(init)

@@ -45,17 +45,8 @@ export function useEditorCommands() {
     })
   }
 
-  const canMoveNodeToUp = computed(() => {
-    if (!editor.value) return false
-
-    return editor.value.can().moveUp()
-  })
-
-  const canMoveNodeToDown = computed(() => {
-    if (!editor.value) return false
-
-    return editor.value.can().moveDown()
-  })
+  const canMoveNodeToUp = computed(() => editor.value?.can().moveUp() || false)
+  const canMoveNodeToDown = computed(() => editor.value?.can().moveDown() || false)
 
   function moveNodeToUp() {
     editor.value?.chain().focus().moveUp().run()

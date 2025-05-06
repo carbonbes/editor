@@ -32,14 +32,29 @@
         </BottomsheetContentButtons>
 
         <BottomsheetContentButtons v-else>
-          <BottomsheetContentButton v-if="canSetHeading2" @click="setHeading(2)">
+          <BottomsheetContentButton v-if="canChangeToHeading2" @click="changeToHeading(2)">
             <Icon name="tabler:h-2" />
             Заголовок 2 уровня
           </BottomsheetContentButton>
 
-          <BottomsheetContentButton v-if="canSetHeading3" @click="setHeading(3)">
+          <BottomsheetContentButton v-if="canChangeToHeading3" @click="changeToHeading(3)">
             <Icon name="tabler:h-3" />
             Заголовок 3 уровня
+          </BottomsheetContentButton>
+
+          <BottomsheetContentButton v-if="canChangeToParagraph" @click="changeToParagraph">
+            <Icon name="tabler:letter-case" />
+            Текст
+          </BottomsheetContentButton>
+
+          <BottomsheetContentButton v-if="canChangeToBulletList" @click="changeToList('bulletList')">
+            <Icon name="tabler:list" />
+            Маркированный список
+          </BottomsheetContentButton>
+
+          <BottomsheetContentButton v-if="canChangeToOrderedList" @click="changeToList('orderedList')">
+            <Icon name="tabler:list-numbers" />
+            Нумерованный список
           </BottomsheetContentButton>
         </BottomsheetContentButtons>
       </BottomsheetContentPages>
@@ -64,6 +79,12 @@ const { open } = useEditorNodeMenuBottomsheet({
   directionTrigger: 'left', threshold: 75,
 })
 
+watch(open, (open) => {
+  if (!open) {
+    page.value = 1
+  }
+})
+
 const page = ref(1)
 
 const {
@@ -71,8 +92,13 @@ const {
   canMoveNodeToDown,
   moveNodeToUp,
   moveNodeToDown,
-  canSetHeading2,
-  canSetHeading3,
-  setHeading,
+  canChangeToHeading2,
+  canChangeToHeading3,
+  canChangeToParagraph,
+  canChangeToBulletList,
+  canChangeToOrderedList,
+  changeToHeading,
+  changeToParagraph,
+  changeToList,
 } = useEditorCommands()
 </script>

@@ -2,7 +2,7 @@ import { NodeSelection, TextSelection } from '@tiptap/pm/state'
 import type { Level as HeadingLevel } from '@tiptap/extension-heading'
 
 export function useEditorCommands() {
-  const { editor, nodeSelection } = useEditor()
+  const { editor } = useEditor()
   const { pos } = useEditorFocusedNode()
 
   function setNodeSelection() {
@@ -65,32 +65,22 @@ export function useEditorCommands() {
     editor.value?.chain().focus().moveDown().run()
   }
 
-  const canSetHeading2 = computed(() => {
-    if (!editor.value) return false
+  const canChangeToHeading2 = computed(() => editor.value?.can().changeToHeading(2) || false)
+  const canChangeToHeading3 = computed(() => editor.value?.can().changeToHeading(3) || false)
+  const canChangeToParagraph = computed(() => editor.value?.can().changeToParagraph() || false)
+  const canChangeToBulletList = computed(() => editor.value?.can().changeToList('bulletList') || false)
+  const canChangeToOrderedList = computed(() => editor.value?.can().changeToList('orderedList') || false)
 
-    return editor.value.can().setHeading(2)
-  })
-
-  const canSetHeading3 = computed(() => {
-    if (!editor.value) return false
-
-    return editor.value.can().setHeading(3)
-  })
-
-  function setHeading(level: HeadingLevel) {
-    editor.value?.chain().focus().setHeading(level).run()
+  function changeToHeading(level: HeadingLevel) {
+    editor.value?.chain().focus().changeToHeading(level).run()
   }
 
-  function setParagraph() {
-    editor.value?.chain().focus().setParagraph().run()
+  function changeToParagraph() {
+    editor.value?.chain().focus().changeToParagraph().run()
   }
 
-  function setList(type?: 'bullet' | 'ordered') {
-    if (type === 'bullet') {
-      editor.value?.chain().focus().setList('bulletList').run()
-    } else {
-      editor.value?.chain().focus().setList('orderedList').run()
-    }
+  function changeToList(type: 'bulletList' | 'orderedList') {
+    editor.value?.chain().focus().changeToList(type).run()
   }
 
   return {
@@ -101,10 +91,13 @@ export function useEditorCommands() {
     canMoveNodeToDown,
     moveNodeToUp,
     moveNodeToDown,
-    canSetHeading2,
-    canSetHeading3,
-    setHeading,
-    setParagraph,
-    setList,
+    canChangeToHeading2,
+    canChangeToHeading3,
+    canChangeToParagraph,
+    canChangeToBulletList,
+    canChangeToOrderedList,
+    changeToHeading,
+    changeToParagraph,
+    changeToList,
   }
 }

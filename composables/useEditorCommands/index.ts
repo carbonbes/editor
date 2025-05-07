@@ -1,5 +1,7 @@
 import { NodeSelection, TextSelection } from '@tiptap/pm/state'
 import type { Level as HeadingLevel } from '@tiptap/extension-heading'
+import type { Attrs } from '@tiptap/pm/model'
+import type { EditorRootNodes } from '~/types'
 
 export function useEditorCommands() {
   const { editor } = useEditor()
@@ -74,6 +76,10 @@ export function useEditorCommands() {
     editor.value?.chain().focus().changeToList(type).run()
   }
 
+  function insertNode(nodeName: EditorRootNodes, attrs?: Attrs) {
+    editor.value?.chain().focus().insertNode(nodeName, attrs).run()
+  }
+
   return {
     setNodeSelection,
     clearNodeSelection,
@@ -90,5 +96,6 @@ export function useEditorCommands() {
     changeToHeading,
     changeToParagraph,
     changeToList,
+    insertNode,
   }
 }

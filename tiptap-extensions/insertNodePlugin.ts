@@ -1,6 +1,6 @@
 import { Extension } from '@tiptap/core'
-import type { Attrs } from '@tiptap/pm/model'
-import { NodeSelection } from '@tiptap/pm/state'
+import type { Node, Attrs } from '@tiptap/pm/model'
+import { NodeSelection, TextSelection } from '@tiptap/pm/state'
 import type { EditorRootNodes } from '~/types'
 
 declare module '@tiptap/core' {
@@ -17,41 +17,42 @@ export const insertNodePlugin = Extension.create({
   addCommands() {
     return {
       insertNode:
-        (nodeName: EditorRootNodes, nodeAttrs?: Attrs) =>
-          ({ state: { selection, schema: { nodes } }, tr, dispatch }) => {
-            if (!(selection instanceof NodeSelection) || !dispatch) return false
-
-            const insertPos = selection.to
-
-            function createListNode() {
-              const listNodeType = nodes[nodeName]
-              const listItemType = nodes.listItem
-
-              if (!listNodeType || !listItemType) return null
-
-              const listItem = listItemType.createAndFill()
-
-              return listItem ? listNodeType.create(null, listItem) : null
-            }
-
-            function createRegularNode() {
-              const nodeType = nodes[nodeName]
-
-              return nodeType?.createAndFill(nodeAttrs) ?? null
-            }
-
-            const node =
-              ['bulletList', 'orderedList'].includes(nodeName)
-                ? createListNode()
-                : createRegularNode()
-
-            if (!node) return false
-
-            dispatch(tr.insert(insertPos, node))
-
-            return true
+        (nodeName, nodeAttrs) =>
+        ({
+          state: {
+            selection,
+            schema: { nodes },
           },
+          tr,
+          dispatch,
+        }) => {
+          if (!(selection instanceof NodeSelection) || !dispatch) return false
 
+          const insertPos = selection.to
+
+          function createListNode() {
+            const listNodeType = nodes[nodeName]
+            const listItemType = nodes.listItem
+
+            const listItem = listItemType.createAndFill()
+
+            return listNodeType.create(null, listItem)
+          }
+
+          function createRegularNode() {
+            const nodeType = nodes[nodeName]
+
+            return nodeType.create(nodeAttrs)
+          }
+
+          const node = ['bulletList', 'orderedList'].includes(nodeName)
+            ? createListNode()
+            : createRegularNode()
+
+          dispatch(tr.insert(insertPos, node))
+
+          return true
+        },
     }
   },
 })

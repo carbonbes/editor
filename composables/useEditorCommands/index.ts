@@ -76,8 +76,8 @@ export function useEditorCommands() {
     editor.value?.chain().focus().changeToList(type).run()
   }
 
-  function insertNode(nodeName: EditorRootNodes, attrs?: Attrs) {
-    editor.value?.chain().focus().insertNode(nodeName, attrs).run()
+  function insertNode(nodeName: EditorRootNodes, nodeAttrs?: Attrs) {
+    editor.value?.chain().focus().insertNode(nodeName, nodeAttrs).run()
   }
 
   return {

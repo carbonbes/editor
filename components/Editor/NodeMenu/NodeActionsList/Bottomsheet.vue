@@ -2,7 +2,9 @@
   <Bottomsheet v-model:open="open">
     <BottomsheetHeader>
       <BottomsheetHeaderPages v-model:page="page">
-        <BottomsheetHeaderTitle v-if="page === 1">Настройки узла</BottomsheetHeaderTitle>
+        <BottomsheetHeaderTitle v-if="page === 1"
+          >Настройки узла</BottomsheetHeaderTitle
+        >
 
         <div v-else class="flex items-center gap-3">
           <Icon name="tabler:chevron-left" class="!size-6" @click="page--" />
@@ -15,12 +17,18 @@
     <BottomsheetContent>
       <BottomsheetContentPages v-model:page="page">
         <BottomsheetContentButtons v-if="page === 1">
-          <BottomsheetContentButton v-if="canMoveNodeToUp" @click="moveNodeToUp">
+          <BottomsheetContentButton
+            v-if="canMoveNodeToUp"
+            @click="moveNodeToUp"
+          >
             <Icon name="tabler:arrow-up" />
             Переместить наверх
           </BottomsheetContentButton>
 
-          <BottomsheetContentButton v-if="canMoveNodeToDown" @click="moveNodeToDown">
+          <BottomsheetContentButton
+            v-if="canMoveNodeToDown"
+            @click="moveNodeToDown"
+          >
             <Icon name="tabler:arrow-down" />
             Переместить вниз
           </BottomsheetContentButton>
@@ -32,27 +40,42 @@
         </BottomsheetContentButtons>
 
         <BottomsheetContentButtons v-else>
-          <BottomsheetContentButton v-if="canChangeToHeading2" @click="changeToHeading(2)">
+          <BottomsheetContentButton
+            v-if="canTransformToHeading2"
+            @click="transformToHeading(2)"
+          >
             <Icon name="tabler:h-2" />
             Заголовок 2 уровня
           </BottomsheetContentButton>
 
-          <BottomsheetContentButton v-if="canChangeToHeading3" @click="changeToHeading(3)">
+          <BottomsheetContentButton
+            v-if="canTransformToHeading3"
+            @click="transformToHeading(3)"
+          >
             <Icon name="tabler:h-3" />
             Заголовок 3 уровня
           </BottomsheetContentButton>
 
-          <BottomsheetContentButton v-if="canChangeToParagraph" @click="changeToParagraph">
+          <BottomsheetContentButton
+            v-if="canTransformToParagraph"
+            @click="transformToParagraph"
+          >
             <Icon name="tabler:letter-case" />
             Текст
           </BottomsheetContentButton>
 
-          <BottomsheetContentButton v-if="canChangeToBulletList" @click="changeToList('bulletList')">
+          <BottomsheetContentButton
+            v-if="canTransformToBulletList"
+            @click="transformToList('bulletList')"
+          >
             <Icon name="tabler:list" />
             Маркированный список
           </BottomsheetContentButton>
 
-          <BottomsheetContentButton v-if="canChangeToOrderedList" @click="changeToList('orderedList')">
+          <BottomsheetContentButton
+            v-if="canTransformToOrderedList"
+            @click="transformToList('orderedList')"
+          >
             <Icon name="tabler:list-numbers" />
             Нумерованный список
           </BottomsheetContentButton>
@@ -76,7 +99,8 @@ import {
 } from '~/components/Editor/NodeMenu/Bottomsheet'
 
 const { open } = useEditorNodeMenuBottomsheet({
-  directionTrigger: 'left', threshold: 75,
+  directionTrigger: 'left',
+  threshold: 75,
 })
 
 watch(open, (open) => {
@@ -92,13 +116,13 @@ const {
   canMoveNodeToDown,
   moveNodeToUp,
   moveNodeToDown,
-  canChangeToHeading2,
-  canChangeToHeading3,
-  canChangeToParagraph,
-  canChangeToBulletList,
-  canChangeToOrderedList,
-  changeToHeading,
-  changeToParagraph,
-  changeToList,
+  canTransformToHeading2,
+  canTransformToHeading3,
+  canTransformToParagraph,
+  canTransformToBulletList,
+  canTransformToOrderedList,
+  transformToHeading,
+  transformToParagraph,
+  transformToList,
 } = useEditorCommands()
 </script>

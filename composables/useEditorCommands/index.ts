@@ -58,22 +58,32 @@ export function useEditorCommands() {
     editor.value?.chain().focus().moveDown().run()
   }
 
-  const canChangeToHeading2 = computed(() => editor.value?.can().changeToHeading(2) || false)
-  const canChangeToHeading3 = computed(() => editor.value?.can().changeToHeading(3) || false)
-  const canChangeToParagraph = computed(() => editor.value?.can().changeToParagraph() || false)
-  const canChangeToBulletList = computed(() => editor.value?.can().changeToList('bulletList') || false)
-  const canChangeToOrderedList = computed(() => editor.value?.can().changeToList('orderedList') || false)
+  const canTransformToHeading2 = computed(
+    () => editor.value?.can().transformToHeading(2) || false,
+  )
+  const canTransformToHeading3 = computed(
+    () => editor.value?.can().transformToHeading(3) || false,
+  )
+  const canTransformToParagraph = computed(
+    () => editor.value?.can().transformToParagraph() || false,
+  )
+  const canTransformToBulletList = computed(
+    () => editor.value?.can().transformToList('bulletList') || false,
+  )
+  const canTransformToOrderedList = computed(
+    () => editor.value?.can().transformToList('orderedList') || false,
+  )
 
-  function changeToHeading(level: HeadingLevel) {
-    editor.value?.chain().focus().changeToHeading(level).run()
+  function transformToHeading(level: HeadingLevel) {
+    editor.value?.chain().focus().transformToHeading(level).run()
   }
 
-  function changeToParagraph() {
-    editor.value?.chain().focus().changeToParagraph().run()
+  function transformToParagraph() {
+    editor.value?.chain().focus().transformToParagraph().run()
   }
 
-  function changeToList(type: 'bulletList' | 'orderedList') {
-    editor.value?.chain().focus().changeToList(type).run()
+  function transformToList(type: 'bulletList' | 'orderedList') {
+    editor.value?.chain().focus().transformToList(type).run()
   }
 
   function insertNode(nodeName: EditorRootNodes, nodeAttrs?: Attrs) {
@@ -88,14 +98,14 @@ export function useEditorCommands() {
     canMoveNodeToDown,
     moveNodeToUp,
     moveNodeToDown,
-    canChangeToHeading2,
-    canChangeToHeading3,
-    canChangeToParagraph,
-    canChangeToBulletList,
-    canChangeToOrderedList,
-    changeToHeading,
-    changeToParagraph,
-    changeToList,
+    canTransformToHeading2,
+    canTransformToHeading3,
+    canTransformToParagraph,
+    canTransformToBulletList,
+    canTransformToOrderedList,
+    transformToHeading,
+    transformToParagraph,
+    transformToList,
     insertNode,
   }
 }

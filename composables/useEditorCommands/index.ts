@@ -61,15 +61,19 @@ export function useEditorCommands() {
   const canTransformToHeading2 = computed(
     () => editor.value?.can().transformToHeading(2) || false,
   )
+
   const canTransformToHeading3 = computed(
     () => editor.value?.can().transformToHeading(3) || false,
   )
+
   const canTransformToParagraph = computed(
     () => editor.value?.can().transformToParagraph() || false,
   )
+
   const canTransformToBulletList = computed(
     () => editor.value?.can().transformToList('bulletList') || false,
   )
+  
   const canTransformToOrderedList = computed(
     () => editor.value?.can().transformToList('orderedList') || false,
   )

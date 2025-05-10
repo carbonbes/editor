@@ -1,7 +1,7 @@
 import { type CommandProps, Extension } from '@tiptap/core'
 import type { Level } from '@tiptap/extension-heading'
 import { NodeSelection } from '@tiptap/pm/state'
-import type { Node, Attrs } from '@tiptap/pm/model'
+import type { Attrs } from '@tiptap/pm/model'
 import isEqual from 'lodash/isEqual'
 import type { EditorRootNodes } from '~/types'
 
@@ -10,12 +10,14 @@ declare module '@tiptap/core' {
     nodeTransformPlugin: {
       transformToHeading: (level: Level) => ReturnType
       transformToParagraph: () => ReturnType
-      transformToList: (type: 'bulletList' | 'orderedList') => ReturnType
+      transformToList: (
+        type: Extract<EditorRootNodes, 'bulletList' | 'orderedList'>,
+      ) => ReturnType
     }
   }
 }
 
-function changeTo(nodeName: EditorRootNodes, nodeAttrs?: Attrs) {
+function transformTo(targetNodeName: EditorRootNodes, targetNodeAttrs?: Attrs) {
   return function ({
     tr,
     state: { selection, schema },
@@ -24,77 +26,50 @@ function changeTo(nodeName: EditorRootNodes, nodeAttrs?: Attrs) {
     if (!(selection instanceof NodeSelection)) return false
 
     const selectedNode = selection.node
+    const selectedNodeName = selectedNode.type.name
+    const selectedNodeAttrs = selectedNode.attrs
+    const selectedNodeContent = selectedNode.content
+    const selectedNodeMarks = selectedNode.marks
 
-    function getSelectedNodeContent() {
-      if (selectedNode.isTextblock && selectedNode.firstChild?.isText) {
-        return selectedNode.content
-      }
+    const isConvertingToText = EDITOR_TEXTBLOCK_NODES.includes(targetNodeName)
 
-      if (
-        ['bulletList', 'orderedList'].includes(selectedNode.type.name) &&
-        selectedNode.content.childCount > 1
-      ) {
-        return selectedNode.content
-      }
+    const isConvertingToList =
+      EDITOR_LIST_NODES.includes(targetNodeName) &&
+      EDITOR_TEXTBLOCK_NODES.includes(selectedNodeName)
 
-      let content: Node | null = null
+    const isSingleItemList =
+      EDITOR_LIST_NODES.includes(selectedNodeName) &&
+      selectedNodeContent.childCount === 1
 
-      selectedNode.descendants((child) => {
-        if (child.isTextblock && child.firstChild?.isText) {
-          content = child.firstChild
+    const flatContent =
+      isSingleItemList && isConvertingToText
+        ? selectedNodeContent.child(0).content
+        : selectedNodeContent
 
-          return false
-        }
+    const listContent = isConvertingToList
+      ? [schema.nodes.listItem.create(null, flatContent, selectedNodeMarks)]
+      : flatContent
 
-        return true
-      })
+    const isTransformToSameNode =
+      targetNodeName === selectedNodeName &&
+      (targetNodeAttrs ? isEqual(targetNodeAttrs, selectedNodeAttrs) : true)
 
-      return content
-    }
+    const isTransformOfAListWithMultipleItems =
+      isConvertingToText &&
+      EDITOR_LIST_NODES.includes(selectedNodeName) &&
+      !isSingleItemList
 
-    function createNode(nodeName: EditorRootNodes, nodeAttrs?: Attrs) {
-      const content = getSelectedNodeContent()
-
-      function createListNode() {
-        const listNodeType = schema.nodes[nodeName]
-        const paragraphNodeType = schema.nodes.paragraph
-        const listItemType = schema.nodes.listItem
-
-        const paragraphNode = paragraphNodeType.create(null, content)
-        const listItem = listItemType.create(null, paragraphNode)
-
-        return listNodeType.create(null, listItem)
-      }
-
-      function createRegularNode() {
-        const nodeType = schema.nodes[nodeName]
-
-        return nodeType.create(nodeAttrs, content)
-      }
-
-      return ['bulletList', 'orderedList'].includes(nodeName)
-        ? createListNode()
-        : createRegularNode()
-    }
-
-    if (
-      nodeName === selectedNode.type.name &&
-      (nodeAttrs ? isEqual(nodeAttrs, selectedNode.attrs) : true)
-    ) {
+    if (isTransformToSameNode || isTransformOfAListWithMultipleItems) {
       return false
     }
 
-    if (
-      ['heading', 'paragraph'].includes(nodeName) &&
-      ['bulletList', 'orderedList'].includes(selectedNode.type.name) &&
-      selectedNode.content.childCount > 1
-    ) {
-      return false
-    }
+    const nodeType = schema.nodes[targetNodeName]
 
-    const newNode = createNode(nodeName, nodeAttrs)
+    const content = isConvertingToList ? listContent : flatContent
 
-    dispatch?.(tr.replaceSelectionWith(newNode))
+    const node = nodeType.create(targetNodeAttrs, content, selectedNodeMarks)
+
+    dispatch?.(tr.replaceSelectionWith(node))
 
     return true
   }
@@ -105,9 +80,9 @@ export const nodeTransformPlugin = new Extension({
 
   addCommands() {
     return {
-      transformToHeading: (level) => changeTo('heading', { level }),
-      transformToParagraph: () => changeTo('paragraph'),
-      transformToList: (type) => changeTo(type),
+      transformToHeading: (level) => transformTo('heading', { level }),
+      transformToParagraph: () => transformTo('paragraph'),
+      transformToList: (type) => transformTo(type),
     }
   },
 })

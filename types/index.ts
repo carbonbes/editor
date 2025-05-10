@@ -1,1 +1,1 @@
-export type EditorRootNodes = 'paragraph' | 'blockquote' | 'bulletList' | 'codeBlock' | 'heading' | 'horizontalRule' | 'orderedList'
+export type EditorRootNodes = (typeof EDITOR_ROOT_NODES)[number]

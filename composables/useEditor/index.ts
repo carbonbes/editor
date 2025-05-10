@@ -5,6 +5,8 @@ import { addGlobalTestIdAttrPlugin } from '~/tiptap-extensions/addGlobalTestIdAt
 import type { EditorEvents } from '@tiptap/core'
 import type { NodeSelection } from '@tiptap/pm/state'
 import { movingNodesPlugin } from '~/tiptap-extensions/movingNodesPlugin'
+import { nodeTransformPlugin } from '~/tiptap-extensions/nodeTransformPlugin'
+import { insertNodePlugin } from '~/tiptap-extensions/insertNodePlugin'
 
 export function useEditor() {
   const editor = useState<Editor | undefined>()
@@ -21,11 +23,13 @@ export function useEditor() {
         setNodeHtmlAttrsPlugin,
         addGlobalTestIdAttrPlugin,
         movingNodesPlugin,
+        nodeTransformPlugin,
+        insertNodePlugin,
       ],
 
       editorProps: {
         attributes: {
-          class: 'h-full overflow-x-hidden prose touch-pan-y focus:outline-none [&>*]:relative [&>.ProseMirror-selectednode]:after:absolute [&>.ProseMirror-selectednode]:after:inset-0 [&>.ProseMirror-selectednode]:after:-m-2 [&>.ProseMirror-selectednode]:after:bg-blue-50 [&>.ProseMirror-selectednode]:after:rounded-xl [&>.ProseMirror-selectednode]:after:z-[-1] [&>*]:transition-transform',
+          class: 'p-4 h-full overflow-x-hidden prose touch-pan-y focus:outline-none [&>*]:relative [&>.ProseMirror-selectednode]:after:absolute [&>.ProseMirror-selectednode]:after:inset-0 [&>.ProseMirror-selectednode]:after:-m-2 [&>.ProseMirror-selectednode]:after:bg-blue-50 [&>.ProseMirror-selectednode]:after:rounded-xl [&>.ProseMirror-selectednode]:after:z-[-1] [&>*]:transition-transform',
         },
       },
 

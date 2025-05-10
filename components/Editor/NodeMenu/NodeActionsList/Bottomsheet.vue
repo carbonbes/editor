@@ -1,21 +1,86 @@
 <template>
   <Bottomsheet v-model:open="open">
     <BottomsheetHeader>
-      <BottomsheetHeaderTitle>Настройки узла</BottomsheetHeaderTitle>
+      <BottomsheetHeaderPages v-model:page="page">
+        <BottomsheetHeaderTitle v-if="page === 1"
+          >Настройки узла</BottomsheetHeaderTitle
+        >
+
+        <div v-else class="flex items-center gap-3">
+          <Icon name="tabler:chevron-left" class="!size-6" @click="page--" />
+
+          <BottomsheetHeaderTitle>Поменять на</BottomsheetHeaderTitle>
+        </div>
+      </BottomsheetHeaderPages>
     </BottomsheetHeader>
 
     <BottomsheetContent>
-      <BottomsheetContentButtons>
-        <BottomsheetContentButton v-if="canMoveNodeToUp" @click="moveNodeToUp">
-          <Icon name="tabler:arrow-up" class="!size-6" />
-          Переместить наверх
-        </BottomsheetContentButton>
+      <BottomsheetContentPages v-model:page="page">
+        <BottomsheetContentButtons v-if="page === 1">
+          <BottomsheetContentButton
+            v-if="canMoveNodeToUp"
+            @click="moveNodeToUp"
+          >
+            <Icon name="tabler:arrow-up" />
+            Переместить наверх
+          </BottomsheetContentButton>
 
-        <BottomsheetContentButton v-if="canMoveNodeToDown" @click="moveNodeToDown">
-          <Icon name="tabler:arrow-down" class="!size-6" />
-          Переместить вниз
-        </BottomsheetContentButton>
-      </BottomsheetContentButtons>
+          <BottomsheetContentButton
+            v-if="canMoveNodeToDown"
+            @click="moveNodeToDown"
+          >
+            <Icon name="tabler:arrow-down" />
+            Переместить вниз
+          </BottomsheetContentButton>
+
+          <BottomsheetContentButtonSub @click="page++">
+            <Icon name="tabler:refresh" />
+            Поменять на
+          </BottomsheetContentButtonSub>
+        </BottomsheetContentButtons>
+
+        <BottomsheetContentButtons v-else>
+          <BottomsheetContentButton
+            v-if="canTransformToHeading2"
+            @click="transformToHeading(2)"
+          >
+            <Icon name="tabler:h-2" />
+            Заголовок 2 уровня
+          </BottomsheetContentButton>
+
+          <BottomsheetContentButton
+            v-if="canTransformToHeading3"
+            @click="transformToHeading(3)"
+          >
+            <Icon name="tabler:h-3" />
+            Заголовок 3 уровня
+          </BottomsheetContentButton>
+
+          <BottomsheetContentButton
+            v-if="canTransformToParagraph"
+            @click="transformToParagraph"
+          >
+            <Icon name="tabler:letter-case" />
+            Текст
+          </BottomsheetContentButton>
+
+          <BottomsheetContentButton
+            v-if="canTransformToBulletList"
+            @click="transformToList('bulletList')"
+          >
+            <Icon name="tabler:list" />
+            Маркированный список
+          </BottomsheetContentButton>
+
+          <BottomsheetContentButton
+            v-if="canTransformToOrderedList"
+            @click="transformToList('orderedList')"
+          >
+            <Icon name="tabler:list-numbers" />
+            Нумерованный список
+          </BottomsheetContentButton>
+        </BottomsheetContentButtons>
+      </BottomsheetContentPages>
     </BottomsheetContent>
   </Bottomsheet>
 </template>
@@ -25,14 +90,39 @@ import {
   Bottomsheet,
   BottomsheetContent,
   BottomsheetHeader,
+  BottomsheetHeaderPages,
   BottomsheetHeaderTitle,
   BottomsheetContentButton,
+  BottomsheetContentButtonSub,
+  BottomsheetContentPages,
   BottomsheetContentButtons,
 } from '~/components/Editor/NodeMenu/Bottomsheet'
 
 const { open } = useEditorNodeMenuBottomsheet({
-  directionTrigger: 'left', threshold: 75,
+  directionTrigger: 'left',
+  threshold: 75,
 })
 
-const { canMoveNodeToUp, canMoveNodeToDown, moveNodeToUp, moveNodeToDown } = useEditorCommands()
+watch(open, (open) => {
+  if (!open) {
+    page.value = 1
+  }
+})
+
+const page = ref(1)
+
+const {
+  canMoveNodeToUp,
+  canMoveNodeToDown,
+  moveNodeToUp,
+  moveNodeToDown,
+  canTransformToHeading2,
+  canTransformToHeading3,
+  canTransformToParagraph,
+  canTransformToBulletList,
+  canTransformToOrderedList,
+  transformToHeading,
+  transformToParagraph,
+  transformToList,
+} = useEditorCommands()
 </script>

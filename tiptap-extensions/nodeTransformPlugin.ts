@@ -19,55 +19,62 @@ declare module '@tiptap/core' {
 
 function transformTo(targetNodeName: EditorRootNodes, targetNodeAttrs?: Attrs) {
   return function ({
-    tr,
     state: { selection, schema },
     dispatch,
+    tr,
   }: CommandProps) {
-    if (!(selection instanceof NodeSelection)) return false
+    if (!(selection instanceof NodeSelection)) {
+      return false
+    }
 
     const selectedNode = selection.node
     const selectedNodeName = selectedNode.type.name
     const selectedNodeAttrs = selectedNode.attrs
     const selectedNodeContent = selectedNode.content
-    const selectedNodeMarks = selectedNode.marks
 
-    const isConvertingToText = EDITOR_TEXTBLOCK_NODES.includes(targetNodeName)
+    const textBlockNodes = EDITOR_TEXTBLOCK_NODES as ReadonlyArray<string>
+    const listNodes = EDITOR_LIST_NODES as ReadonlyArray<string>
 
-    const isConvertingToList =
-      EDITOR_LIST_NODES.includes(targetNodeName) &&
-      EDITOR_TEXTBLOCK_NODES.includes(selectedNodeName)
+    const isTransformToText = textBlockNodes.includes(targetNodeName)
+    const isTransformToList = listNodes.includes(targetNodeName)
 
     const isSingleItemList =
-      EDITOR_LIST_NODES.includes(selectedNodeName) &&
+      listNodes.includes(selectedNodeName) &&
       selectedNodeContent.childCount === 1
 
+    const isMultipleItemsList =
+      listNodes.includes(selectedNodeName) && selectedNodeContent.childCount > 1
+
     const flatContent =
-      isSingleItemList && isConvertingToText
-        ? selectedNodeContent.child(0).content
+      isSingleItemList && isTransformToText
+        ? selectedNodeContent.child(0).child(0).content
         : selectedNodeContent
 
-    const listContent = isConvertingToList
-      ? [schema.nodes.listItem.create(null, flatContent, selectedNodeMarks)]
+    const listContent = isTransformToList
+      ? [
+          schema.nodes.listItem.create(
+            null,
+            schema.nodes.paragraph.create(null, flatContent),
+          ),
+        ]
       : flatContent
 
     const isTransformToSameNode =
       targetNodeName === selectedNodeName &&
       (targetNodeAttrs ? isEqual(targetNodeAttrs, selectedNodeAttrs) : true)
 
-    const isTransformOfAListWithMultipleItems =
-      isConvertingToText &&
-      EDITOR_LIST_NODES.includes(selectedNodeName) &&
-      !isSingleItemList
+    const isTransformFromMultipleItemsListToText =
+      isMultipleItemsList && isTransformToText
 
-    if (isTransformToSameNode || isTransformOfAListWithMultipleItems) {
+    if (isTransformToSameNode || isTransformFromMultipleItemsListToText) {
       return false
     }
 
     const nodeType = schema.nodes[targetNodeName]
 
-    const content = isConvertingToList ? listContent : flatContent
+    const targetNodeContent = isTransformToList ? listContent : flatContent
 
-    const node = nodeType.create(targetNodeAttrs, content, selectedNodeMarks)
+    const node = nodeType.create(targetNodeAttrs, targetNodeContent)
 
     dispatch?.(tr.replaceSelectionWith(node))
 

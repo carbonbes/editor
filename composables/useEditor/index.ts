@@ -2,15 +2,12 @@ import { Editor, type Content } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import { NodeHtmlAttrs } from '~/tiptap-extensions/nodeHtmlAttrs'
 import { NodeTestIdAttr } from '~/tiptap-extensions/nodeTestIdAttr'
-import type { EditorEvents } from '@tiptap/core'
-import type { NodeSelection } from '@tiptap/pm/state'
 import { NodeMoving } from '~/tiptap-extensions/nodeMoving'
 import { NodeTransform } from '~/tiptap-extensions/nodeTransform'
 import { NodeInsert } from '~/tiptap-extensions/nodeInsert'
 
 export function useEditor() {
   const editor = useState<Editor | undefined>()
-  const nodeSelection = useState<NodeSelection | undefined>('nodeSelection')
 
   function init(content?: Content) {
     if (editor.value) return
@@ -32,8 +29,6 @@ export function useEditor() {
           class: 'p-4 h-full overflow-x-hidden prose touch-pan-y focus:outline-none [&>*]:relative [&>.ProseMirror-selectednode]:after:absolute [&>.ProseMirror-selectednode]:after:inset-0 [&>.ProseMirror-selectednode]:after:-m-2 [&>.ProseMirror-selectednode]:after:bg-blue-50 [&>.ProseMirror-selectednode]:after:rounded-xl [&>.ProseMirror-selectednode]:after:z-[-1] [&>*]:transition-transform',
         },
       },
-
-      onSelectionUpdate: handleSelectionUpdate,
     })
   }
 
@@ -44,16 +39,5 @@ export function useEditor() {
     editor.value = undefined
   }
 
-  function handleSelectionUpdate({ transaction: tr, transaction: { selection } }: EditorEvents['selectionUpdate']) {
-    const isSetNodeSelection = tr.getMeta('setNodeSelection') as boolean
-    const isClearNodeSelection = tr.getMeta('clearNodeSelection') as boolean
-
-    if (isSetNodeSelection) {
-      nodeSelection.value = selection as NodeSelection
-    } else if (isClearNodeSelection) {
-      nodeSelection.value = undefined
-    }
-  }
-
-  return { editor, nodeSelection, init, destroy }
+  return { editor, init, destroy }
 }

@@ -7,7 +7,7 @@ export function useEditorCommands() {
   const { pos } = useEditorFocusedNode()
 
   function setNodeSelection() {
-    if (!editor.value || pos.value === undefined) return
+    if (!editor.value) return
 
     if (pos.value === undefined) {
       console.error(

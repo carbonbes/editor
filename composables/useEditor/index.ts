@@ -5,7 +5,7 @@ import { NodeTestIdAttr } from '~/tiptap-extensions/nodeTestIdAttr'
 import type { EditorEvents } from '@tiptap/core'
 import type { NodeSelection } from '@tiptap/pm/state'
 import { NodeMoving } from '~/tiptap-extensions/nodeMoving'
-import { nodeTransformPlugin } from '~/tiptap-extensions/nodeTransformPlugin'
+import { NodeTransform } from '~/tiptap-extensions/nodeTransform'
 import { NodeInsert } from '~/tiptap-extensions/nodeInsert'
 
 export function useEditor() {
@@ -23,7 +23,7 @@ export function useEditor() {
         NodeHtmlAttrs,
         NodeTestIdAttr,
         NodeMoving,
-        nodeTransformPlugin,
+        NodeTransform,
         NodeInsert,
       ],
 

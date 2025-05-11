@@ -17,21 +17,13 @@ export function useEditorCommands() {
       return
     }
 
-    editor.value
-      .chain()
-      .setNodeSelection(pos.value)
-      .setMeta('setNodeSelection', true)
-      .run()
+    editor.value.commands.setNodeSelection(pos.value)
   }
 
   function clearNodeSelection() {
     if (!editor.value) return
 
-    editor.value
-      .chain()
-      .setTextSelection(0)
-      .setMeta('clearNodeSelection', true)
-      .run()
+    editor.value.commands.setTextSelection(0)
   }
 
   function setNodeHtmlAttrs(

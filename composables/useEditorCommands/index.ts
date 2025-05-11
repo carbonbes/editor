@@ -1,4 +1,3 @@
-import { NodeSelection, TextSelection } from '@tiptap/pm/state'
 import type { Level as HeadingLevel } from '@tiptap/extension-heading'
 import type { Attrs } from '@tiptap/pm/model'
 import type { EditorRootNodes } from '~/types'
@@ -8,33 +7,31 @@ export function useEditorCommands() {
   const { pos } = useEditorFocusedNode()
 
   function setNodeSelection() {
-    if (!editor.value) return
-
-    const { view: { dispatch }, state: { tr, doc } } = editor.value
+    if (!editor.value || pos.value === undefined) return
 
     if (pos.value === undefined) {
-      console.error('Невозможно установить выделение узла, потому что отсутствует его позиция')
+      console.error(
+        'Невозможно установить выделение узла, потому что отсутствует его позиция',
+      )
 
       return
     }
 
-    dispatch(
-      tr
-        .setMeta('setNodeSelection', true)
-        .setSelection(NodeSelection.create(doc, pos.value)),
-    )
+    editor.value
+      .chain()
+      .setNodeSelection(pos.value)
+      .setMeta('setNodeSelection', true)
+      .run()
   }
 
   function clearNodeSelection() {
     if (!editor.value) return
 
-    const { view: { dispatch }, state: { tr, doc } } = editor.value
-
-    dispatch(
-      tr
-        .setMeta('clearNodeSelection', true)
-        .setSelection(TextSelection.create(doc, 0, 0)),
-    )
+    editor.value
+      .chain()
+      .setTextSelection(0)
+      .setMeta('clearNodeSelection', true)
+      .run()
   }
 
   function setNodeHtmlAttrs(

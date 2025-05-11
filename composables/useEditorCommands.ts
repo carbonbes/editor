@@ -7,8 +7,6 @@ export function useEditorCommands() {
   const { pos } = useEditorFocusedNode()
 
   function setNodeSelection() {
-    if (!editor.value) return
-
     if (pos.value === undefined) {
       console.error(
         'Невозможно установить выделение узла, потому что отсутствует его позиция',
@@ -17,13 +15,11 @@ export function useEditorCommands() {
       return
     }
 
-    editor.value.commands.setNodeSelection(pos.value)
+    editor.value?.commands.setNodeSelection(pos.value)
   }
 
   function clearNodeSelection() {
-    if (!editor.value) return
-
-    editor.value.commands.setTextSelection(0)
+    editor.value?.commands.setTextSelection(0)
   }
 
   function setNodeHtmlAttrs(

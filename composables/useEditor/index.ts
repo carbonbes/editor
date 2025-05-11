@@ -1,6 +1,6 @@
 import { Editor, type Content } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-import { setNodeHtmlAttrsPlugin } from '~/tiptap-extensions/setNodeHtmlAttrsPlugin'
+import { NodeHtmlAttrs } from '~/tiptap-extensions/nodeHtmlAttrs'
 import { NodeTestIdAttr } from '~/tiptap-extensions/nodeTestIdAttr'
 import type { EditorEvents } from '@tiptap/core'
 import type { NodeSelection } from '@tiptap/pm/state'
@@ -20,7 +20,7 @@ export function useEditor() {
 
       extensions: [
         StarterKit,
-        setNodeHtmlAttrsPlugin,
+        NodeHtmlAttrs,
         NodeTestIdAttr,
         movingNodesPlugin,
         nodeTransformPlugin,

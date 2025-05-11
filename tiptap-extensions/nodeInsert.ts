@@ -7,7 +7,7 @@ declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     NodeInsert: {
       insertNode: (
-        nodeName: Extract<EditorRootNodes, 'bulletList' | 'orderedList'>,
+        nodeName: EditorRootNodes,
         nodeAttrs?: Attrs,
       ) => ReturnType
     }
@@ -32,6 +32,7 @@ export const NodeInsert = Extension.create({
           if (!(selection instanceof NodeSelection) || !dispatch) return false
 
           const insertPos = selection.to
+          const listNodes = EDITOR_LIST_NODES as ReadonlyArray<string>
 
           function createListNode() {
             const listNodeType = nodes[nodeName]
@@ -48,7 +49,7 @@ export const NodeInsert = Extension.create({
             return nodeType.create(nodeAttrs)
           }
 
-          const node = EDITOR_LIST_NODES.includes(nodeName)
+          const node = listNodes.includes(nodeName)
             ? createListNode()
             : createRegularNode()
 

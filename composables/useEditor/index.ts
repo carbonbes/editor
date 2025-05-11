@@ -6,7 +6,7 @@ import type { EditorEvents } from '@tiptap/core'
 import type { NodeSelection } from '@tiptap/pm/state'
 import { movingNodesPlugin } from '~/tiptap-extensions/movingNodesPlugin'
 import { nodeTransformPlugin } from '~/tiptap-extensions/nodeTransformPlugin'
-import { insertNodePlugin } from '~/tiptap-extensions/insertNodePlugin'
+import { NodeInsert } from '~/tiptap-extensions/nodeInsert'
 
 export function useEditor() {
   const editor = useState<Editor | undefined>()
@@ -24,7 +24,7 @@ export function useEditor() {
         NodeTestIdAttr,
         movingNodesPlugin,
         nodeTransformPlugin,
-        insertNodePlugin,
+        NodeInsert,
       ],
 
       editorProps: {

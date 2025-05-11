@@ -1,18 +1,21 @@
 import { Extension } from '@tiptap/core'
-import type { Node, Attrs } from '@tiptap/pm/model'
-import { NodeSelection, TextSelection } from '@tiptap/pm/state'
+import type { Attrs } from '@tiptap/pm/model'
+import { NodeSelection } from '@tiptap/pm/state'
 import type { EditorRootNodes } from '~/types'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    insertNodePlugin: {
-      insertNode: (nodeName: EditorRootNodes, nodeAttrs?: Attrs) => ReturnType
+    NodeInsert: {
+      insertNode: (
+        nodeName: Extract<EditorRootNodes, 'bulletList' | 'orderedList'>,
+        nodeAttrs?: Attrs,
+      ) => ReturnType
     }
   }
 }
 
-export const insertNodePlugin = Extension.create({
-  name: 'insertNodePlugin',
+export const NodeInsert = Extension.create({
+  name: 'nodeInsert',
 
   addCommands() {
     return {
@@ -45,7 +48,7 @@ export const insertNodePlugin = Extension.create({
             return nodeType.create(nodeAttrs)
           }
 
-          const node = ['bulletList', 'orderedList'].includes(nodeName)
+          const node = EDITOR_LIST_NODES.includes(nodeName)
             ? createListNode()
             : createRegularNode()
 

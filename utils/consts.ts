@@ -25,3 +25,15 @@ export const EDITOR_ROOT_NODES = [
   EDITOR_BLOCKQUOTE_NODE,
   EDITOR_HORIZONTALRULE_NODE,
 ] as const
+
+export const EDITOR_BOLD_MARK = 'bold' as const
+export const EDITOR_CODE_MARK = 'code' as const
+export const EDITOR_ITALIC_MARK = 'italic' as const
+export const EDITOR_STRIKE_MARK = 'strike' as const
+
+export const EDITOR_MARKS = [
+  EDITOR_BOLD_MARK,
+  EDITOR_CODE_MARK,
+  EDITOR_ITALIC_MARK,
+  EDITOR_STRIKE_MARK,
+] as const

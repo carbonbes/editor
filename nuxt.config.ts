@@ -11,10 +11,6 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  imports: {
-    dirs: ['composables/*/index.{ts,js,mjs,mts}'],
-  },
-
   modules: [
     '@nuxt/test-utils/module',
     '@nuxt/eslint',

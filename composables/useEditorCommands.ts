@@ -1,4 +1,3 @@
-import { NodeSelection, TextSelection } from '@tiptap/pm/state'
 import type { Level as HeadingLevel } from '@tiptap/extension-heading'
 import type { Attrs } from '@tiptap/pm/model'
 import type { EditorRootNodes } from '~/types'
@@ -10,31 +9,21 @@ export function useEditorCommands() {
   function setNodeSelection() {
     if (!editor.value) return
 
-    const { view: { dispatch }, state: { tr, doc } } = editor.value
-
     if (pos.value === undefined) {
-      console.error('Невозможно установить выделение узла, потому что отсутствует его позиция')
+      console.error(
+        'Невозможно установить выделение узла, потому что отсутствует его позиция',
+      )
 
       return
     }
 
-    dispatch(
-      tr
-        .setMeta('setNodeSelection', true)
-        .setSelection(NodeSelection.create(doc, pos.value)),
-    )
+    editor.value.commands.setNodeSelection(pos.value)
   }
 
   function clearNodeSelection() {
     if (!editor.value) return
 
-    const { view: { dispatch }, state: { tr, doc } } = editor.value
-
-    dispatch(
-      tr
-        .setMeta('clearNodeSelection', true)
-        .setSelection(TextSelection.create(doc, 0, 0)),
-    )
+    editor.value.commands.setTextSelection(0)
   }
 
   function setNodeHtmlAttrs(
@@ -48,7 +37,10 @@ export function useEditorCommands() {
   }
 
   const canMoveNodeToUp = computed(() => editor.value?.can().moveUp() || false)
-  const canMoveNodeToDown = computed(() => editor.value?.can().moveDown() || false)
+  
+  const canMoveNodeToDown = computed(
+    () => editor.value?.can().moveDown() || false,
+  )
 
   function moveNodeToUp() {
     editor.value?.chain().focus().moveUp().run()

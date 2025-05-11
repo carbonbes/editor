@@ -4,7 +4,7 @@ import { Decoration, DecorationSet } from 'prosemirror-view'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    setNodeHtmlAttrsPlugin: {
+    NodeHtmlAttrs: {
       setNodeHtmlAttrs: (
         pos: number,
         { classes, styles }: { classes?: string; styles?: string }
@@ -13,10 +13,10 @@ declare module '@tiptap/core' {
   }
 }
 
-const decorationKey = new PluginKey('setNodeHtmlAttrsPlugin')
+const decorationKey = new PluginKey('nodeHtmlAttrs')
 
-export const setNodeHtmlAttrsPlugin = Extension.create({
-  name: 'setNodeHtmlAttrsPlugin',
+export const NodeHtmlAttrs = Extension.create({
+  name: 'nodeHtmlAttrs',
 
   addCommands() {
     return {

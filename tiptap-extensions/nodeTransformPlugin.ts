@@ -51,12 +51,14 @@ function transformTo(targetNodeName: EditorRootNodes, targetNodeAttrs?: Attrs) {
         : selectedNodeContent
 
     const listContent = isTransformToList
-      ? [
-          schema.nodes.listItem.create(
-            null,
-            schema.nodes.paragraph.create(null, flatContent),
-          ),
-        ]
+      ? listNodes.includes(selectedNodeName)
+        ? selectedNodeContent
+        : [
+            schema.nodes.listItem.create(
+              null,
+              schema.nodes.paragraph.create(null, flatContent),
+            ),
+          ]
       : flatContent
 
     const isTransformToSameNode =

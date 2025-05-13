@@ -32,15 +32,19 @@ export const NodeInsert = Extension.create({
           if (!(selection instanceof NodeSelection) || !dispatch) return false
 
           const insertPos = selection.to
-          const listNodes = EDITOR_LIST_NODES as ReadonlyArray<string>
 
           function createListNode() {
             const listNodeType = nodes[nodeName]
             const listItemType = nodes.listItem
 
-            const listItem = listItemType.createAndFill()
+            return listNodeType.create(null, listItemType.createAndFill())
+          }
 
-            return listNodeType.create(null, listItem)
+          function createQuoteNode() {
+            const quoteNodeType = nodes.blockquote
+            const paragraphNodeType = nodes.paragraph
+
+            return quoteNodeType.create(null, paragraphNodeType.create())
           }
 
           function createRegularNode() {
@@ -49,9 +53,19 @@ export const NodeInsert = Extension.create({
             return nodeType.create(nodeAttrs)
           }
 
-          const node = listNodes.includes(nodeName)
-            ? createListNode()
-            : createRegularNode()
+          function createNode() {
+            const listNodes = EDITOR_LIST_NODES as ReadonlyArray<string>
+
+            if (listNodes.includes(nodeName)) {
+              return createListNode()
+            } else if (nodeName === EDITOR_BLOCKQUOTE_NODE) {
+              return createQuoteNode()
+            }
+
+            return createRegularNode()
+          }
+
+          const node = createNode()
 
           dispatch(tr.insert(insertPos, node))
 

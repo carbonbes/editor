@@ -30,6 +30,21 @@
           <Icon name="tabler:list-numbers" />
           Нумерованный список
         </BottomsheetContentButton>
+
+        <BottomsheetContentButton @click="insertNode('blockquote')">
+          <Icon name="tabler:quote" />
+          Цитата
+        </BottomsheetContentButton>
+
+        <BottomsheetContentButton @click="insertNode('codeBlock')">
+          <Icon name="tabler:code" />
+          Код
+        </BottomsheetContentButton>
+
+        <BottomsheetContentButton @click="insertNode('horizontalRule')">
+          <Icon name="tabler:separator" />
+          Разделитель
+        </BottomsheetContentButton>
       </BottomsheetContentButtons>
     </BottomsheetContent>
   </Bottomsheet>

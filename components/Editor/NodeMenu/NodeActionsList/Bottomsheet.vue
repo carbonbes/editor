@@ -2,9 +2,9 @@
   <Bottomsheet v-model:open="open">
     <BottomsheetHeader>
       <BottomsheetHeaderPages v-model:page="page">
-        <BottomsheetHeaderTitle v-if="page === 1"
-          >Настройки узла</BottomsheetHeaderTitle
-        >
+        <BottomsheetHeaderTitle v-if="page === 1">
+          Настройки узла
+        </BottomsheetHeaderTitle>
 
         <div v-else class="flex items-center gap-3">
           <Icon name="tabler:chevron-left" class="!size-6" @click="page--" />
@@ -37,6 +37,14 @@
             <Icon name="tabler:refresh" />
             Поменять на
           </BottomsheetContentButtonSub>
+
+          <BottomsheetContentButton
+            class="text-red-500"
+            @click="removeNode"
+          >
+            <Icon name="tabler:trash" />
+            Удалить
+          </BottomsheetContentButton>
         </BottomsheetContentButtons>
 
         <BottomsheetContentButtons v-else>
@@ -124,5 +132,6 @@ const {
   transformToHeading,
   transformToParagraph,
   transformToList,
+  removeNode,
 } = useEditorCommands()
 </script>

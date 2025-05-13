@@ -82,6 +82,10 @@ export function useEditorCommands() {
     editor.value?.chain().focus().insertNode(nodeName, nodeAttrs).run()
   }
 
+  function removeNode() {
+    editor.value?.chain().focus().deleteSelection().run()
+  }
+
   return {
     setNodeSelection,
     clearNodeSelection,
@@ -99,5 +103,6 @@ export function useEditorCommands() {
     transformToParagraph,
     transformToList,
     insertNode,
+    removeNode,
   }
 }

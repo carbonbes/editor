@@ -4,18 +4,9 @@ import type { EditorRootNodes } from '~/types'
 
 export function useEditorCommands() {
   const { editor } = useEditor()
-  const { pos } = useEditorFocusedNode()
 
-  function setNodeSelection() {
-    if (pos.value === undefined) {
-      console.error(
-        'Невозможно установить выделение узла, потому что отсутствует его позиция',
-      )
-
-      return
-    }
-
-    editor.value?.commands.setNodeSelection(pos.value)
+  function setNodeSelection(pos: number) {
+    editor.value?.commands.setNodeSelection(pos)
   }
 
   function setNodeHtmlAttrs(
@@ -29,7 +20,7 @@ export function useEditorCommands() {
   }
 
   const canMoveNodeToUp = computed(() => editor.value?.can().moveUp() || false)
-  
+
   const canMoveNodeToDown = computed(
     () => editor.value?.can().moveDown() || false,
   )
@@ -57,7 +48,7 @@ export function useEditorCommands() {
   const canTransformToBulletList = computed(
     () => editor.value?.can().transformToList('bulletList') || false,
   )
-  
+
   const canTransformToOrderedList = computed(
     () => editor.value?.can().transformToList('orderedList') || false,
   )

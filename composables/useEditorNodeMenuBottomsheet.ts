@@ -9,13 +9,11 @@ export function useEditorNodeMenuBottomsheet({
 }: InputArgs) {
   const open = ref(false)
 
-  const { setNodeSelection } = useEditorCommands()
   const { setFocusedNode } = useEditorFocusedNode()
 
   watch(open, (open) => {
     if (open) {
       setFocusedNode(node.value)
-      setNodeSelection()
     } else {
       setFocusedNode(null)
     }

@@ -1,3 +1,5 @@
+import { promiseTimeout } from '@vueuse/core'
+
 export function useEditorFocusedNode() {
   const node = useState<Element | null>(() => null)
 
@@ -15,18 +17,28 @@ export function useEditorFocusedNode() {
     node.value = element
   }
 
-  watch(node, (node) => {
-    if (pos.value === undefined) return
+  const { setNodeSelection, setNodeHtmlAttrs } = useEditorCommands()
 
+  watch(node, (node) => {
     if (node) {
-      editor.value?.commands.setNodeHtmlAttrs(pos.value, {
-        classes:
-          'relative after:absolute after:inset-0 after:-m-2 after:bg-blue-50 after:rounded-xl after:z-[-1]',
-      })
-    } else {
-      editor.value?.commands.setNodeHtmlAttrs(pos.value, { classes: '' })
+      setNodeSelection(pos.value!)
     }
   })
 
-  return { node, pos, setFocusedNode }
+  watch(pos, async (newPos, oldPos) => {
+    await promiseTimeout(0)
+
+    if (oldPos === undefined) {
+      setNodeHtmlAttrs(newPos!, {
+        classes:
+          'relative after:absolute after:inset-0 after:-m-2 after:bg-blue-50 after:rounded-xl after:z-[-1]',
+      })
+    } else if (newPos !== oldPos) {
+      setNodeHtmlAttrs(oldPos!, {
+        classes: '',
+      })
+    }
+  })
+
+  return { setFocusedNode }
 }

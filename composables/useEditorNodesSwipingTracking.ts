@@ -1,4 +1,4 @@
-export type EditorSwipeGestureState = DragGestureState & { node: Element, pos: number }
+export type EditorSwipeGestureState = DragGestureState
 
 type EditorSwipeGestureHandler = (state: EditorSwipeGestureState) => void
 
@@ -14,42 +14,37 @@ type InputArgs = {
 }
 
 export function useEditorNodesSwipingTracking({ bound = 0, handlers: { onSwipeStart, onSwipe, onSwipeEnd } }: InputArgs) {
-  const swipingNode = useState<Element | undefined>()
+  const node = useState<Element | null>(() => null)
 
   const { editor } = useEditor()
 
-  const swipingNodePos = computed(() => {
-    if (!editor.value || !swipingNode.value) return
+  const nodePos = computed(() => {
+    if (!editor.value || !node.value) return
 
     const view = editor.value.view
 
-    return getEditorNodePos(view, swipingNode.value)
+    return getEditorNodePos(view, node.value)
   })
 
   const { setNodeHtmlAttrs } = useEditorCommands()
 
-  function setNodeTranslateX(x?: number) {
-    if (swipingNodePos.value === undefined) return
+  function setNodeTranslateX(x: number) {
+    if (nodePos.value === undefined) return
 
-    setNodeHtmlAttrs(swipingNodePos.value, {
-      classes: x ? '!transition-none' : '',
-      styles: x ? `transform: translateX(${x}px)` : '',
+    setNodeHtmlAttrs(nodePos.value, {
+      styles: `transition: none; transform: translateX(${x}px)`,
+    })
+  }
+
+  function clearNodeTranslateX() {
+    if (nodePos.value === undefined) return
+
+    setNodeHtmlAttrs(nodePos.value, {
+      styles: '',
     })
   }
 
   const editorView = useState<Element | undefined>()
-
-  function emitSwipe(type: 'start' | 'drag' | 'end', state: DragGestureState) {
-    const payload = {
-      ...state,
-      node: swipingNode.value as Element,
-      pos: swipingNodePos.value as number
-    }
-
-    if (type === 'start') onSwipeStart?.(payload)
-    if (type === 'drag') onSwipe?.(payload)
-    if (type === 'end') onSwipeEnd?.(payload)
-  }
 
   function handleDragStart(state: DragGestureState) {
     const {
@@ -57,17 +52,17 @@ export function useEditorNodesSwipingTracking({ bound = 0, handlers: { onSwipeSt
       xy: [x, y],
     } = state
 
-    const node = getEditorNodeByCoords(x, y)
+    const editorNode = getEditorNodeByCoords(x, y)
 
-    if (!node) {
+    if (!editorNode) {
       cancel()
 
       return
     }
 
-    swipingNode.value = node
+    node.value = editorNode
 
-    emitSwipe('start', state)
+    onSwipeStart?.(state)
   }
 
   function handleDrag(state: DragGestureState) {
@@ -76,14 +71,12 @@ export function useEditorNodesSwipingTracking({ bound = 0, handlers: { onSwipeSt
     } = state
 
     setNodeTranslateX(movementX)
-
-    emitSwipe('drag', state)
+    onSwipe?.(state)
   }
 
   async function handleDragEnd(state: DragGestureState) {
-    setNodeTranslateX()
-
-    emitSwipe('end', state)
+    clearNodeTranslateX()
+    onSwipeEnd?.(state)
   }
 
   useDragGesture({
@@ -108,4 +101,6 @@ export function useEditorNodesSwipingTracking({ bound = 0, handlers: { onSwipeSt
   }
 
   onMounted(init)
+
+  return { node }
 }

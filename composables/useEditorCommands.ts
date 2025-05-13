@@ -18,10 +18,6 @@ export function useEditorCommands() {
     editor.value?.commands.setNodeSelection(pos.value)
   }
 
-  function clearNodeSelection() {
-    editor.value?.commands.setTextSelection(0)
-  }
-
   function setNodeHtmlAttrs(
     pos: number,
     { classes, styles }: { classes?: string; styles?: string },
@@ -88,7 +84,6 @@ export function useEditorCommands() {
 
   return {
     setNodeSelection,
-    clearNodeSelection,
     setNodeHtmlAttrs,
     canMoveNodeToUp,
     canMoveNodeToDown,

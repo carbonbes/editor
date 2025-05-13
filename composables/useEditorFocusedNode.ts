@@ -15,5 +15,18 @@ export function useEditorFocusedNode() {
     node.value = element
   }
 
+  watch(node, (node) => {
+    if (pos.value === undefined) return
+
+    if (node) {
+      editor.value?.commands.setNodeHtmlAttrs(pos.value, {
+        classes:
+          'relative after:absolute after:inset-0 after:-m-2 after:bg-blue-50 after:rounded-xl after:z-[-1]',
+      })
+    } else {
+      editor.value?.commands.setNodeHtmlAttrs(pos.value, { classes: '' })
+    }
+  })
+
   return { node, pos, setFocusedNode }
 }

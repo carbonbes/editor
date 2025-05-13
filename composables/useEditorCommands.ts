@@ -9,11 +9,12 @@ export function useEditorCommands() {
     editor.value?.commands.setNodeSelection(pos)
   }
 
-  function setNodeHtmlAttrs(
+  function setNodeStyles(
     pos: number,
     { classes, styles }: { classes?: string; styles?: string },
   ) {
-    editor.value?.commands.setNodeHtmlAttrs(pos, {
+    editor.value?.commands.setNodeStyles({
+      pos,
       classes,
       styles,
     })
@@ -75,7 +76,7 @@ export function useEditorCommands() {
 
   return {
     setNodeSelection,
-    setNodeHtmlAttrs,
+    setNodeStyles,
     canMoveNodeToUp,
     canMoveNodeToDown,
     moveNodeToUp,

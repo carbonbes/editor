@@ -17,7 +17,7 @@ export function useEditorFocusedNode() {
     node.value = element
   }
 
-  const { setNodeSelection, setNodeHtmlAttrs } = useEditorCommands()
+  const { setNodeSelection, setNodeStyles } = useEditorCommands()
 
   watch(node, (node) => {
     if (node) {
@@ -29,12 +29,12 @@ export function useEditorFocusedNode() {
     await promiseTimeout(0)
 
     if (oldPos === undefined) {
-      setNodeHtmlAttrs(newPos!, {
+      setNodeStyles(newPos!, {
         classes:
           'relative after:absolute after:inset-0 after:-m-2 after:bg-blue-50 after:rounded-xl after:z-[-1]',
       })
     } else if (newPos !== oldPos) {
-      setNodeHtmlAttrs(oldPos!, {
+      setNodeStyles(oldPos!, {
         classes: '',
       })
     }

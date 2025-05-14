@@ -1,22 +1,26 @@
 <template>
   <Bottomsheet v-model:open="open">
     <BottomsheetHeader>
-      <BottomsheetHeaderPages v-model:page="page">
-        <BottomsheetHeaderTitle v-if="page === 1">
-          Настройки узла
-        </BottomsheetHeaderTitle>
+      <TransitionView :index="page">
+        <template #controls="{ previous }">
+          <BottomsheetHeaderTitle>Настройки узла</BottomsheetHeaderTitle>
 
-        <div v-else class="flex items-center gap-3">
-          <Icon name="tabler:chevron-left" class="!size-6" @click="page--" />
+          <div class="flex items-center gap-3">
+            <Icon
+              name="tabler:chevron-left"
+              class="!size-6"
+              @click="previous"
+            />
 
-          <BottomsheetHeaderTitle>Поменять на</BottomsheetHeaderTitle>
-        </div>
-      </BottomsheetHeaderPages>
+            <BottomsheetHeaderTitle>Поменять на</BottomsheetHeaderTitle>
+          </div>
+        </template>
+      </TransitionView>
     </BottomsheetHeader>
 
     <BottomsheetContent>
-      <BottomsheetContentPages v-model:page="page">
-        <BottomsheetContentButtons v-if="page === 1">
+      <TransitionView :index="page">
+        <BottomsheetContentButtons>
           <BottomsheetContentButton
             v-if="canMoveNodeToUp"
             @click="moveNodeToUp"
@@ -33,21 +37,18 @@
             Переместить вниз
           </BottomsheetContentButton>
 
-          <BottomsheetContentButtonSub @click="page++">
+          <BottomsheetContentButtonSub @click="next">
             <Icon name="tabler:refresh" />
             Поменять на
           </BottomsheetContentButtonSub>
 
-          <BottomsheetContentButton
-            class="text-red-500"
-            @click="removeNode"
-          >
+          <BottomsheetContentButton class="text-red-500" @click="removeNode">
             <Icon name="tabler:trash" />
             Удалить
           </BottomsheetContentButton>
         </BottomsheetContentButtons>
 
-        <BottomsheetContentButtons v-else>
+        <BottomsheetContentButtons>
           <BottomsheetContentButton
             v-if="canTransformToHeading2"
             @click="transformToHeading(2)"
@@ -88,7 +89,7 @@
             Нумерованный список
           </BottomsheetContentButton>
         </BottomsheetContentButtons>
-      </BottomsheetContentPages>
+      </TransitionView>
     </BottomsheetContent>
   </Bottomsheet>
 </template>
@@ -105,6 +106,7 @@ import {
   BottomsheetContentPages,
   BottomsheetContentButtons,
 } from '~/components/Editor/NodeMenu/Bottomsheet'
+import TransitionView from '~/components/Shared/Transitions/TransitionView.vue'
 
 const { open } = useEditorNodeMenuBottomsheet({
   directionTrigger: 'left',
@@ -113,11 +115,11 @@ const { open } = useEditorNodeMenuBottomsheet({
 
 watch(open, (open) => {
   if (!open) {
-    page.value = 1
+    page.value = 0
   }
 })
 
-const page = ref(1)
+const page = ref(0)
 
 const {
   canMoveNodeToUp,

@@ -9,12 +9,11 @@ export function useEditorCommands() {
     editor.value?.commands.setNodeSelection(pos)
   }
 
-  function setNodeStyles(
+  function setNodeStylesAttrs(
     pos: number,
     { classes, styles }: { classes?: string; styles?: string },
   ) {
-    editor.value?.commands.setNodeStyles({
-      pos,
+    editor.value?.commands.setNodeStylesAttrs(pos, {
       classes,
       styles,
     })
@@ -76,7 +75,7 @@ export function useEditorCommands() {
 
   return {
     setNodeSelection,
-    setNodeStyles,
+    setNodeStylesAttrs,
     canMoveNodeToUp,
     canMoveNodeToDown,
     moveNodeToUp,

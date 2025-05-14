@@ -17,29 +17,19 @@ export function useEditorNodesSwipingTracking({
   bound = 0,
   handlers: { onSwipeStart, onSwipe, onSwipeEnd },
 }: InputArgs) {
-  const node = useState<Element | null>(() => null)
+  const node = ref<Element>()
 
-  const { editor } = useEditor()
-
-  const nodePos = computed(() => {
-    if (!editor.value || !node.value) return
-
-    const view = editor.value.view
-
-    return getEditorNodePos(view, node.value)
-  })
-
-  const { setNodeStyles } = useEditorCommands()
+  const pos = useEditorNodePos(node)
+  const { setNodeStylesAttrs } = useEditorCommands()
 
   function setNodeTranslateX(x?: number) {
-    if (nodePos.value === undefined) return
+    if (pos.value === undefined) return
 
-    setNodeStyles(nodePos.value, {
-      styles: x ? `transition: none; transform: translateX(${x}px)` : '',
+    setNodeStylesAttrs(pos.value, {
+      classes: x ? '!transition-none' : '',
+      styles: x ? `transform: translateX(${x}px)` : '',
     })
   }
-
-  const editorView = useState<Element | undefined>()
 
   function handleDragStart(state: DragGestureState) {
     const {
@@ -74,8 +64,10 @@ export function useEditorNodesSwipingTracking({
     onSwipeEnd?.(state)
   }
 
+  const { dom } = useEditorView()
+
   useDragGesture({
-    target: editorView,
+    target: dom,
 
     handlers: {
       onDragStart: handleDragStart,
@@ -90,12 +82,6 @@ export function useEditorNodesSwipingTracking({
       from: [0, 0],
     },
   })
-
-  function init() {
-    editorView.value = editor.value?.view.dom
-  }
-
-  onMounted(init)
 
   return { node }
 }

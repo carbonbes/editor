@@ -4,23 +4,22 @@ import { Decoration, DecorationSet } from 'prosemirror-view'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    NodeHtmlAttrs: {
-      setNodeHtmlAttrs: (
+    NodeStylesAttrs: {
+      setNodeStylesAttrs: (
         pos: number,
-        { classes, styles }: { classes?: string; styles?: string }
+        { classes, styles }: { classes?: string; styles?: string },
       ) => ReturnType
     }
   }
 }
 
-const decorationKey = new PluginKey('nodeHtmlAttrs')
+const decorationKey = new PluginKey('nodeStylesAttrs')
 
-export const NodeHtmlAttrs = Extension.create({
-  name: 'nodeHtmlAttrs',
-
+export const NodeStylesAttrs = Extension.create({
+  name: 'nodeStylesAttrs',
   addCommands() {
     return {
-      setNodeHtmlAttrs:
+      setNodeStylesAttrs:
         (pos, { classes, styles }) =>
         ({ dispatch, state: { doc }, tr }) => {
           if (!dispatch) return false
@@ -37,7 +36,7 @@ export const NodeHtmlAttrs = Extension.create({
           const decoSet = DecorationSet.create(doc, [deco])
 
           dispatch(
-            tr.setMeta('addToHistory', false).setMeta(decorationKey, decoSet)
+            tr.setMeta('addToHistory', false).setMeta(decorationKey, decoSet),
           )
 
           return true

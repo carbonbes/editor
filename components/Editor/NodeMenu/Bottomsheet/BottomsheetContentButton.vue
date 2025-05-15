@@ -4,14 +4,18 @@
       <slot />
     </div>
 
-    <Icon v-if="sub" name="tabler:chevron-right" class="!size-5" />
+    <ChevronIcon v-if="sub" right class="!size-5" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { injectDrawerContext } from '~/components/Shared/Drawer/DrawerRoot.vue'
+import { ChevronIcon } from '~/components/Shared/Icons'
 
-const { ignoreClose, sub } = defineProps<{ ignoreClose?: boolean, sub?: boolean }>()
+const { ignoreClose, sub } = defineProps<{
+  ignoreClose?: boolean
+  sub?: boolean
+}>()
 
 const { open } = injectDrawerContext()
 

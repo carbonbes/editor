@@ -1,25 +1,19 @@
 <template>
   <Bottomsheet v-model:open="open">
     <BottomsheetHeader>
-      <TransitionView :index="page">
-        <template #controls="{ previous }">
-          <BottomsheetHeaderTitle>Настройки узла</BottomsheetHeaderTitle>
+      <TransitionTemplate :index="page" class="h-full">
+        <BottomsheetHeaderTitle>Настройки узла</BottomsheetHeaderTitle>
 
-          <div class="flex items-center gap-3">
-            <Icon
-              name="tabler:chevron-left"
-              class="!size-6"
-              @click="previous"
-            />
+        <div class="flex items-center gap-3">
+          <Icon name="tabler:chevron-left" class="!size-6" @click="page--" />
 
-            <BottomsheetHeaderTitle>Поменять на</BottomsheetHeaderTitle>
-          </div>
-        </template>
-      </TransitionView>
+          <BottomsheetHeaderTitle>Поменять на</BottomsheetHeaderTitle>
+        </div>
+      </TransitionTemplate>
     </BottomsheetHeader>
 
     <BottomsheetContent>
-      <TransitionView :index="page">
+      <TransitionTemplate :index="page">
         <BottomsheetContentButtons>
           <BottomsheetContentButton
             v-if="canMoveNodeToUp"
@@ -37,7 +31,7 @@
             Переместить вниз
           </BottomsheetContentButton>
 
-          <BottomsheetContentButtonSub @click="next">
+          <BottomsheetContentButtonSub @click="page++">
             <Icon name="tabler:refresh" />
             Поменять на
           </BottomsheetContentButtonSub>
@@ -89,7 +83,7 @@
             Нумерованный список
           </BottomsheetContentButton>
         </BottomsheetContentButtons>
-      </TransitionView>
+      </TransitionTemplate>
     </BottomsheetContent>
   </Bottomsheet>
 </template>
@@ -99,14 +93,12 @@ import {
   Bottomsheet,
   BottomsheetContent,
   BottomsheetHeader,
-  BottomsheetHeaderPages,
   BottomsheetHeaderTitle,
   BottomsheetContentButton,
   BottomsheetContentButtonSub,
-  BottomsheetContentPages,
   BottomsheetContentButtons,
 } from '~/components/Editor/NodeMenu/Bottomsheet'
-import TransitionView from '~/components/Shared/Transitions/TransitionView.vue'
+import TransitionTemplate from '~/components/Shared/Transitions/TransitionTemplate.vue'
 
 const { open } = useEditorNodeMenuBottomsheet({
   directionTrigger: 'left',

@@ -35,16 +35,14 @@ export const NodeInsert = Extension.create({
 
           function createListNode() {
             const listNodeType = nodes[nodeName]
-            const listItemType = nodes.listItem
 
-            return listNodeType.create(null, listItemType.createAndFill())
+            return listNodeType.createAndFill()
           }
 
           function createQuoteNode() {
             const quoteNodeType = nodes.blockquote
-            const paragraphNodeType = nodes.paragraph
 
-            return quoteNodeType.create(null, paragraphNodeType.create())
+            return quoteNodeType.createAndFill()
           }
 
           function createRegularNode() {
@@ -66,6 +64,8 @@ export const NodeInsert = Extension.create({
           }
 
           const node = createNode()
+
+          if (!node) return false
 
           dispatch(tr.insert(insertPos, node))
 

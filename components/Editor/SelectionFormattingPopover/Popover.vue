@@ -38,7 +38,7 @@
 import { PopoverRoot, PopoverContent } from '~/components/Shared/Popover'
 import Buttons from './Buttons.vue'
 import Button from './Button.vue'
-import MarkIcon from '~/components/Shared/Icons/MarkIcon.vue'
+import { MarkIcon } from '~/components/Shared/Icons'
 
 const open = ref(false)
 

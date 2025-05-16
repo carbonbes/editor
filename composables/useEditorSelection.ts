@@ -13,10 +13,18 @@ export function useEditorSelection() {
     selection.value instanceof NodeSelection ? selection.value : undefined,
   )
 
-  const isEmpty = computed(() => {
-    if (!textSelection.value || !nodeSelection.value) return true
+  const textSelectionIsEmpty = computed(() => {
+    if (!textSelection.value) return true
 
-    const { from, to } = textSelection.value || nodeSelection.value
+    const { from, to } = textSelection.value
+
+    return from === to
+  })
+
+  const nodeSelectionIsEmpty = computed(() => {
+    if (!nodeSelection.value) return true
+
+    const { from, to } = nodeSelection.value
 
     return from === to
   })
@@ -25,6 +33,7 @@ export function useEditorSelection() {
     selection,
     textSelection,
     nodeSelection,
-    isEmpty,
+    textSelectionIsEmpty,
+    nodeSelectionIsEmpty,
   }
 }

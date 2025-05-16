@@ -42,11 +42,11 @@ import MarkIcon from '~/components/Shared/Icons/MarkIcon.vue'
 
 const open = ref(false)
 
-const { isEmpty } = useEditorSelection()
+const { textSelectionIsEmpty } = useEditorSelection()
 const { rect, virtualEl } = useEditorTextSelectionRect()
 
 watch(rect, (value) => {
-  if (isEmpty.value) return
+  if (textSelectionIsEmpty.value) return
 
   open.value = !!value
 })

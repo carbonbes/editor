@@ -13,5 +13,18 @@ export function useEditorSelection() {
     selection.value instanceof NodeSelection ? selection.value : undefined,
   )
 
-  return { selection, textSelection, nodeSelection }
+  const isEmpty = computed(() => {
+    if (!textSelection.value || !nodeSelection.value) return true
+
+    const { from, to } = textSelection.value || nodeSelection.value
+
+    return from === to
+  })
+
+  return {
+    selection,
+    textSelection,
+    nodeSelection,
+    isEmpty,
+  }
 }

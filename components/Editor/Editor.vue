@@ -3,6 +3,7 @@
 
   <EditorNodeMenuNodesListBottomsheet />
   <EditorNodeMenuNodeActionsListBottomsheet />
+  <EditorSelectionFormattingPopover />
 </template>
 
 <script lang="ts" setup>

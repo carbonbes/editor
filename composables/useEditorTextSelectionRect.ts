@@ -1,8 +1,10 @@
+import type { VirtualElement } from '@floating-ui/core'
+
 export function useEditorTextSelectionRect() {
   const { textSelection } = useEditorSelection()
   const { view } = useEditorView()
 
-  return computed(() => {
+  const rect = computed(() => {
     if (!textSelection.value || !view.value) return
 
     const { from, to } = textSelection.value
@@ -14,6 +16,18 @@ export function useEditorTextSelectionRect() {
     range.setStart(start.node, start.offset)
     range.setEnd(end.node, end.offset)
 
-    return Array.from(range.getClientRects())[0]
+    return range.getBoundingClientRect()
   })
+
+  const virtualEl = computed<VirtualElement | undefined>(() => {
+    if (!rect.value) return
+
+    return {
+      getBoundingClientRect() {
+        return rect.value
+      },
+    }
+  })
+
+  return { rect, virtualEl }
 }

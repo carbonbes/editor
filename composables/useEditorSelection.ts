@@ -21,19 +21,10 @@ export function useEditorSelection() {
     return from === to
   })
 
-  const nodeSelectionIsEmpty = computed(() => {
-    if (!nodeSelection.value) return true
-
-    const { from, to } = nodeSelection.value
-
-    return from === to
-  })
-
   return {
     selection,
     textSelection,
     nodeSelection,
     textSelectionIsEmpty,
-    nodeSelectionIsEmpty,
   }
 }

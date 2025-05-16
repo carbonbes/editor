@@ -31,11 +31,19 @@ export function useEditorNodesSwipingTracking({
     })
   }
 
+  const { isTouch } = useDevice()
+
   function handleDragStart(state: DragGestureState) {
     const {
       cancel,
       xy: [x, y],
     } = state
+
+    if (!isTouch.value) {
+      cancel()
+
+      return
+    }
 
     const editorNode = getEditorNodeByCoords(x, y)
 
@@ -53,13 +61,29 @@ export function useEditorNodesSwipingTracking({
   function handleDrag(state: DragGestureState) {
     const {
       movement: [movementX],
+      cancel,
     } = state
+
+    if (!isTouch.value) {
+      cancel()
+
+      return
+    }
 
     setNodeTranslateX(movementX)
     onSwipe?.(state)
   }
 
   async function handleDragEnd(state: DragGestureState) {
+    const { cancel } = state
+
+    if (!isTouch.value) {
+      cancel()
+
+      return
+    }
+
+    console.log('HA HA')
     setNodeTranslateX()
     onSwipeEnd?.(state)
   }

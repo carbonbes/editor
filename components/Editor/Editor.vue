@@ -1,5 +1,5 @@
 <template>
-  <EditorContent :content />
+  <EditorContent />
 
   <EditorNodeMenuNodesListBottomsheet />
   <EditorNodeMenuNodeActionsListBottomsheet />

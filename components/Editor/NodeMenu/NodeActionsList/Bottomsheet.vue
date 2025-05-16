@@ -2,12 +2,12 @@
   <Bottomsheet v-model:open="open">
     <BottomsheetHeader>
       <BottomsheetHeaderPages v-model:page="page">
-        <BottomsheetHeaderTitle v-if="page === 1"
-          >Настройки узла</BottomsheetHeaderTitle
-        >
+        <BottomsheetHeaderTitle v-if="page === 1">
+          Настройки узла
+        </BottomsheetHeaderTitle>
 
         <div v-else class="flex items-center gap-3">
-          <Icon name="tabler:chevron-left" class="!size-6" @click="page--" />
+          <ChevronIcon left class="!size-6" @click="page--" />
 
           <BottomsheetHeaderTitle>Поменять на</BottomsheetHeaderTitle>
         </div>
@@ -21,7 +21,7 @@
             v-if="canMoveNodeToUp"
             @click="moveNodeToUp"
           >
-            <Icon name="tabler:arrow-up" />
+            <ArrowIcon up />
             Переместить наверх
           </BottomsheetContentButton>
 
@@ -29,14 +29,19 @@
             v-if="canMoveNodeToDown"
             @click="moveNodeToDown"
           >
-            <Icon name="tabler:arrow-down" />
+            <ArrowIcon down />
             Переместить вниз
           </BottomsheetContentButton>
 
           <BottomsheetContentButtonSub @click="page++">
-            <Icon name="tabler:refresh" />
+            <RefreshIcon />
             Поменять на
           </BottomsheetContentButtonSub>
+
+          <BottomsheetContentButton class="text-red-500" @click="removeNode">
+            <TrashIcon />
+            Удалить
+          </BottomsheetContentButton>
         </BottomsheetContentButtons>
 
         <BottomsheetContentButtons v-else>
@@ -44,7 +49,7 @@
             v-if="canTransformToHeading2"
             @click="transformToHeading(2)"
           >
-            <Icon name="tabler:h-2" />
+            <HeadingIcon 2 />
             Заголовок 2 уровня
           </BottomsheetContentButton>
 
@@ -52,7 +57,7 @@
             v-if="canTransformToHeading3"
             @click="transformToHeading(3)"
           >
-            <Icon name="tabler:h-3" />
+            <HeadingIcon 3 />
             Заголовок 3 уровня
           </BottomsheetContentButton>
 
@@ -60,7 +65,7 @@
             v-if="canTransformToParagraph"
             @click="transformToParagraph"
           >
-            <Icon name="tabler:letter-case" />
+            <TextIcon />
             Текст
           </BottomsheetContentButton>
 
@@ -68,7 +73,7 @@
             v-if="canTransformToBulletList"
             @click="transformToList('bulletList')"
           >
-            <Icon name="tabler:list" />
+            <ListIcon bullet />
             Маркированный список
           </BottomsheetContentButton>
 
@@ -76,7 +81,7 @@
             v-if="canTransformToOrderedList"
             @click="transformToList('orderedList')"
           >
-            <Icon name="tabler:list-numbers" />
+            <ListIcon ordered />
             Нумерованный список
           </BottomsheetContentButton>
         </BottomsheetContentButtons>
@@ -97,6 +102,15 @@ import {
   BottomsheetContentPages,
   BottomsheetContentButtons,
 } from '~/components/Editor/NodeMenu/Bottomsheet'
+import {
+  HeadingIcon,
+  TextIcon,
+  ArrowIcon,
+  RefreshIcon,
+  TrashIcon,
+  ListIcon,
+  ChevronIcon,
+} from '~/components/Shared/Icons'
 
 const { open } = useEditorNodeMenuBottomsheet({
   directionTrigger: 'left',
@@ -124,5 +138,6 @@ const {
   transformToHeading,
   transformToParagraph,
   transformToList,
+  removeNode,
 } = useEditorCommands()
 </script>

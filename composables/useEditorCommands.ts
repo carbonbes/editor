@@ -4,36 +4,23 @@ import type { EditorRootNodes } from '~/types'
 
 export function useEditorCommands() {
   const { editor } = useEditor()
-  const { pos } = useEditorFocusedNode()
 
-  function setNodeSelection() {
-    if (pos.value === undefined) {
-      console.error(
-        'Невозможно установить выделение узла, потому что отсутствует его позиция',
-      )
-
-      return
-    }
-
-    editor.value?.commands.setNodeSelection(pos.value)
+  function setNodeSelection(pos: number) {
+    editor.value?.commands.setNodeSelection(pos)
   }
 
-  function clearNodeSelection() {
-    editor.value?.commands.setTextSelection(0)
-  }
-
-  function setNodeHtmlAttrs(
+  function setNodeStylesAttrs(
     pos: number,
     { classes, styles }: { classes?: string; styles?: string },
   ) {
-    editor.value?.commands.setNodeHtmlAttrs(pos, {
+    editor.value?.commands.setNodeStylesAttrs(pos, {
       classes,
       styles,
     })
   }
 
   const canMoveNodeToUp = computed(() => editor.value?.can().moveUp() || false)
-  
+
   const canMoveNodeToDown = computed(
     () => editor.value?.can().moveDown() || false,
   )
@@ -61,7 +48,7 @@ export function useEditorCommands() {
   const canTransformToBulletList = computed(
     () => editor.value?.can().transformToList('bulletList') || false,
   )
-  
+
   const canTransformToOrderedList = computed(
     () => editor.value?.can().transformToList('orderedList') || false,
   )
@@ -82,10 +69,38 @@ export function useEditorCommands() {
     editor.value?.chain().focus().insertNode(nodeName, nodeAttrs).run()
   }
 
+  function removeNode() {
+    editor.value?.chain().focus().deleteSelection().run()
+  }
+
+  const canSetBold = computed(() => editor.value?.can().setBold() || false)
+  const canSetItalic = computed(() => editor.value?.can().setItalic() || false)
+  const canSetStrike = computed(() => editor.value?.can().setStrike() || false)
+  const canSetCode = computed(() => editor.value?.can().setCode() || false)
+  const boldActive = computed(() => editor.value?.isActive('bold') || false)
+  const italicActive = computed(() => editor.value?.isActive('italic') || false)
+  const strikeActive = computed(() => editor.value?.isActive('strike') || false)
+  const codeActive = computed(() => editor.value?.isActive('code') || false)
+
+  function toggleBold() {
+    editor.value?.chain().focus().toggleBold().run()
+  }
+
+  function toggleItalic() {
+    editor.value?.chain().focus().toggleItalic().run()
+  }
+
+  function toggleStrike() {
+    editor.value?.chain().focus().toggleStrike().run()
+  }
+
+  function toggleCode() {
+    editor.value?.chain().focus().toggleCode().run()
+  }
+
   return {
     setNodeSelection,
-    clearNodeSelection,
-    setNodeHtmlAttrs,
+    setNodeStylesAttrs,
     canMoveNodeToUp,
     canMoveNodeToDown,
     moveNodeToUp,
@@ -99,5 +114,18 @@ export function useEditorCommands() {
     transformToParagraph,
     transformToList,
     insertNode,
+    removeNode,
+    canSetBold,
+    canSetItalic,
+    canSetStrike,
+    canSetCode,
+    boldActive,
+    italicActive,
+    strikeActive,
+    codeActive,
+    toggleBold,
+    toggleItalic,
+    toggleStrike,
+    toggleCode,
   }
 }

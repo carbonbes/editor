@@ -1,6 +1,6 @@
 import { Editor, type Content } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-import { NodeHtmlAttrs } from '~/tiptap-extensions/nodeHtmlAttrs'
+import { NodeStylesAttrs } from '~/tiptap-extensions/nodeStylesAttrs'
 import { NodeTestIdAttr } from '~/tiptap-extensions/nodeTestIdAttr'
 import { NodeMoving } from '~/tiptap-extensions/nodeMoving'
 import { NodeTransform } from '~/tiptap-extensions/nodeTransform'
@@ -17,7 +17,7 @@ export function useEditor() {
 
       extensions: [
         StarterKit,
-        NodeHtmlAttrs,
+        NodeStylesAttrs,
         NodeTestIdAttr,
         NodeMoving,
         NodeTransform,
@@ -26,7 +26,7 @@ export function useEditor() {
 
       editorProps: {
         attributes: {
-          class: 'p-4 h-full overflow-x-hidden prose touch-pan-y focus:outline-none [&>*]:relative [&>.ProseMirror-selectednode]:after:absolute [&>.ProseMirror-selectednode]:after:inset-0 [&>.ProseMirror-selectednode]:after:-m-2 [&>.ProseMirror-selectednode]:after:bg-blue-50 [&>.ProseMirror-selectednode]:after:rounded-xl [&>.ProseMirror-selectednode]:after:z-[-1] [&>*]:transition-transform',
+          class: 'p-4 h-full overflow-x-hidden prose touch-pan-y focus:outline-none [&>*]:transition-transform',
         },
       },
     })

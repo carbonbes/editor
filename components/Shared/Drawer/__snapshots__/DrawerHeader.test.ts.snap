@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`DrawerHeader > should be displayed with a slot 1`] = `
-"<div class="flex items-center">
-  <p>Test</p><button type="button" class="ml-auto p-1.5 flex items-center justify-center bg-gray-200/50 rounded-full"><span class="iconify i-tabler:x size-5" aria-hidden="true"></span></button>
-</div>"
-`;
-
-exports[`DrawerHeader > should be displayed without the slot 1`] = `"<div class="flex items-center"><button type="button" class="ml-auto p-1.5 flex items-center justify-center bg-gray-200/50 rounded-full"><span class="iconify i-tabler:x size-5" aria-hidden="true"></span></button></div>"`;

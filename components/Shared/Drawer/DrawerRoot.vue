@@ -37,6 +37,6 @@ export type DrawerContext = {
   contentScrollOffset: Ref<number>
 }
 
-export const [injectDrawerContext, provideDrawerContext]
-  = createContext<DrawerContext>('Drawer')
+export const [injectDrawerContext, provideDrawerContext] =
+  createContext<DrawerContext>('Drawer')
 </script>

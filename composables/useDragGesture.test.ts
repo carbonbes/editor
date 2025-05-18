@@ -1,53 +1,39 @@
+import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import type Editor from '~/components/Editor/Editor.client.vue'
 
 describe('useDragGesture', () => {
-  test('should be defined', () => {
-    expect(useDragGesture).toBeDefined()
-  })
-
   describe('gesture', () => {
-    let dragGesture: ReturnType<typeof useDragGesture>['gesture']
-    let wrapper: ReturnType<typeof mount<typeof Editor>>
+    const Component = defineComponent({
+      template: '<div ref="elementRef" />',
 
-    function mountComponent() {
-      const Component = defineComponent({
-        template: '<div ref="element"></div>',
+      setup() {
+        const elementRef = ref<Element>()
 
-        setup() {
-          const element = useTemplateRef('element')
+        const { gesture } = useDragGesture({
+          target: elementRef,
+          handlers: {},
+        })
 
-          const { gesture } = useDragGesture({
-            element: element as Ref<Element>,
-            handlers: {},
-          })
-
-          dragGesture = gesture
-        },
-      })
-
-      wrapper = mount(Component)
-    }
-
-    beforeEach(() => {
-      mountComponent()
+        return { gesture }
+      },
     })
 
-    afterEach(() => {
+    test('should be defined after component has been mounted', () => {
+      const wrapper = mount(Component)
+
+      expect(wrapper.vm.gesture).toBeDefined()
+
       wrapper.unmount()
     })
 
-    test('must be defined after some component has been mounted', () => {
-      expect(dragGesture.value).toBeDefined()
-    })
+    test('should be null after component has been unmounted', () => {
+      const wrapper = mount(Component)
 
-    test('must be undefined after some component has been unmounted', () => {
-      expect(dragGesture.value).toBeDefined()
+      expect(wrapper.vm.gesture).toBeDefined()
 
       wrapper.unmount()
 
-      expect(dragGesture.value).toBeUndefined()
+      expect(wrapper.vm.gesture).toBeNull()
     })
   })
 })

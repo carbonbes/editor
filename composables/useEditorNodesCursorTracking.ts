@@ -1,33 +1,18 @@
 export function useEditorNodesCursorTracking() {
   const node = ref<Element>()
 
-  const { nodeSelection } = useEditorSelection()
-
-  function getNodeByCursor(e: MouseEvent) {
-    if (nodeSelection.value) return
-
-    const { clientX: x, clientY: y } = e
-
-    node.value = getEditorNodeByCoords(x, y)
-  }
-
   const { isTouch } = useDevice()
 
-  function init() {
+  function handleMouseMove(e: MouseEvent) {
     if (isTouch.value) return
 
-    const listenerOptions = { passive: true }
+    const { clientX, clientY } = e
 
-    useEventListener(window, 'mousemove', getNodeByCursor, listenerOptions)
+    node.value = getEditorNodeByCoords(clientX, clientY)
+  }
 
-    useEventListener(
-      window,
-      'mouseleave',
-      () => {
-        node.value = undefined
-      },
-      listenerOptions,
-    )
+  function init() {
+    useEventListener(window, 'mousemove', handleMouseMove, { passive: true })
   }
 
   onMounted(init)

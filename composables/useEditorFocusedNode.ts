@@ -39,5 +39,5 @@ export function useEditorFocusedNode() {
     }
   })
 
-  return { setFocusedNode }
+  return { node, setFocusedNode }
 }

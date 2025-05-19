@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { injectDrawerContext } from './DrawerRoot.vue'
 import { DrawerClose } from 'vaul-vue'
-import CrossIcon from '~/components/Shared/Icons/CrossIcon.vue'
+import { CrossIcon } from '~/components/Shared/Icons'
 
 const { contentScrollOffset } = injectDrawerContext()
 </script>

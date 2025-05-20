@@ -1,10 +1,11 @@
 export function useEditorNodesCursorTracking() {
-  const node = ref<Element>()
+  const node = useState<Element | undefined>()
 
   const { isTouch } = useDevice()
+  const { node: focusedNode } = useEditorFocusedNode()
 
   function handleMouseMove(e: MouseEvent) {
-    if (isTouch.value) return
+    if (isTouch.value || focusedNode.value) return
 
     const { clientX, clientY } = e
 
@@ -15,7 +16,5 @@ export function useEditorNodesCursorTracking() {
     useEventListener(window, 'mousemove', handleMouseMove, { passive: true })
   }
 
-  onMounted(init)
-
-  return { node }
+  return { node, init }
 }

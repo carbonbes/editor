@@ -12,8 +12,13 @@ import type { Content } from '@tiptap/vue-3'
 
 const { content } = defineProps<{ content?: Content }>()
 
-const { init, destroy } = useEditor()
+const { init: editorInit, destroy } = useEditor()
+const { init: editorCursorTrackingInit } = useEditorNodesCursorTracking()
 
-onMounted(() => init(content))
+onMounted(() => {
+  editorInit(content)
+  editorCursorTrackingInit()
+})
+
 onBeforeUnmount(destroy)
 </script>

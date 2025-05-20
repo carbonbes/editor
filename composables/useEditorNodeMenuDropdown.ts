@@ -1,6 +1,10 @@
-export function useEditorNodeMenuDropdown() {
-  const open = ref(false)
+interface UseEditorNodeMenuDropdownOptions {
+  open: Ref<boolean>
+}
 
+export function useEditorNodeMenuDropdown({
+  open,
+}: UseEditorNodeMenuDropdownOptions) {
   const { node } = useEditorNodesCursorTracking()
   const { setFocusedNode } = useEditorFocusedNode()
 
@@ -11,6 +15,4 @@ export function useEditorNodeMenuDropdown() {
       setFocusedNode(undefined)
     }
   })
-
-  return { open }
 }

@@ -5,7 +5,7 @@
     </DropdownMenuTrigger>
 
     <DropdownMenuPortal to="#teleports">
-      <DropdownMenuContent>
+      <DropdownMenuContent :side-offset="5">
         <DropdownMenuItem v-if="canMoveNodeToUp" @click="moveNodeToUp">
           <ArrowIcon up />
           Переместить наверх
@@ -89,7 +89,7 @@ import {
   TextIcon,
 } from '~/components/Shared/Icons'
 
-const { open } = useEditorNodeMenuDropdown()
+const { open } = useEditorNodeActionsListDropdown()
 
 const {
   canMoveNodeToUp,

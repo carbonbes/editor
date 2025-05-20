@@ -5,20 +5,13 @@
         align="start"
         side="left"
         :side-offset="16"
-        :reference="node || ref()"
+        :reference="node"
         @open-auto-focus="(e) => e.preventDefault()"
         @interact-outside="(e) => e.preventDefault()"
       >
         <Buttons>
-          <Button>
-            <PlusIcon />
-          </Button>
-
-          <NodeActionsListDropdown>
-            <Button>
-              <GripVerticalIcon />
-            </Button>
-          </NodeActionsListDropdown>
+          <NodesListDropdownTrigger />
+          <NodeActionsListDropdownTrigger />
         </Buttons>
       </PopoverContent>
     </PopoverPortal>
@@ -28,9 +21,8 @@
 <script setup lang="ts">
 import { PopoverRoot, PopoverPortal, PopoverContent } from 'reka-ui'
 import Buttons from './Buttons.vue'
-import Button from './Button.vue'
-import NodeActionsListDropdown from '~/components/Editor/NodeMenu/NodeActionsList/Dropdown.vue'
-import { PlusIcon, GripVerticalIcon } from '~/components/Shared/Icons'
+import NodesListDropdownTrigger from '~/components/Editor/NodeMenu/Popover/NodesListDropdownTrigger.vue'
+import NodeActionsListDropdownTrigger from '~/components/Editor/NodeMenu/Popover/NodeActionsListDropdownTrigger.vue'
 
 const open = ref(false)
 

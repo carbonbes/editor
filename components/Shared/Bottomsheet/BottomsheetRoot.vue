@@ -3,7 +3,7 @@
     v-bind="forwarded"
     v-model:open="open"
     v-model:active-snap-point="activeSnapPoint"
-    :snap-points
+    :snap-points="props.snapPoints"
   >
     <slot />
   </DrawerRoot>
@@ -11,13 +11,13 @@
 
 <script setup lang="ts">
 import { createContext, useForwardPropsEmits } from 'reka-ui'
-import {
-  DrawerRoot,
-  type DrawerRootEmits,
-  type DrawerRootProps,
-} from 'vaul-vue'
+import { DrawerRoot } from '~/components/Shared/Drawer'
+import type { DrawerRootEmits, DrawerRootProps } from 'vaul-vue'
 
-const props = defineProps<DrawerRootProps>()
+const props = withDefaults(defineProps<DrawerRootProps>(), {
+  direction: 'bottom',
+})
+
 const emits = defineEmits<DrawerRootEmits>()
 
 const forwarded = useForwardPropsEmits(props, emits)
@@ -27,16 +27,16 @@ const open = defineModel<boolean>('open', { default: false })
 const activeSnapPoint = ref(props.activeSnapPoint ? props.activeSnapPoint : 1)
 const contentScrollOffset = ref(0)
 
-provideDrawerContext({ open, activeSnapPoint, contentScrollOffset })
+provideBottomsheetContext({ open, activeSnapPoint, contentScrollOffset })
 </script>
 
 <script lang="ts">
-export type DrawerContext = {
+export interface BottomsheetContext {
   open: Ref<DrawerRootProps['open']>
   activeSnapPoint: Ref<DrawerRootProps['activeSnapPoint']>
   contentScrollOffset: Ref<number>
 }
 
-export const [injectDrawerContext, provideDrawerContext] =
-  createContext<DrawerContext>('Drawer')
+export const [injectBottomsheetContext, provideBottomsheetContext] =
+  createContext<BottomsheetContext>('Drawer')
 </script>

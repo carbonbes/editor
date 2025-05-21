@@ -1,6 +1,6 @@
 <template>
   <Primitive
-    ref="drawerScrollableContent"
+    ref="bottomsheetScrollableContent"
     class="overflow-y-auto"
     :class="scrollableContentClasses"
   >
@@ -10,23 +10,28 @@
 
 <script setup lang="ts">
 import { Primitive } from 'reka-ui'
-import { injectDrawerContext } from './DrawerRoot.vue'
-import { usePointerSwipe, useScroll } from '@vueuse/core'
+import { injectBottomsheetContext } from './BottomsheetRoot.vue'
 
-const drawerScrollableContent = useTemplateRef<HTMLElement>('drawerScrollableContent')
+const bottomsheetScrollableContent = useTemplateRef<HTMLElement>(
+  'bottomsheetScrollableContent',
+)
 
-const { activeSnapPoint, contentScrollOffset } = injectDrawerContext()
+const { activeSnapPoint, contentScrollOffset } = injectBottomsheetContext()
 
 const { isSwiping, direction: swipeDirection } = usePointerSwipe(
-  drawerScrollableContent,
+  bottomsheetScrollableContent,
   { threshold: 0 },
 )
 
-const { y } = useScroll(drawerScrollableContent)
+const { y } = useScroll(bottomsheetScrollableContent)
 
-watch(y, (scrollOffset) => {
-  contentScrollOffset.value = scrollOffset
-}, { immediate: true })
+watch(
+  y,
+  (scrollOffset) => {
+    contentScrollOffset.value = scrollOffset
+  },
+  { immediate: true },
+)
 
 const scrollableContentClasses = computed(() => ({
   '!overflow-y-hidden':

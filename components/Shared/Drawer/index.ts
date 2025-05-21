@@ -1,6 +1,2 @@
-export { default as DrawerBody } from './DrawerBody.vue'
-export { default as DrawerContent } from './DrawerContent.vue'
-export { default as DrawerHeader } from './DrawerHeader.vue'
+export { DrawerRoot, DrawerPortal, DrawerContent, DrawerClose } from 'vaul-vue'
 export { default as DrawerOverlay } from './DrawerOverlay.vue'
-export { DrawerPortal } from 'vaul-vue'
-export { default as Drawer } from './DrawerRoot.vue'

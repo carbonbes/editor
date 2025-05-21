@@ -1,5 +1,5 @@
 <template>
-  <DrawerOverlay class="fixed inset-0 bg-black/25 backdrop-blur-[2px] !transition-[opacity,backdrop-filter] duration-500" />
+  <DrawerOverlay class="fixed inset-0 bg-black/25 backdrop-blur-[2px]" />
 </template>
 
 <script setup lang="ts">

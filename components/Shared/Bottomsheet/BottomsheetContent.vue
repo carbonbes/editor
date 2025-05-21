@@ -13,5 +13,5 @@
 
 <script setup lang="ts">
 import { DialogTitle, VisuallyHidden } from 'reka-ui'
-import { DrawerContent } from 'vaul-vue'
+import { DrawerContent } from '~/components/Shared/Drawer'
 </script>

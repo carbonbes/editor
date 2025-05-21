@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { injectDrawerContext } from '~/components/Shared/Drawer/DrawerRoot.vue'
+import { injectBottomsheetContext } from '~/components/Shared/Bottomsheet/BottomsheetRoot.vue'
 import { ChevronIcon } from '~/components/Shared/Icons'
 
 const { ignoreClose, sub } = defineProps<{
@@ -17,7 +17,7 @@ const { ignoreClose, sub } = defineProps<{
   sub?: boolean
 }>()
 
-const { open } = injectDrawerContext()
+const { open } = injectBottomsheetContext()
 
 function onClick() {
   if (ignoreClose) return

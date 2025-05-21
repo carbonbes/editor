@@ -1,86 +1,82 @@
 <template>
-  <DropdownMenuRoot v-model:open="open" :modal="false">
+  <DropdownMenuRoot v-model:open="open">
     <DropdownMenuTrigger>
       <slot />
     </DropdownMenuTrigger>
 
-    <DropdownMenuPortal to="#teleports">
-      <DropdownMenuContent :side-offset="5">
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            <HeadingIcon />
-            Заголовок
-          </DropdownMenuSubTrigger>
+    <DropdownMenuContent :side-offset="5">
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger>
+          <HeadingIcon />
+          Заголовок
+        </DropdownMenuSubTrigger>
 
-          <DropdownMenuPortal to="#teleports">
-            <DropdownMenuSubContent>
-              <DropdownMenuItem @click="insertNode('heading', { level: 2 })">
-                <HeadingIcon 2 />
-                Заголовок 2 уровня
-              </DropdownMenuItem>
+        <DropdownMenuSubContent>
+          <DropdownMenuItem @click="insertNode('heading', { level: 2 })">
+            <HeadingIcon 2 />
+            Заголовок 2 уровня
+          </DropdownMenuItem>
 
-              <DropdownMenuItem @click="insertNode('heading', { level: 3 })">
-                <HeadingIcon 3 />
-                Заголовок 3 уровня
-              </DropdownMenuItem>
-            </DropdownMenuSubContent>
-          </DropdownMenuPortal>
-        </DropdownMenuSub>
+          <DropdownMenuItem @click="insertNode('heading', { level: 3 })">
+            <HeadingIcon 3 />
+            Заголовок 3 уровня
+          </DropdownMenuItem>
+        </DropdownMenuSubContent>
+      </DropdownMenuSub>
 
-        <DropdownMenuItem @click="insertNode('paragraph')">
-          <TextIcon />
-          Текст
-        </DropdownMenuItem>
+      <DropdownMenuItem @click="insertNode('paragraph')">
+        <TextIcon />
+        Текст
+      </DropdownMenuItem>
 
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            <ListIcon />
-            Список
-          </DropdownMenuSubTrigger>
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger>
+          <ListIcon />
+          Список
+        </DropdownMenuSubTrigger>
 
-          <DropdownMenuPortal to="#teleports">
-            <DropdownMenuSubContent>
-              <DropdownMenuItem @click="insertNode('bulletList')">
-                <ListIcon bullet />
-                Маркированный список
-              </DropdownMenuItem>
+        <DropdownMenuSubContent>
+          <DropdownMenuItem @click="insertNode('bulletList')">
+            <ListIcon bullet />
+            Маркированный список
+          </DropdownMenuItem>
 
-              <DropdownMenuItem @click="insertNode('orderedList')">
-                <ListIcon ordered />
-                Нумерованный список
-              </DropdownMenuItem>
-            </DropdownMenuSubContent>
-          </DropdownMenuPortal>
-        </DropdownMenuSub>
+          <DropdownMenuItem @click="insertNode('orderedList')">
+            <ListIcon ordered />
+            Нумерованный список
+          </DropdownMenuItem>
+        </DropdownMenuSubContent>
+      </DropdownMenuSub>
 
-        <DropdownMenuItem @click="insertNode('blockquote')">
-          <QuoteIcon />
-          Цитата
-        </DropdownMenuItem>
+      <DropdownMenuItem @click="insertNode('blockquote')">
+        <QuoteIcon />
+        Цитата
+      </DropdownMenuItem>
 
-        <DropdownMenuItem @click="insertNode('orderedList')">
-          <CodeIcon />
-          Код
-        </DropdownMenuItem>
+      <DropdownMenuItem @click="insertNode('codeBlock')">
+        <CodeIcon />
+        Код
+      </DropdownMenuItem>
 
-        <DropdownMenuItem @click="insertNode('orderedList')">
-          <SeparatorIcon />
-          Разделитель
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenuPortal>
+      <DropdownMenuItem @click="insertNode('horizontalRule')">
+        <SeparatorIcon />
+        Разделитель
+      </DropdownMenuItem>
+    </DropdownMenuContent>
   </DropdownMenuRoot>
 </template>
 
 <script setup lang="ts">
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSubTrigger,
+  DropdownMenuRoot,
   DropdownMenuSubContent,
+} from '~/components/Editor/NodeMenu/Dropdown'
+import {
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
 } from '~/components/Shared/DropdownMenu'
 import {
   CodeIcon,
@@ -90,8 +86,8 @@ import {
   SeparatorIcon,
   TextIcon,
 } from '~/components/Shared/Icons'
-import { DropdownMenuSub } from 'reka-ui'
 
-const { open } = useEditorNodesListDropdown()
+const open = defineModel<boolean>('open', { default: false })
+
 const { insertNode } = useEditorCommands()
 </script>

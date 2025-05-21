@@ -1,5 +1,5 @@
 <template>
-  <NodeActionsListDropdown>
+  <NodeActionsListDropdown v-model:open="open">
     <Button :active="open">
       <GripVerticalIcon />
     </Button>
@@ -11,5 +11,5 @@ import Button from '~/components/Editor/NodeMenu/Popover/Button.vue'
 import { GripVerticalIcon } from '~/components/Shared/Icons'
 import NodeActionsListDropdown from '~/components/Editor/NodeMenu/NodeActionsList/Dropdown.vue'
 
-const { open } = useEditorNodeActionsListDropdown()
+const open = ref(false)
 </script>

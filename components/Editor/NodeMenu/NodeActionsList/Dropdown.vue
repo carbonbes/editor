@@ -1,95 +1,98 @@
 <template>
-  <DropdownMenuRoot v-model:open="open" :modal="false">
+  <DropdownMenuRoot v-model:open="open">
     <DropdownMenuTrigger>
       <slot />
     </DropdownMenuTrigger>
 
-    <DropdownMenuPortal to="#teleports">
-      <DropdownMenuContent :side-offset="5">
-        <DropdownMenuItem v-if="canMoveNodeToUp" @click="moveNodeToUp">
-          <ArrowIcon up />
-          Переместить наверх
-        </DropdownMenuItem>
+    <DropdownMenuContent :side-offset="5">
+      <DropdownMenuItem v-if="canMoveNodeToUp" @click="moveNodeToUp">
+        <ArrowIcon up />
+        Переместить наверх
+      </DropdownMenuItem>
 
-        <DropdownMenuItem v-if="canMoveNodeToDown" @click="moveNodeToDown">
-          <ArrowIcon down />
-          Переместить вниз
-        </DropdownMenuItem>
+      <DropdownMenuItem v-if="canMoveNodeToDown" @click="moveNodeToDown">
+        <ArrowIcon down />
+        Переместить вниз
+      </DropdownMenuItem>
 
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            <RefreshIcon />
-            Поменять на
-          </DropdownMenuSubTrigger>
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger>
+          <RefreshIcon />
+          Поменять на
+        </DropdownMenuSubTrigger>
 
-          <DropdownMenuPortal to="#teleports">
-            <DropdownMenuSubContent>
-              <DropdownMenuItem
-                v-if="canTransformToHeading2"
-                @click="transformToHeading(2)"
-              >
-                <HeadingIcon 2 />
-                Заголовок 2 уровня
-              </DropdownMenuItem>
+        <DropdownMenuSubContent>
+          <DropdownMenuItem
+            v-if="canTransformToHeading2"
+            @click="transformToHeading(2)"
+          >
+            <HeadingIcon 2 />
+            Заголовок 2 уровня
+          </DropdownMenuItem>
 
-              <DropdownMenuItem
-                v-if="canTransformToHeading3"
-                @click="transformToHeading(3)"
-              >
-                <HeadingIcon 3 />
-                Заголовок 3 уровня
-              </DropdownMenuItem>
+          <DropdownMenuItem
+            v-if="canTransformToHeading3"
+            @click="transformToHeading(3)"
+          >
+            <HeadingIcon 3 />
+            Заголовок 3 уровня
+          </DropdownMenuItem>
 
-              <DropdownMenuItem
-                v-if="canTransformToParagraph"
-                @click="transformToParagraph"
-              >
-                <TextIcon />
-                Текст
-              </DropdownMenuItem>
+          <DropdownMenuItem
+            v-if="canTransformToParagraph"
+            @click="transformToParagraph"
+          >
+            <TextIcon />
+            Текст
+          </DropdownMenuItem>
 
-              <DropdownMenuItem
-                v-if="canTransformToBulletList"
-                @click="transformToList('bulletList')"
-              >
-                <Icon name="tabler:list" />
-                Маркированный список
-              </DropdownMenuItem>
+          <DropdownMenuItem
+            v-if="canTransformToBulletList"
+            @click="transformToList('bulletList')"
+          >
+            <Icon name="tabler:list" />
+            Маркированный список
+          </DropdownMenuItem>
 
-              <DropdownMenuItem
-                v-if="canTransformToOrderedList"
-                @click="transformToList('orderedList')"
-              >
-                <Icon name="tabler:list-numbers" />
-                Нумерованный список
-              </DropdownMenuItem>
-            </DropdownMenuSubContent>
-          </DropdownMenuPortal>
-        </DropdownMenuSub>
-      </DropdownMenuContent>
-    </DropdownMenuPortal>
+          <DropdownMenuItem
+            v-if="canTransformToOrderedList"
+            @click="transformToList('orderedList')"
+          >
+            <Icon name="tabler:list-numbers" />
+            Нумерованный список
+          </DropdownMenuItem>
+        </DropdownMenuSubContent>
+      </DropdownMenuSub>
+
+      <DropdownMenuItem class="text-red-500" @click="removeNode">
+        <TrashIcon />
+        Удалить
+      </DropdownMenuItem>
+    </DropdownMenuContent>
   </DropdownMenuRoot>
 </template>
 
 <script setup lang="ts">
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
   DropdownMenuContent,
+  DropdownMenuRoot,
+  DropdownMenuSubContent,
+} from '~/components/Editor/NodeMenu/Dropdown'
+import {
+  DropdownMenuTrigger,
   DropdownMenuItem,
   DropdownMenuSub,
   DropdownMenuSubTrigger,
-  DropdownMenuSubContent,
 } from '~/components/Shared/DropdownMenu'
 import {
   ArrowIcon,
   HeadingIcon,
   RefreshIcon,
   TextIcon,
+  TrashIcon,
 } from '~/components/Shared/Icons'
 
-const { open } = useEditorNodeActionsListDropdown()
+const open = defineModel<boolean>('open', { default: false })
 
 const {
   canMoveNodeToUp,
@@ -104,5 +107,6 @@ const {
   canTransformToOrderedList,
   canTransformToBulletList,
   transformToList,
+  removeNode,
 } = useEditorCommands()
 </script>

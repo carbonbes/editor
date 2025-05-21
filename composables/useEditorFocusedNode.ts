@@ -1,7 +1,7 @@
 import { promiseTimeout } from '@vueuse/core'
 
 export function useEditorFocusedNode() {
-  const node = ref<Element>()
+  const node = useState<Element | undefined>()
 
   function setFocusedNode(element: Element | undefined) {
     node.value = element
@@ -19,7 +19,7 @@ export function useEditorFocusedNode() {
   function setSelectedNodeStyles(pos: number) {
     setNodeStylesAttrs(pos, {
       classes:
-        'relative after:absolute after:inset-0 after:-m-2 after:bg-blue-50 after:rounded-xl after:z-[-1]',
+        'relative before:absolute before:inset-0 before:-m-2 before:bg-blue-50 before:rounded-xl before:z-[-1]',
     })
   }
 
@@ -39,5 +39,5 @@ export function useEditorFocusedNode() {
     }
   })
 
-  return { setFocusedNode }
+  return { node, setFocusedNode }
 }

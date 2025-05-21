@@ -1,8 +1,9 @@
 <template>
-  <EditorContent />
+  <EditorContent v-bind="$attrs" />
 
   <EditorNodeMenuNodesListBottomsheet />
   <EditorNodeMenuNodeActionsListBottomsheet />
+  <EditorNodeMenuPopover />
   <EditorSelectionFormattingPopover />
 </template>
 

@@ -26,7 +26,7 @@ export function useEditor() {
 
       editorProps: {
         attributes: {
-          class: `sm:mx-auto p-4 sm:pl-22 w-full max-w-[640px] h-full prose touch-pan-y focus:outline-none [&>*]:transition-transform`,
+          class: `p-4 sm:pl-22 pb-50 overflow-x-hidden prose touch-pan-y focus:outline-none [&>*]:transition-transform`,
         },
       },
     })

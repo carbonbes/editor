@@ -1,5 +1,5 @@
 <template>
-  <Editor :content />
+  <Editor :content class="mx-auto w-full max-w-[640px]" />
 </template>
 
 <script lang="ts" setup>

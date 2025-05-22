@@ -36,7 +36,7 @@ export function useEditorNodesSwipingTracking({
       xy: [x, y],
     } = state
 
-    node.value = getEditorNodeByCoords(x, y) as Element
+    node.value = getEditorNodeByCoords(x, y)
 
     onSwipeStart?.(state)
   }
@@ -66,15 +66,23 @@ export function useEditorNodesSwipingTracking({
       xy: [x, y],
     } = state
 
-    const node = getEditorNodeByCoords(x, y)
-
-    if (!isTouch.value || !node) {
+    if (!isTouch.value) {
       cancel()
 
       return
     }
 
-    if (type === 'start') handleDragStart(state)
+    if (type === 'start') {
+      const node = getEditorNodeByCoords(x, y)
+
+      if (!node) {
+        cancel()
+
+        return
+      }
+
+      handleDragStart(state)
+    }
     if (type === 'drag') handleDrag(state)
     if (type === 'end') handleDragEnd(state)
   }

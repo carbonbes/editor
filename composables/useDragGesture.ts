@@ -13,7 +13,7 @@ type DragGestureHandler = (state: DragGestureState) => void
 
 type DragGestureTarget = Ref<Element | null> | Ref<Element | undefined>
 
-type DragGestureHandlers = {
+interface DragGestureHandlers {
   onDragStart?: DragGestureHandler
   onDrag?: DragGestureHandler
   onDragEnd?: DragGestureHandler
@@ -21,16 +21,22 @@ type DragGestureHandlers = {
 
 type DragGestureConfig = DragConfig
 
-type InputArgs = {
+interface UseDragGestureOptions {
   target: DragGestureTarget
   handlers: DragGestureHandlers
   config?: DragGestureConfig
 }
 
-export function useDragGesture({ target, handlers, config }: InputArgs) {
-  const gesture = useState<Gesture | undefined>()
+export function useDragGesture({
+  target,
+  handlers,
+  config,
+}: UseDragGestureOptions) {
+  const gesture = ref<Gesture | null>(null)
 
   function init() {
+    if (gesture.value) return
+
     gesture.value = new Gesture(target.value as EventTarget, handlers, {
       drag: config,
     })
@@ -40,7 +46,7 @@ export function useDragGesture({ target, handlers, config }: InputArgs) {
     if (!gesture.value) return
 
     gesture.value.destroy()
-    gesture.value = undefined
+    gesture.value = null
   }
 
   const unwatch = watch(target, (target) => {
@@ -52,5 +58,5 @@ export function useDragGesture({ target, handlers, config }: InputArgs) {
 
   onBeforeUnmount(destroy)
 
-  return { gesture }
+  return { gesture, init, destroy }
 }

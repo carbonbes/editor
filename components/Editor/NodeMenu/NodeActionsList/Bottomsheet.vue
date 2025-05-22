@@ -1,107 +1,125 @@
 <template>
-  <Bottomsheet v-model:open="open">
-    <BottomsheetHeader>
-      <BottomsheetHeaderPages v-model:page="page">
-        <BottomsheetHeaderTitle v-if="page === 1">
-          Настройки узла
-        </BottomsheetHeaderTitle>
+  <BottomsheetRoot
+    v-model:open="state.open"
+    direction-trigger="left"
+    :threshold="75"
+    @animation-end="handleAnimationEnd"
+  >
+    <BottomsheetPortal>
+      <BottomsheetOverlay />
 
-        <div v-else class="flex items-center gap-3">
-          <ChevronIcon left class="!size-6" @click="page--" />
+      <BottomsheetContent>
+        <BottomsheetContentHeader>
+          <TransitionBetween :index="state.page" class="h-full">
+            <BottomsheetContentHeaderTitle v-if="state.page === 0">
+              Настройки узла
+            </BottomsheetContentHeaderTitle>
 
-          <BottomsheetHeaderTitle>Поменять на</BottomsheetHeaderTitle>
-        </div>
-      </BottomsheetHeaderPages>
-    </BottomsheetHeader>
+            <div v-else class="flex items-center gap-3">
+              <ChevronIcon left class="!size-6" @click="state.page--" />
 
-    <BottomsheetContent>
-      <BottomsheetContentPages v-model:page="page">
-        <BottomsheetContentButtons v-if="page === 1">
-          <BottomsheetContentButton
-            v-if="canMoveNodeToUp"
-            @click="moveNodeToUp"
-          >
-            <ArrowIcon up />
-            Переместить наверх
-          </BottomsheetContentButton>
+              <BottomsheetContentHeaderTitle>
+                Поменять на
+              </BottomsheetContentHeaderTitle>
+            </div>
+          </TransitionBetween>
+        </BottomsheetContentHeader>
 
-          <BottomsheetContentButton
-            v-if="canMoveNodeToDown"
-            @click="moveNodeToDown"
-          >
-            <ArrowIcon down />
-            Переместить вниз
-          </BottomsheetContentButton>
+        <BottomsheetContentScrollable>
+          <TransitionBetween :index="state.page" class="h-full">
+            <BottomsheetContentButtons v-if="state.page === 0">
+              <BottomsheetContentButton
+                v-if="canMoveNodeToUp"
+                @click="moveNodeToUp"
+              >
+                <ArrowIcon up />
+                Переместить наверх
+              </BottomsheetContentButton>
 
-          <BottomsheetContentButtonSub @click="page++">
-            <RefreshIcon />
-            Поменять на
-          </BottomsheetContentButtonSub>
+              <BottomsheetContentButton
+                v-if="canMoveNodeToDown"
+                @click="moveNodeToDown"
+              >
+                <ArrowIcon down />
+                Переместить вниз
+              </BottomsheetContentButton>
 
-          <BottomsheetContentButton class="text-red-500" @click="removeNode">
-            <TrashIcon />
-            Удалить
-          </BottomsheetContentButton>
-        </BottomsheetContentButtons>
+              <BottomsheetContentButtonSub @click="state.page++">
+                <RefreshIcon />
+                Поменять на
+              </BottomsheetContentButtonSub>
 
-        <BottomsheetContentButtons v-else>
-          <BottomsheetContentButton
-            v-if="canTransformToHeading2"
-            @click="transformToHeading(2)"
-          >
-            <HeadingIcon 2 />
-            Заголовок 2 уровня
-          </BottomsheetContentButton>
+              <BottomsheetContentButton
+                class="text-red-500"
+                @click="removeNode"
+              >
+                <TrashIcon />
+                Удалить
+              </BottomsheetContentButton>
+            </BottomsheetContentButtons>
 
-          <BottomsheetContentButton
-            v-if="canTransformToHeading3"
-            @click="transformToHeading(3)"
-          >
-            <HeadingIcon 3 />
-            Заголовок 3 уровня
-          </BottomsheetContentButton>
+            <BottomsheetContentButtons v-else>
+              <BottomsheetContentButton
+                v-if="canTransformToHeading2"
+                @click="transformToHeading(2)"
+              >
+                <HeadingIcon 2 />
+                Заголовок 2 уровня
+              </BottomsheetContentButton>
 
-          <BottomsheetContentButton
-            v-if="canTransformToParagraph"
-            @click="transformToParagraph"
-          >
-            <TextIcon />
-            Текст
-          </BottomsheetContentButton>
+              <BottomsheetContentButton
+                v-if="canTransformToHeading3"
+                @click="transformToHeading(3)"
+              >
+                <HeadingIcon 3 />
+                Заголовок 3 уровня
+              </BottomsheetContentButton>
 
-          <BottomsheetContentButton
-            v-if="canTransformToBulletList"
-            @click="transformToList('bulletList')"
-          >
-            <ListIcon bullet />
-            Маркированный список
-          </BottomsheetContentButton>
+              <BottomsheetContentButton
+                v-if="canTransformToParagraph"
+                @click="transformToParagraph"
+              >
+                <TextIcon />
+                Текст
+              </BottomsheetContentButton>
 
-          <BottomsheetContentButton
-            v-if="canTransformToOrderedList"
-            @click="transformToList('orderedList')"
-          >
-            <ListIcon ordered />
-            Нумерованный список
-          </BottomsheetContentButton>
-        </BottomsheetContentButtons>
-      </BottomsheetContentPages>
-    </BottomsheetContent>
-  </Bottomsheet>
+              <BottomsheetContentButton
+                v-if="canTransformToBulletList"
+                @click="transformToList('bulletList')"
+              >
+                <ListIcon bullet />
+                Маркированный список
+              </BottomsheetContentButton>
+
+              <BottomsheetContentButton
+                v-if="canTransformToOrderedList"
+                @click="transformToList('orderedList')"
+              >
+                <ListIcon ordered />
+                Нумерованный список
+              </BottomsheetContentButton>
+            </BottomsheetContentButtons>
+          </TransitionBetween>
+        </BottomsheetContentScrollable>
+      </BottomsheetContent>
+    </BottomsheetPortal>
+  </BottomsheetRoot>
 </template>
 
 <script setup lang="ts">
 import {
-  Bottomsheet,
   BottomsheetContent,
-  BottomsheetHeader,
-  BottomsheetHeaderPages,
-  BottomsheetHeaderTitle,
   BottomsheetContentButton,
-  BottomsheetContentButtonSub,
-  BottomsheetContentPages,
   BottomsheetContentButtons,
+  BottomsheetContentButtonSub,
+  BottomsheetContentScrollable,
+  BottomsheetContentHeader,
+  BottomsheetContentHeaderTitle,
+  BottomsheetPortal,
+  BottomsheetRoot,
+  BottomsheetOverlay,
 } from '~/components/Editor/NodeMenu/Bottomsheet'
+import TransitionBetween from '~/components/Shared/Transitions/TransitionBetween.vue'
 import {
   HeadingIcon,
   TextIcon,
@@ -112,18 +130,14 @@ import {
   ChevronIcon,
 } from '~/components/Shared/Icons'
 
-const { open } = useEditorNodeMenuBottomsheet({
-  directionTrigger: 'left',
-  threshold: 75,
+const state = reactive({
+  open: false,
+  page: 0,
 })
 
-watch(open, (open) => {
-  if (!open) {
-    page.value = 1
-  }
-})
-
-const page = ref(1)
+function handleAnimationEnd() {
+  if (!state.open) state.page = 0
+}
 
 const {
   canMoveNodeToUp,

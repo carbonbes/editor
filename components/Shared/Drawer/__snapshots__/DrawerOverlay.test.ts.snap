@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`DrawerOverlay > should be displayed 1`] = `"<div data-state="open" style="pointer-events: auto;" vaul-drawer-visible="false" vaul-overlay="" vaul-snap-points="false" vaul-snap-points-overlay="true" class="fixed inset-0 bg-black/25 backdrop-blur-[2px] !transition-[opacity,backdrop-filter] duration-500"></div>"`;

@@ -1,23 +1,20 @@
 <template>
-  <div class="h-12 flex items-center justify-between" @click="onClick">
-    <div class="flex items-center gap-3 [&>.iconify]:!size-6">
-      <slot />
-    </div>
-
-    <ChevronIcon v-if="sub" right class="!size-5" />
+  <div
+    class="h-12 flex items-center gap-4 font-medium [&>.iconify]:!size-6"
+    @click="onClick"
+  >
+    <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-import { injectDrawerContext } from '~/components/Shared/Drawer/DrawerRoot.vue'
-import { ChevronIcon } from '~/components/Shared/Icons'
+import { injectBottomsheetContext } from '~/components/Shared/Bottomsheet/BottomsheetRoot.vue'
 
-const { ignoreClose, sub } = defineProps<{
+const { ignoreClose } = defineProps<{
   ignoreClose?: boolean
-  sub?: boolean
 }>()
 
-const { open } = injectDrawerContext()
+const { open } = injectBottomsheetContext()
 
 function onClick() {
   if (ignoreClose) return

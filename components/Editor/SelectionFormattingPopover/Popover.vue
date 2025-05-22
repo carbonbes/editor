@@ -2,17 +2,20 @@
   <PopoverRoot v-model:open="open">
     <PopoverPortal to="#teleports">
       <PopoverContent
-        :reference="virtualEl || ref()"
+        :reference="virtualEl"
+        :side-offset="6"
+        :collision-padding="16"
         as-child
         @open-auto-focus="(e) => e.preventDefault()"
+        @focus-outside="(e) => e.preventDefault()"
       >
         <Buttons>
-          <Button v-if="canSetBold" :active="boldActive" @click="toggleBold">
+          <Button v-if="canToggleBold" :active="boldActive" @click="toggleBold">
             <MarkIcon bold />
           </Button>
 
           <Button
-            v-if="canSetItalic"
+            v-if="canToggleItalic"
             :active="italicActive"
             @click="toggleItalic"
           >
@@ -20,14 +23,14 @@
           </Button>
 
           <Button
-            v-if="canSetStrike"
+            v-if="canToggleStrike"
             :active="strikeActive"
             @click="toggleStrike"
           >
             <MarkIcon strikethrough />
           </Button>
 
-          <Button v-if="canSetCode" :active="codeActive" @click="toggleCode">
+          <Button v-if="canToggleCode" :active="codeActive" @click="toggleCode">
             <MarkIcon code />
           </Button>
         </Buttons>
@@ -38,26 +41,25 @@
 
 <script setup lang="ts">
 import { PopoverRoot, PopoverPortal, PopoverContent } from 'reka-ui'
-import Buttons from './Buttons.vue'
-import Button from './Button.vue'
+import { Buttons, Button } from './'
 import { MarkIcon } from '~/components/Shared/Icons'
 
 const open = ref(false)
 
 const { textSelectionIsEmpty } = useEditorSelection()
-const { rect, virtualEl } = useEditorTextSelectionRect()
+const { virtualEl } = useEditorTextSelectionRect()
 
-watch(rect, (value) => {
+watch(virtualEl, (value) => {
   if (textSelectionIsEmpty.value) return
 
   open.value = !!value
 })
 
 const {
-  canSetBold,
-  canSetItalic,
-  canSetStrike,
-  canSetCode,
+  canToggleBold,
+  canToggleItalic,
+  canToggleStrike,
+  canToggleCode,
   boldActive,
   italicActive,
   strikeActive,

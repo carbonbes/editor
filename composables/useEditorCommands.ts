@@ -73,10 +73,22 @@ export function useEditorCommands() {
     editor.value?.chain().focus().deleteSelection().run()
   }
 
-  const canSetBold = computed(() => editor.value?.can().setBold() || false)
-  const canSetItalic = computed(() => editor.value?.can().setItalic() || false)
-  const canSetStrike = computed(() => editor.value?.can().setStrike() || false)
-  const canSetCode = computed(() => editor.value?.can().setCode() || false)
+  const canToggleBold = computed(
+    () => editor.value?.can().toggleBold() || false,
+  )
+
+  const canToggleItalic = computed(
+    () => editor.value?.can().toggleItalic() || false,
+  )
+
+  const canToggleStrike = computed(
+    () => editor.value?.can().toggleStrike() || false,
+  )
+
+  const canToggleCode = computed(
+    () => editor.value?.can().toggleCode() || false,
+  )
+
   const boldActive = computed(() => editor.value?.isActive('bold') || false)
   const italicActive = computed(() => editor.value?.isActive('italic') || false)
   const strikeActive = computed(() => editor.value?.isActive('strike') || false)
@@ -115,10 +127,10 @@ export function useEditorCommands() {
     transformToList,
     insertNode,
     removeNode,
-    canSetBold,
-    canSetItalic,
-    canSetStrike,
-    canSetCode,
+    canToggleBold,
+    canToggleItalic,
+    canToggleStrike,
+    canToggleCode,
     boldActive,
     italicActive,
     strikeActive,

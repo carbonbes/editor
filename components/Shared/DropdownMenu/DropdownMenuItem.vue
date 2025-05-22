@@ -13,7 +13,7 @@ import {
   type DropdownMenuItemProps,
   useForwardPropsEmits,
 } from 'reka-ui'
-import DropdownMenuItemBase from '~/components/Shared/DropdownMenu/DropdownMenuItemBase.vue'
+import { DropdownMenuItemBase } from '~/components/Shared/DropdownMenu'
 
 const props = defineProps<DropdownMenuItemProps & { preventClose?: boolean }>()
 const emits = defineEmits<DropdownMenuItemEmits>()

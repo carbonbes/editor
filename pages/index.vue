@@ -1,8 +1,5 @@
 <template>
-  <Editor
-    :content
-    class="mx-auto p-4 w-full max-w-[640px]"
-  />
+  <Editor :content class="mx-auto w-full max-w-[640px]" />
 </template>
 
 <script lang="ts" setup>
@@ -38,7 +35,7 @@ const content = `
   </blockquote>
 
   <pre>
-    <code></code>
+    <code>Это код</code>
   </pre>
 `
 </script>

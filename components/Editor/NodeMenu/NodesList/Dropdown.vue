@@ -4,7 +4,7 @@
       <slot />
     </DropdownMenuTrigger>
 
-    <DropdownMenuContent :side-offset="5">
+    <DropdownMenuContent :side-offset="5" :collision-padding="16">
       <DropdownMenuSub>
         <DropdownMenuSubTrigger>
           <HeadingIcon />
@@ -69,15 +69,13 @@
 <script setup lang="ts">
 import {
   DropdownMenuContent,
-  DropdownMenuRoot,
-  DropdownMenuSubContent,
-} from '~/components/Editor/NodeMenu/Dropdown'
-import {
-  DropdownMenuTrigger,
   DropdownMenuItem,
   DropdownMenuSub,
   DropdownMenuSubTrigger,
-} from '~/components/Shared/DropdownMenu'
+  DropdownMenuTrigger,
+  DropdownMenuRoot,
+  DropdownMenuSubContent,
+} from '~/components/Editor/NodeMenu/Dropdown'
 import {
   CodeIcon,
   HeadingIcon,

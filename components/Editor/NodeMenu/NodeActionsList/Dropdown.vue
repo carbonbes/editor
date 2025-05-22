@@ -4,7 +4,7 @@
       <slot />
     </DropdownMenuTrigger>
 
-    <DropdownMenuContent :side-offset="5">
+    <DropdownMenuContent :side-offset="5" :collision-padding="16">
       <DropdownMenuItem v-if="canMoveNodeToUp" @click="moveNodeToUp">
         <ArrowIcon up />
         Переместить наверх
@@ -77,10 +77,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSub,
-  DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
   DropdownMenuRoot,
+  DropdownMenuSubContent,
 } from '~/components/Editor/NodeMenu/Dropdown'
 import {
   ArrowIcon,

@@ -1,6 +1,6 @@
 <template>
   <DropdownMenuPortal>
-    <DropdownMenuContent v-bind="{ ...forwarded, ...$attrs }">
+    <DropdownMenuContent v-bind="forwarded">
       <slot />
     </DropdownMenuContent>
   </DropdownMenuPortal>

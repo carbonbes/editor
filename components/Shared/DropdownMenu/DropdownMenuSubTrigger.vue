@@ -16,7 +16,7 @@ import {
   type DropdownMenuSubTriggerProps,
   useForwardProps,
 } from 'reka-ui'
-import DropdownMenuItemBase from '~/components/Shared/DropdownMenu/DropdownMenuItemBase.vue'
+import { DropdownMenuItemBase } from '~/components/Shared/DropdownMenu'
 import { ChevronIcon } from '~/components/Shared/Icons'
 
 const props = defineProps<DropdownMenuSubTriggerProps>()

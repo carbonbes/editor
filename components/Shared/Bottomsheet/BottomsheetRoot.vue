@@ -32,11 +32,11 @@ provideBottomsheetContext({ open, activeSnapPoint, contentScrollOffset })
 
 <script lang="ts">
 export interface BottomsheetContext {
-  open: Ref<DrawerRootProps['open']>
-  activeSnapPoint: Ref<DrawerRootProps['activeSnapPoint']>
+  open: Ref<boolean>
+  activeSnapPoint: Ref<number | string>
   contentScrollOffset: Ref<number>
 }
 
 export const [injectBottomsheetContext, provideBottomsheetContext] =
-  createContext<BottomsheetContext>('Drawer')
+  createContext<BottomsheetContext>('Bottomsheet')
 </script>

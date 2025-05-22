@@ -1,17 +1,22 @@
 <template>
-  <BottomsheetRoot v-model:open="open">
+  <BottomsheetRoot
+    v-model:open="state.open"
+    direction-trigger="left"
+    :threshold="75"
+    @animation-end="handleAnimationEnd"
+  >
     <BottomsheetPortal>
       <BottomsheetOverlay />
 
       <BottomsheetContent>
         <BottomsheetContentHeader>
-          <TransitionBetween :index="page" class="h-full">
-            <BottomsheetContentHeaderTitle v-if="page === 1">
+          <TransitionBetween :index="state.page" class="h-full">
+            <BottomsheetContentHeaderTitle v-if="state.page === 0">
               Настройки узла
             </BottomsheetContentHeaderTitle>
 
             <div v-else class="flex items-center gap-3">
-              <ChevronIcon left class="!size-6" @click="page--" />
+              <ChevronIcon left class="!size-6" @click="state.page--" />
 
               <BottomsheetContentHeaderTitle>
                 Поменять на
@@ -21,8 +26,8 @@
         </BottomsheetContentHeader>
 
         <BottomsheetContentScrollable>
-          <TransitionBetween :index="page" class="h-full">
-            <BottomsheetContentButtons v-if="page === 1">
+          <TransitionBetween :index="state.page" class="h-full">
+            <BottomsheetContentButtons v-if="state.page === 0">
               <BottomsheetContentButton
                 v-if="canMoveNodeToUp"
                 @click="moveNodeToUp"
@@ -39,7 +44,7 @@
                 Переместить вниз
               </BottomsheetContentButton>
 
-              <BottomsheetContentButtonSub @click="page++">
+              <BottomsheetContentButtonSub @click="state.page++">
                 <RefreshIcon />
                 Поменять на
               </BottomsheetContentButtonSub>
@@ -125,18 +130,14 @@ import {
   ChevronIcon,
 } from '~/components/Shared/Icons'
 
-const { open } = useEditorNodeMenuBottomsheet({
-  directionTrigger: 'left',
-  threshold: 75,
+const state = reactive({
+  open: false,
+  page: 0,
 })
 
-watch(open, (open) => {
-  if (!open) {
-    page.value = 1
-  }
-})
-
-const page = ref(1)
+function handleAnimationEnd() {
+  if (!state.open) state.page = 0
+}
 
 const {
   canMoveNodeToUp,

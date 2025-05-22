@@ -1,5 +1,5 @@
 <template>
-  <BottomsheetRoot v-model:open="open">
+  <BottomsheetRoot direction-trigger="right" :threshold="75">
     <BottomsheetPortal>
       <BottomsheetOverlay />
 
@@ -82,11 +82,6 @@ import {
   SeparatorIcon,
   TextIcon,
 } from '~/components/Shared/Icons'
-
-const { open } = useEditorNodeMenuBottomsheet({
-  directionTrigger: 'right',
-  threshold: 75,
-})
 
 const { insertNode } = useEditorCommands()
 </script>

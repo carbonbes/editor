@@ -26,7 +26,7 @@ export function useEditor() {
 
       editorProps: {
         attributes: {
-          class: `h-full prose touch-pan-y focus:outline-none [&>*]:relative [&>*]:after:absolute [&>*]:after:inset-0 [&>*]:after:-ml-[92px] [&>*]:after:z-[-1] [&>*]:transition-transform`,
+          class: `sm:mx-auto p-4 sm:pl-22 w-full max-w-[640px] h-full prose touch-pan-y focus:outline-none [&>*]:transition-transform`,
         },
       },
     })

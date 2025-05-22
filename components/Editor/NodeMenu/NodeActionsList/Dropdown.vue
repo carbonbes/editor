@@ -75,15 +75,13 @@
 <script setup lang="ts">
 import {
   DropdownMenuContent,
-  DropdownMenuRoot,
-  DropdownMenuSubContent,
-} from '~/components/Editor/NodeMenu/Dropdown'
-import {
-  DropdownMenuTrigger,
   DropdownMenuItem,
   DropdownMenuSub,
+  DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from '~/components/Shared/DropdownMenu'
+  DropdownMenuTrigger,
+  DropdownMenuRoot,
+} from '~/components/Editor/NodeMenu/Dropdown'
 import {
   ArrowIcon,
   HeadingIcon,

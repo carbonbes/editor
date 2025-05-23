@@ -1,8 +1,9 @@
-export function useEditorNodesCursorTracking() {
+export function useEditorNodesHoveringTracking() {
+  const node = useState<Element | undefined>()
+
   const { isTouch } = useDevice()
   const { node: focusedNode } = useEditorFocusedNode()
   const { dom } = useEditorView()
-  const { setNode } = useEditorHoveredNode()
 
   function handleMouseMove(e: MouseEvent) {
     if (isTouch.value || focusedNode.value || !dom.value) return
@@ -17,7 +18,7 @@ export function useEditorNodesCursorTracking() {
       clientY < rect.top ||
       clientY > rect.bottom
     ) {
-      setNode(undefined)
+      node.value = undefined
 
       return
     }
@@ -27,14 +28,14 @@ export function useEditorNodesCursorTracking() {
     for (const child of children) {
       const childRect = child.getBoundingClientRect()
 
-      if (clientY >= childRect.top && clientY < childRect.bottom) {
-        setNode(child)
+      if (clientY >= childRect.top && clientY <= childRect.bottom) {
+        node.value = child
 
         return
       }
     }
 
-    setNode(undefined)
+    node.value = undefined
   }
 
   function init() {
@@ -42,4 +43,6 @@ export function useEditorNodesCursorTracking() {
   }
 
   onMounted(init)
+
+  return { node }
 }

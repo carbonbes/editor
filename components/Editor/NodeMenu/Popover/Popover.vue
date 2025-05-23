@@ -26,11 +26,9 @@ import NodeActionsListDropdownTrigger from '~/components/Editor/NodeMenu/Popover
 
 const open = ref(false)
 
-const { node } = useEditorHoveredNode()
+const { node } = useEditorNodesHoveringTracking()
 
 watch(node, (node) => {
   open.value = !!node
 })
-
-useEditorNodesCursorTracking()
 </script>

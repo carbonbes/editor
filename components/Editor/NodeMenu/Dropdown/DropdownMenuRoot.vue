@@ -9,7 +9,7 @@ import { DropdownMenuRoot } from '~/components/Shared/DropdownMenu'
 
 const open = defineModel<boolean>('open', { default: false })
 
-const { node } = useEditorHoveredNode()
+const { node } = useEditorNodesHoveringTracking()
 const { setFocusedNode } = useEditorFocusedNode()
 
 watch(open, (open) => {

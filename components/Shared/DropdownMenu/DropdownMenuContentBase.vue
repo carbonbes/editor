@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import BaseFloating from '~/components/Shared/BaseFloating.vue'
+import { BaseFloating } from '~/components/Shared/Base'
 </script>

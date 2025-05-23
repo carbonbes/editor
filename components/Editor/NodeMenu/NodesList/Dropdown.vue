@@ -87,5 +87,5 @@ import {
 
 const open = defineModel<boolean>('open', { default: false })
 
-const { insertNode } = useEditorCommands()
+const { insertNode } = useEditorNodeSelectionCommands()
 </script>

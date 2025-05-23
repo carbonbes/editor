@@ -83,5 +83,5 @@ import {
   TextIcon,
 } from '~/components/Shared/Icons'
 
-const { insertNode } = useEditorCommands()
+const { insertNode } = useEditorNodeSelectionCommands()
 </script>

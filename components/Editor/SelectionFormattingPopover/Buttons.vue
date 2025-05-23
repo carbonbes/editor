@@ -1,8 +1,6 @@
 <template>
-  <BaseFloating class="p-1 rounded-2xl">
-    <div class="flex items-center gap-1">
-      <slot />
-    </div>
+  <BaseFloating class="p-1 flex items-center gap-1 rounded-2xl">
+    <slot />
   </BaseFloating>
 </template>
 

@@ -7,7 +7,7 @@ export function useEditorFocusedNode() {
     node.value = element
   }
 
-  const { setNodeSelection, setNodeStylesAttrs } = useEditorCommands()
+  const { setNodeSelection, setNodeStylesAttrs } = useEditorNodeSelectionCommands()
   const pos = useEditorNodePos(node)
 
   watch(node, (node) => {

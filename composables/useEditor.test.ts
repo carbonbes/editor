@@ -1,22 +1,14 @@
 import { describe, expect, test } from 'vitest'
 
 describe('useEditor', () => {
-  test('should be defined', () => {
-    expect(useEditor).toBeDefined()
-  })
+  const { editor, init, destroy } = useEditor()
 
   describe('editor', () => {
-    const { editor, init, destroy } = useEditor()
-
-    test('should be defined', () => {
-      expect(editor).toBeDefined()
-    })
-
-    test('must be undefined before editor init', () => {
+    test('should be undefined before editor init', () => {
       expect(editor.value).toBeUndefined()
     })
 
-    test('must be defined after editor init', () => {
+    test('should be defined after editor init', () => {
       init()
 
       expect(editor.value).toBeDefined()
@@ -24,7 +16,7 @@ describe('useEditor', () => {
       destroy()
     })
 
-    test('must be undefined after editor destroy', () => {
+    test('should be undefined after editor destroy', () => {
       init()
 
       expect(editor.value).toBeDefined()
@@ -34,15 +26,29 @@ describe('useEditor', () => {
       expect(editor.value).toBeUndefined()
     })
 
-    test('must be mounted with the specified content', () => {
-      const content = '<h1>Test</h1>'
+    describe('should be rendered with the specified content', () => {
+      test('if the content matches the schema', () => {
+        const content = '<h1>Test</h1>'
 
-      init(content)
+        init(content)
 
-      expect(editor.value).toBeDefined()
-      expect(editor.value?.getHTML()).toBe(content)
+        expect(editor.value).toBeDefined()
+        expect(editor.value?.getHTML()).toBe(content)
 
-      destroy()
+        destroy()
+      })
+
+      test('if the content does not match the schema', () => {
+        const validContent = '<h1>Test</h1>'
+        const invalidContent = '<img src="/favicon.ico" />'
+
+        init(validContent + invalidContent)
+
+        expect(editor.value).toBeDefined()
+        expect(editor.value?.getHTML()).toBe(validContent)
+
+        destroy()
+      })
     })
   })
 })

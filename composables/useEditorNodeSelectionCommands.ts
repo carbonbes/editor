@@ -2,7 +2,7 @@ import type { Level as HeadingLevel } from '@tiptap/extension-heading'
 import type { Attrs } from '@tiptap/pm/model'
 import type { EditorRootNodes } from '~/types'
 
-export function useEditorCommands() {
+export function useEditorNodeSelectionCommands() {
   const { editor } = useEditor()
 
   function setNodeSelection(pos: number) {
@@ -73,31 +73,6 @@ export function useEditorCommands() {
     editor.value?.chain().focus().deleteSelection().run()
   }
 
-  const canSetBold = computed(() => editor.value?.can().setBold() || false)
-  const canSetItalic = computed(() => editor.value?.can().setItalic() || false)
-  const canSetStrike = computed(() => editor.value?.can().setStrike() || false)
-  const canSetCode = computed(() => editor.value?.can().setCode() || false)
-  const boldActive = computed(() => editor.value?.isActive('bold') || false)
-  const italicActive = computed(() => editor.value?.isActive('italic') || false)
-  const strikeActive = computed(() => editor.value?.isActive('strike') || false)
-  const codeActive = computed(() => editor.value?.isActive('code') || false)
-
-  function toggleBold() {
-    editor.value?.chain().focus().toggleBold().run()
-  }
-
-  function toggleItalic() {
-    editor.value?.chain().focus().toggleItalic().run()
-  }
-
-  function toggleStrike() {
-    editor.value?.chain().focus().toggleStrike().run()
-  }
-
-  function toggleCode() {
-    editor.value?.chain().focus().toggleCode().run()
-  }
-
   return {
     setNodeSelection,
     setNodeStylesAttrs,
@@ -115,17 +90,5 @@ export function useEditorCommands() {
     transformToList,
     insertNode,
     removeNode,
-    canSetBold,
-    canSetItalic,
-    canSetStrike,
-    canSetCode,
-    boldActive,
-    italicActive,
-    strikeActive,
-    codeActive,
-    toggleBold,
-    toggleItalic,
-    toggleStrike,
-    toggleCode,
   }
 }

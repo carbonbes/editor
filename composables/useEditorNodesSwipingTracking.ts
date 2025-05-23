@@ -20,7 +20,7 @@ export function useEditorNodesSwipingTracking({
   const node = ref<Element>()
   const pos = useEditorNodePos(node)
 
-  const { setNodeStylesAttrs } = useEditorCommands()
+  const { setNodeStylesAttrs } = useEditorNodeSelectionCommands()
 
   function setNodeTranslateX(x?: number) {
     if (pos.value === undefined) return

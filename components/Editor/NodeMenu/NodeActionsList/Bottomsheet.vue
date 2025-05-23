@@ -153,5 +153,5 @@ const {
   transformToParagraph,
   transformToList,
   removeNode,
-} = useEditorCommands()
+} = useEditorNodeSelectionCommands()
 </script>

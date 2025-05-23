@@ -106,5 +106,5 @@ const {
   canTransformToBulletList,
   transformToList,
   removeNode,
-} = useEditorCommands()
+} = useEditorNodeSelectionCommands()
 </script>

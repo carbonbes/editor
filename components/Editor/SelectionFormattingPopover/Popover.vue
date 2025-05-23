@@ -68,5 +68,5 @@ const {
   toggleItalic,
   toggleStrike,
   toggleCode,
-} = useEditorCommands()
+} = useEditorTextSelectionCommands()
 </script>

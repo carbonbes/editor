@@ -9,26 +9,24 @@ export function useEditorNodesHoveringTracking() {
     if (isTouch.value || focusedNode.value || !dom.value) return
 
     const { clientX, clientY } = e
-
-    const rect = dom.value.getBoundingClientRect()
+    const { left, right, top, bottom } = dom.value.getBoundingClientRect()
 
     if (
-      clientX < rect.left ||
-      clientX > rect.right ||
-      clientY < rect.top ||
-      clientY > rect.bottom
+      clientX < left ||
+      clientX > right ||
+      clientY < top ||
+      clientY > bottom
     ) {
       node.value = undefined
 
       return
     }
 
-    const children = dom.value.children
+    for (const child of dom.value.children) {
+      const { top: childTop, bottom: childBottom } =
+        child.getBoundingClientRect()
 
-    for (const child of children) {
-      const childRect = child.getBoundingClientRect()
-
-      if (clientY >= childRect.top && clientY <= childRect.bottom) {
+      if (clientY >= childTop && clientY <= childBottom) {
         node.value = child
 
         return

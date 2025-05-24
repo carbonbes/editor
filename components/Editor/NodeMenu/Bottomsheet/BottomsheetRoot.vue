@@ -19,16 +19,6 @@ const { directionTrigger, threshold } = defineProps<{
 
 const open = defineModel<boolean>('open', { default: false })
 
-const { setFocusedNode } = useEditorFocusedNode()
-
-watch(open, (open) => {
-  if (open) {
-    setFocusedNode(node.value)
-  } else {
-    setFocusedNode(undefined)
-  }
-})
-
 function isExpectedDirection(directionX: number) {
   return directionTrigger === 'left' ? directionX === -1 : directionX === 1
 }
@@ -47,5 +37,11 @@ const { node } = useEditorNodesSwipingTracking({
   handlers: {
     onSwipeEnd: handleSwipeEnd,
   },
+})
+
+const { setFocusedNode } = useEditorFocusedNode()
+
+watch(open, (open) => {
+  setFocusedNode(open ? node.value : undefined)
 })
 </script>

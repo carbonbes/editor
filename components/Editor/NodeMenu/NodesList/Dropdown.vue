@@ -1,6 +1,6 @@
 <template>
   <DropdownMenuRoot v-model:open="open">
-    <DropdownMenuTrigger>
+    <DropdownMenuTrigger as-child>
       <slot />
     </DropdownMenuTrigger>
 

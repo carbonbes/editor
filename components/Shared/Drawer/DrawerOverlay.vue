@@ -1,7 +1,10 @@
 <template>
-  <DrawerOverlay class="fixed inset-0 bg-black/25 backdrop-blur-[2px]" />
+  <BaseOverlay as-child>
+    <DrawerOverlay class="fixed inset-0" />
+  </BaseOverlay>
 </template>
 
 <script setup lang="ts">
 import { DrawerOverlay } from 'vaul-vue'
+import { BaseOverlay } from '~/components/Shared/Base'
 </script>

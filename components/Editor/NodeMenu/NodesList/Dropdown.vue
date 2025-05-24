@@ -48,6 +48,11 @@
         </DropdownMenuSubContent>
       </DropdownMenuSub>
 
+      <DropdownMenuItem @click="insertNode('media')">
+        <PhotoIcon />
+        Картинка / видео
+      </DropdownMenuItem>
+
       <DropdownMenuItem @click="insertNode('blockquote')">
         <QuoteIcon />
         Цитата
@@ -84,6 +89,7 @@ import {
   SeparatorIcon,
   TextIcon,
 } from '~/components/Shared/Icons'
+import PhotoIcon from '~/components/Shared/Icons/PhotoIcon.vue'
 
 const open = defineModel<boolean>('open', { default: false })
 

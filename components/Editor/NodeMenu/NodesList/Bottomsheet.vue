@@ -41,6 +41,11 @@
               Нумерованный список
             </BottomsheetContentButton>
 
+            <BottomsheetContentButton @click="insertNode('media')">
+              <PhotoIcon />
+              Картинка / видео
+            </BottomsheetContentButton>
+
             <BottomsheetContentButton @click="insertNode('blockquote')">
               <QuoteIcon />
               Цитата
@@ -82,6 +87,7 @@ import {
   SeparatorIcon,
   TextIcon,
 } from '~/components/Shared/Icons'
+import PhotoIcon from '~/components/Shared/Icons/PhotoIcon.vue'
 
 const { insertNode } = useEditorNodeSelectionCommands()
 </script>

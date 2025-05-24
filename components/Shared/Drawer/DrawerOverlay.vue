@@ -1,6 +1,6 @@
 <template>
   <BaseOverlay as-child>
-    <DrawerOverlay />
+    <DrawerOverlay class="fixed inset-0" />
   </BaseOverlay>
 </template>
 

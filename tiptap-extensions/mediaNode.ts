@@ -1,7 +1,7 @@
 import { Node, VueNodeViewRenderer } from '@tiptap/vue-3'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import type { EditorView } from '@tiptap/pm/view'
-import MediaNodeView from '~/components/Editor/NodeViews/MediaNodeView.vue'
+import MediaNodeView from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'
 
 async function createMediaNode(
   {
@@ -49,14 +49,6 @@ export const MediaNode = Node.create({
         default: null,
       },
     }
-  },
-
-  parseHTML() {
-    return [
-      {
-        tag: 'img[src]',
-      },
-    ]
   },
 
   addNodeView() {

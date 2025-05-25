@@ -1,5 +1,6 @@
 export { default as ArrowIcon } from './ArrowIcon.vue'
 export { default as ChevronIcon } from './ChevronIcon.vue'
+export { default as ClipboardPlusIcon } from './ClipboardPlusIcon.vue'
 export { default as CodeIcon } from './CodeIcon.vue'
 export { default as CrossIcon } from './CrossIcon.vue'
 export { default as GripVerticalIcon } from './GripVerticalIcon.vue'

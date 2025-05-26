@@ -49,7 +49,7 @@
       </DropdownMenuSub>
 
       <DropdownMenuItem @click="insertNode('media')">
-        <PhotoIcon />
+        <LibraryPhotoIcon />
         Картинка / видео
       </DropdownMenuItem>
 
@@ -88,8 +88,8 @@ import {
   QuoteIcon,
   SeparatorIcon,
   TextIcon,
+  LibraryPhotoIcon,
 } from '~/components/Shared/Icons'
-import PhotoIcon from '~/components/Shared/Icons/PhotoIcon.vue'
 
 const open = defineModel<boolean>('open', { default: false })
 

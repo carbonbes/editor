@@ -42,7 +42,7 @@
             </BottomsheetContentButton>
 
             <BottomsheetContentButton @click="insertNode('media')">
-              <PhotoIcon />
+              <LibraryPhotoIcon />
               Картинка / видео
             </BottomsheetContentButton>
 
@@ -86,8 +86,8 @@ import {
   QuoteIcon,
   SeparatorIcon,
   TextIcon,
+  LibraryPhotoIcon,
 } from '~/components/Shared/Icons'
-import PhotoIcon from '~/components/Shared/Icons/PhotoIcon.vue'
 
 const { insertNode } = useEditorNodeSelectionCommands()
 </script>

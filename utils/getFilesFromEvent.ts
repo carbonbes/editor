@@ -1,8 +1,6 @@
-import type { MimeType } from 'file-type'
-
 export default function (
   event: ClipboardEvent | DragEvent,
-  mime_types?: MimeType[],
+  mime_types?: string[],
 ) {
   event.preventDefault()
 
@@ -22,5 +20,5 @@ export default function (
     return files
   }
 
-  return files.filter((file) => mime_types.includes(file.type as MimeType))
+  return files.filter((file) => mime_types.includes(file.type))
 }

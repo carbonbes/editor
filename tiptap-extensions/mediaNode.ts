@@ -45,6 +45,7 @@ async function handleEvent(
 export const MediaNode = Node.create({
   name: 'media',
   group: 'block',
+  atom: true,
 
   addAttributes() {
     return {

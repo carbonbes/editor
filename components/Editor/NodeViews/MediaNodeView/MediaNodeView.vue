@@ -1,9 +1,9 @@
 <template>
-  <NodeViewWrapper contenteditable="false">
+  <NodeViewWrapper>
     <div class="rounded-xl overflow-hidden">
       <EmptyMedia v-if="!media" />
-      <SingleMedia v-else-if="singleMedia" :media="singleMedia" />
-      <MultipleMedia v-else-if="multipleMedia" :media="multipleMedia" />
+      <SingleMedia v-else-if="singleMedia" :single-media />
+      <MultipleMedia v-else-if="multipleMedia" :multiple-media />
     </div>
   </NodeViewWrapper>
 </template>
@@ -17,7 +17,9 @@ import MultipleMedia from '~/components/Editor/NodeViews/MediaNodeView/MultipleM
 
 const { node } = defineProps<NodeViewProps>()
 
-const media = ref(Object.assign([], node.attrs.media) || null)
+const media = ref<string[] | null>(
+  node.attrs.media ? Object.assign([], node.attrs.media) : null
+)
 
 const singleMedia = computed<string | null>(
   () => (media.value && media.value.length === 1 && media.value[0]) || null,

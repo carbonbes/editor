@@ -4,5 +4,5 @@
 </template>
 
 <script setup lang="ts">
-const { media } = defineProps<{ media: string[] }>()
+const { multipleMedia } = defineProps<{ multipleMedia: string[] }>()
 </script>

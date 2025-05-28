@@ -1,0 +1,6 @@
+export { DialogTrigger, DialogPortal } from 'reka-ui'
+export { default as DialogContent } from './DialogContent.vue'
+export { default as DialogContentHeader } from './DialogContentHeader.vue'
+export { default as DialogContentHeaderTitle } from './DialogContentHeaderTitle.vue'
+export { default as DialogOverlay } from './DialogOverlay.vue'
+export { default as DialogRoot } from './DialogRoot.vue'

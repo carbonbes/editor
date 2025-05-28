@@ -1,4 +1,4 @@
-export default async function (base64: string) {
+export default function (base64: string) {
   const [_, base64Data] = base64.split(',')
 
   const byteString = atob(base64Data)

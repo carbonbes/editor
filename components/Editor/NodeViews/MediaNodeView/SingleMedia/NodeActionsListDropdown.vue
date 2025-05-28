@@ -12,8 +12,7 @@
         </DropdownMenuItem>
 
         <DropdownMenuItem>
-          <ClipboardPlusIcon />
-          Добавить еще из буфера
+          <ClipboardMediaInsertionDialogTrigger />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenuPortal>
@@ -27,8 +26,9 @@ import {
   DropdownMenuPortal,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '../Dropdown'
-import { ClipboardPlusIcon, PlusIcon } from '~/components/Shared/Icons'
+} from '~/components/Editor/NodeViews/MediaNodeView/Dropdown'
+import { PlusIcon } from '~/components/Shared/Icons'
+import ClipboardMediaInsertionDialogTrigger from '~/components/Editor/NodeViews/MediaNodeView/SingleMedia/ClipboardMediaInsertionDialogTrigger.vue'
 
 const open = ref(false)
 </script>

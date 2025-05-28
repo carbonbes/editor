@@ -1,5 +1,5 @@
-export default function (file: File): Promise<string | ArrayBuffer | null> {
-  return new Promise((resolve, reject) => {
+export default function (file: File) {
+  return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
     const reader = new FileReader()
 
     reader.onload = () => {

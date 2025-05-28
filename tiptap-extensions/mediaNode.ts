@@ -26,7 +26,10 @@ async function createMediaNode(
   } catch (error) {}
 }
 
-function handleEvent(view: EditorView, event: ClipboardEvent | DragEvent) {
+async function handleEvent(
+  view: EditorView,
+  event: ClipboardEvent | DragEvent,
+) {
   const items = getFilesFromEvent(event, [
     ...ALLOWED_IMAGE_MIME_TYPES,
     ...ALLOWED_VIDEO_MIME_TYPES,
@@ -34,7 +37,7 @@ function handleEvent(view: EditorView, event: ClipboardEvent | DragEvent) {
 
   if (!items || items.length > 1) return false
 
-  createMediaNode(view, items[0])
+  await createMediaNode(view, items[0])
 
   return true
 }
@@ -52,7 +55,13 @@ export const MediaNode = Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(MediaNodeView)
+    return VueNodeViewRenderer(MediaNodeView, {
+      stopEvent({ event }) {
+        event.preventDefault()
+
+        return true
+      },
+    })
   },
 
   addProseMirrorPlugins() {

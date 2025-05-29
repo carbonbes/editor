@@ -1,5 +1,3 @@
-import type { MimeType } from 'file-type'
-
 export const EDITOR_HEADING_NODE = 'heading' as const
 export const EDITOR_PARAGRAPH_NODE = 'paragraph' as const
 export const EDITOR_CODEBLOCK_NODE = 'codeBlock' as const
@@ -42,7 +40,7 @@ export const EDITOR_MARKS = [
   EDITOR_STRIKE_MARK,
 ] as const
 
-export const ALLOWED_IMAGE_MIME_TYPES: MimeType[] = [
+export const ALLOWED_IMAGE_MIME_TYPES = [
   'image/png',
   'image/webp',
   'image/jpeg',
@@ -50,7 +48,7 @@ export const ALLOWED_IMAGE_MIME_TYPES: MimeType[] = [
   'image/gif',
 ]
 
-export const ALLOWED_VIDEO_MIME_TYPES: MimeType[] = [
+export const ALLOWED_VIDEO_MIME_TYPES = [
   'video/mp4',
   'video/webm',
   'video/x-flv',

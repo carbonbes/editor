@@ -1,10 +1,10 @@
 <template>
   <div
-    class="relative flex items-center justify-center bg-contain bg-center bg-no-repeat cursor-pointer"
-    :style="{ backgroundImage: `url(${thumbnail})` }"
+    class="relative flex items-center justify-center bg-contain bg-center bg-no-repeat"
+    :style
   >
     <div
-      class="p-3 w-fit bg-black/50 rounded-full backdrop-blur-[2px] inner-border"
+      class="p-2 w-fit bg-black/50 rounded-full backdrop-blur-sm inner-border"
     >
       <PlayerPlayIcon class="!size-8 text-white [&>path]:fill-white" />
     </div>
@@ -14,13 +14,9 @@
 <script setup lang="ts">
 import { PlayerPlayIcon } from '~/components/Shared/Icons'
 
-const { media } = defineProps<{ media: string }>()
+const { thumbnail } = defineProps<{ thumbnail: string }>()
 
-const thumbnail = ref<string>()
-
-async function init() {
-  thumbnail.value = await getFrameFromBase64Video(media)
-}
-
-onMounted(init)
+const style = computed(() => {
+  return { backgroundImage: `url(${thumbnail})` }
+})
 </script>

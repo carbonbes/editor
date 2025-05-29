@@ -1,11 +1,19 @@
 <template>
-  <div class="relative bg-gray-100 flex justify-center aspect-video">
+  <div
+    class="relative min-h-[100px] flex items-center justify-center bg-gray-100"
+  >
     <div class="absolute top-0 right-0 m-2 z-[1]">
       <NodeActionsListDropdownTrigger />
     </div>
 
-    <Image v-if="isImage" :src="singleMedia" />
-    <Video v-else :src="singleMedia" />
+    <Image v-if="isImage" :src="media.src" class="h-full max-h-[300px]" />
+
+    <Video
+      v-else
+      :src="media.src"
+      :thumbnail="media.meta.thumbnail as string"
+      class="size-full aspect-video"
+    />
   </div>
 </template>
 
@@ -13,19 +21,9 @@
 import NodeActionsListDropdownTrigger from './NodeActionsListDropdownTrigger.vue'
 import Image from '~/components/Shared/Image.vue'
 import Video from '~/components/Shared/Video/Video.vue'
+import type { MediaItem } from '~/tiptap-extensions/mediaNode'
 
-const { singleMedia } = defineProps<{ singleMedia: string }>()
+const { media } = defineProps<{ media: MediaItem }>()
 
-const group = ref<'image' | 'video'>('image')
-
-const isImage = computed(() => group.value === 'image')
-
-async function init() {
-  const mediaGroup = await getMediaGroupFromBase64Media(singleMedia)
-  if (!mediaGroup) return
-
-  group.value = mediaGroup
-}
-
-onMounted(init)
+const isImage = computed(() => media.meta.mime.startsWith('image/'))
 </script>

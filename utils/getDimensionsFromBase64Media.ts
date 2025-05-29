@@ -45,7 +45,7 @@ function getMediaDimensions(
 export default async function (base64Media: string) {
   const mediaGroup = await getMediaGroupFromBase64Media(base64Media)
 
-  if (!mediaGroup) return
+  if (!mediaGroup) return null
 
   return getMediaDimensions(base64Media, mediaGroup)
 }

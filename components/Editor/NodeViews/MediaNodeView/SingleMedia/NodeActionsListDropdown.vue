@@ -11,7 +11,7 @@
           Добавить еще с устройства
         </DropdownMenuItem>
 
-        <DropdownMenuItem>
+        <DropdownMenuItem @click="clipboardMediaInsertionDialogOpen = true">
           <ClipboardPlusIcon />
           Добавить еще из буфера
         </DropdownMenuItem>
@@ -29,6 +29,9 @@ import {
   DropdownMenuItem,
 } from '~/components/Editor/NodeViews/MediaNodeView/Dropdown'
 import { PlusIcon, ClipboardPlusIcon } from '~/components/Shared/Icons'
+import { injectMediaNodeViewContext } from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'
 
 const open = ref(false)
+
+const { clipboardMediaInsertionDialogOpen } = injectMediaNodeViewContext()
 </script>

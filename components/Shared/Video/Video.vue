@@ -4,7 +4,7 @@
     :thumbnail="props.thumbnail"
     @click="isPlaying = true"
   />
-  <video v-else v-bind="props" />
+  <video v-else v-bind="videoElProps" />
 </template>
 
 <script setup lang="ts">
@@ -26,6 +26,8 @@ const props = withDefaults(
     autoplay: true,
   },
 )
+
+const { thumbnail, ...videoElProps } = props
 
 const isPlaying = ref(false)
 </script>

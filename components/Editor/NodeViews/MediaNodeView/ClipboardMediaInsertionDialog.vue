@@ -7,16 +7,19 @@
     <DialogPortal to="#teleports">
       <DialogOverlay />
 
-      <DialogContent class="gap-4" aria-describedby="Вставка из буфера">
-        <DialogContentHeader>
+      <DialogContent aria-describedby="">
+        <DialogContentHeader class="p-4">
           <DialogContentHeaderTitle>Вставка из буфера</DialogContentHeaderTitle>
         </DialogContentHeader>
 
-        <TextArea
-          placeholder="Вставьте файлы в это поле"
-          autofocus
-          @paste="handlePaste"
-        />
+        <div class="px-4 pb-4">
+          <TextArea
+            placeholder="Вставьте файлы в это поле"
+            autofocus
+            class="w-full"
+            @paste="handlePaste"
+          />
+        </div>
       </DialogContent>
     </DialogPortal>
   </DialogRoot>

@@ -1,5 +1,5 @@
 <template>
-  <DropdownMenuItem class="[&>.iconify]:!size-6">
+  <DropdownMenuItem class="gap-3 [&>.iconify]:!size-6">
     <slot />
   </DropdownMenuItem>
 </template>

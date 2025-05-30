@@ -23,54 +23,57 @@ export interface MediaNodeAttrs {
   media: MediaItem[] | null
 }
 
-async function getMediaMeta(
-  media: string | ArrayBuffer,
-): Promise<MediaItemMeta | null> {
-  const { width, height } =
-    (await getDimensionsFromBase64Media(media as string)) || {}
+async function getMediaItemMeta(media: string): Promise<MediaItemMeta | null> {
+  const buffer = getBufferFromBase64(media)
 
-  const buffer = getBufferFromBase64(media as string)
+  const fileType = await getFileTypeFromBuffer(buffer)
+  if (!fileType) return null
 
-  const { ext: extension, mime } = (await getFileTypeFromBuffer(buffer)) || {}
+  const { ext: extension, mime } = fileType
 
-  const group = await getMediaGroupFromBase64Media(media as string)
-
-  if (!width || !height || !extension || !mime || !group) return null
-
-  const thumbnail =
-    group === 'video'
-      ? await getThumbnailFromBase64Video(media as string)
+  const group = mime.startsWith('image/')
+    ? 'image'
+    : mime.startsWith('video/')
+      ? 'video'
       : null
 
-  return {
-    width,
-    height,
-    extension,
-    mime,
-    thumbnail,
-  }
+  if (!group) return null
+
+  const dimensions = await getDimensionsFromBase64Media(media)
+  if (!dimensions) return null
+
+  const { width, height } = dimensions
+
+  const thumbnail =
+    group === 'video' ? await getThumbnailFromBase64Video(media) : null
+
+  return { width, height, extension, mime, thumbnail }
 }
 
 export async function getMediaItemsFromFiles(files: File[]) {
-  return await Promise.all(
-    files.map(async (file) => {
-      const base64 = await getBase64FromFile(file)
-      if (!base64) return
+  const items: MediaItem[] = []
 
-      const id = window.crypto.randomUUID()
-      const src = base64
-      const meta = await getMediaMeta(base64)
+  for (const file of files) {
+    const base64 = (await getBase64FromFile(file)) as string
+    if (!base64) return null
 
-      return { id, src, meta }
-    }),
-  )
+    const id = window.crypto.randomUUID()
+    const src = base64
+
+    const meta = await getMediaItemMeta(base64)
+    if (!meta) return null
+
+    items.push({ id, src, meta })
+  }
+
+  return items
 }
 
 async function createMediaNode(
   { state: { schema, tr }, dispatch }: EditorView,
   files: File[],
 ) {
-  let media: MediaItem[]
+  let media: MediaItem[] | null = null
 
   try {
     media = await getMediaItemsFromFiles(files)
@@ -118,8 +121,12 @@ export const MediaNode = Node.create({
 
   addNodeView() {
     return VueNodeViewRenderer(MediaNodeView, {
-      stopEvent({ event }) {
-        event.preventDefault()
+      stopEvent() {
+        const selection = window.getSelection()
+
+        if (selection) {
+          selection.empty()
+        }
 
         return true
       },

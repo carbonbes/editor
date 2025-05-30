@@ -6,8 +6,8 @@
 
     <DropdownMenuPortal to="#teleports">
       <DropdownMenuContent :side-offset="5" :collision-padding="16">
-        <DropdownMenuItem>
-          <PlusIcon />
+        <DropdownMenuItem @click="deviceMediaInsertionDialogOpen = true">
+          <DevicesPlusIcon />
           Добавить еще с устройства
         </DropdownMenuItem>
 
@@ -27,11 +27,12 @@ import {
   DropdownMenuPortal,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '~/components/Editor/NodeViews/MediaNodeView/Dropdown'
-import { PlusIcon, ClipboardPlusIcon } from '~/components/Shared/Icons'
+} from '~/components/Editor/NodeViews/MediaNodeView/DropdownMenu'
+import { ClipboardPlusIcon, DevicesPlusIcon } from '~/components/Shared/Icons'
 import { injectMediaNodeViewContext } from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'
 
 const open = ref(false)
 
-const { clipboardMediaInsertionDialogOpen } = injectMediaNodeViewContext()
+const { deviceMediaInsertionDialogOpen, clipboardMediaInsertionDialogOpen } =
+  injectMediaNodeViewContext()
 </script>

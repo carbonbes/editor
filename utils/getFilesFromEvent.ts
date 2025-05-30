@@ -7,11 +7,11 @@ export default function (
   let files: File[]
 
   if (event instanceof ClipboardEvent) {
-    if (!event.clipboardData) return
+    if (!event.clipboardData || !event.clipboardData.files.length) return
 
     files = Array.from(event.clipboardData.files)
   } else {
-    if (!event.dataTransfer) return
+    if (!event.dataTransfer || !event.dataTransfer.files.length) return
 
     files = Array.from(event.dataTransfer.files)
   }

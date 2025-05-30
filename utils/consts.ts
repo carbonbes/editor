@@ -46,11 +46,11 @@ export const ALLOWED_IMAGE_MIME_TYPES = [
   'image/jpeg',
   'image/tiff',
   'image/gif',
-]
+] as const
 
 export const ALLOWED_VIDEO_MIME_TYPES = [
   'video/mp4',
   'video/webm',
   'video/x-flv',
   'video/mpeg',
-]
+] as const

@@ -1,34 +1,21 @@
 <template>
-  <BaseInnerBorder
-    class="relative min-h-[100px] flex items-center justify-center bg-gray-100 aspect-video rounded-2xl overflow-hidden"
-  >
-    <div class="absolute top-0 right-0 m-2 z-[1]">
-      <NodeActionsListDropdownTrigger />
-    </div>
+  <BaseMediaNodeView as-child>
+    <BaseInnerBorder
+      class="relative min-h-[100px] flex items-center justify-center aspect-video"
+    >
+      <DropdownMenuTrigger />
 
-    <Image
-      v-if="isImage"
-      :src="media.src"
-      class="h-full max-h-fit object-contain"
-    />
-
-    <Video
-      v-else
-      :src="media.src"
-      :thumbnail="media.meta.thumbnail as string"
-      class="size-full"
-    />
-  </BaseInnerBorder>
+      <Media :media />
+    </BaseInnerBorder>
+  </BaseMediaNodeView>
 </template>
 
 <script setup lang="ts">
-import NodeActionsListDropdownTrigger from './NodeActionsListDropdownTrigger.vue'
-import Image from '~/components/Shared/Image.vue'
-import Video from '~/components/Shared/Video/Video.vue'
-import type { MediaItem } from '~/tiptap-extensions/mediaNode'
+import BaseMediaNodeView from '~/components/Editor/NodeViews/MediaNodeView/BaseMediaNodeView.vue'
 import BaseInnerBorder from '~/components/Shared/Base/BaseInnerBorder.vue'
+import DropdownMenuTrigger from '~/components/Editor/NodeViews/MediaNodeView/SingleMedia/DropdownTrigger.vue'
+import Media from '~/components/Editor/NodeViews/MediaNodeView/SingleMedia/Media.vue'
+import type { MediaItem } from '~/tiptap-extensions/mediaNode'
 
 const { media } = defineProps<{ media: MediaItem }>()
-
-const isImage = computed(() => media.meta.mime.startsWith('image/'))
 </script>

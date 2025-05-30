@@ -1,6 +1,6 @@
 import { injectMediaNodeViewContext } from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'
 
-export function useEditorFileDialog() {
+export function useEditorMediaNodeViewFileDialog() {
   const { open, onChange, reset } = useFileDialog({
     accept: [...ALLOWED_IMAGE_MIME_TYPES, ...ALLOWED_VIDEO_MIME_TYPES].join(
       ',',

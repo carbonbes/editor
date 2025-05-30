@@ -50,7 +50,6 @@ async function add(files: File[]) {
 
 function remove(id: MediaItemId) {
   const index = media.value?.findIndex((item) => item.id === id)
-
   if (index === undefined || index === -1) return
 
   media.value?.splice(index, 1)

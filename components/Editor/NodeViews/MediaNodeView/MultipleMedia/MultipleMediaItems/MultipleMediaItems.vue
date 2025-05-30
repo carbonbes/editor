@@ -6,13 +6,13 @@
     class="flex flex-wrap gap-4"
   >
     <template #item="{ element }">
-      <MultipleMediaItem :media="element" />
+      <Item :media="element" />
     </template>
   </Draggable>
 </template>
 
 <script setup lang="ts">
-import MultipleMediaItem from '~/components/Editor/NodeViews/MediaNodeView/MultipleMedia/MultipleMediaItem.vue'
+import Item from '~/components/Editor/NodeViews/MediaNodeView/MultipleMedia/MultipleMediaItems/Item.vue'
 import Draggable from 'vuedraggable'
 import type { MediaItem } from '~/tiptap-extensions/mediaNode'
 

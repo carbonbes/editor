@@ -6,14 +6,16 @@
 
     <DropdownMenuPortal to="#teleports">
       <DropdownMenuContent :side-offset="5" :collision-padding="16">
-        <DropdownMenuItem @click="deviceMediaInsertionDialogOpen = true">
+        <DropdownMenuItem @click="openFileDialog">
           <DevicesPlusIcon />
           Добавить еще с устройства
         </DropdownMenuItem>
 
-        <DropdownMenuItem @click="clipboardMediaInsertionDialogOpen = true">
-          <ClipboardPlusIcon />
-          Добавить еще из буфера
+        <DropdownMenuItem>
+          <ClipboardMediaInsertionDialog>
+            <ClipboardPlusIcon />
+            Добавить еще из буфера
+          </ClipboardMediaInsertionDialog>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenuPortal>
@@ -27,12 +29,11 @@ import {
   DropdownMenuPortal,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '~/components/Editor/NodeViews/MediaNodeView/DropdownMenu'
+} from '~/components/Editor/NodeViews/MediaNodeView/SingleMedia/DropdownMenu'
+import ClipboardMediaInsertionDialog from '~/components/Editor/NodeViews/MediaNodeView/ClipboardMediaInsertionDialog.vue'
 import { ClipboardPlusIcon, DevicesPlusIcon } from '~/components/Shared/Icons'
-import { injectMediaNodeViewContext } from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'
 
 const open = ref(false)
 
-const { deviceMediaInsertionDialogOpen, clipboardMediaInsertionDialogOpen } =
-  injectMediaNodeViewContext()
+const { open: openFileDialog } = useEditorMediaNodeViewFileDialog()
 </script>

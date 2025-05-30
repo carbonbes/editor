@@ -1,6 +1,6 @@
 <template>
   <DialogRoot v-model:open="open">
-    <DialogTrigger>
+    <DialogTrigger as-child>
       <slot />
     </DialogTrigger>
 

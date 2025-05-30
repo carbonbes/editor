@@ -11,12 +11,12 @@
           Добавить еще с устройства
         </DropdownMenuItem>
 
-        <DropdownMenuItem>
-          <ClipboardMediaInsertionDialog>
+        <ClipboardMediaInsertionDialog>
+          <DropdownMenuItem>
             <ClipboardPlusIcon />
             Добавить еще из буфера
-          </ClipboardMediaInsertionDialog>
-        </DropdownMenuItem>
+          </DropdownMenuItem>
+        </ClipboardMediaInsertionDialog>
       </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>

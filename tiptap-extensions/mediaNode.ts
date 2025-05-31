@@ -122,7 +122,7 @@ export const MediaNode = Node.create({
   addNodeView() {
     return VueNodeViewRenderer(MediaNodeView, {
       stopEvent({ event }) {
-        if (event.type === 'touchstart') {
+        if (event.type === 'mousedown') {
           event.preventDefault()
         }
 

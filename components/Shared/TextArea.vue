@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import BaseInput from '~/components/Shared/Base/BaseInput.vue'
+import { BaseInput } from '~/components/Shared/Base'
 
 const { placeholder, autofocus } = defineProps<{
   placeholder?: string

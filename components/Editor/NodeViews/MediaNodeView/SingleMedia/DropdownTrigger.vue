@@ -10,6 +10,6 @@
 
 <script setup lang="ts">
 import DropdownMenu from '~/components/Editor/NodeViews/MediaNodeView/SingleMedia/Dropdown.vue'
-import BaseButton from '~/components/Shared/Base/BaseButton.vue'
+import { BaseButton } from '~/components/Shared/Base'
 import { DotsIcon } from '~/components/Shared/Icons'
 </script>

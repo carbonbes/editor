@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/icon',
     '@vueuse/nuxt',
+    'nuxt-swiper',
   ],
 
   fonts: {
@@ -25,5 +26,5 @@ export default defineNuxtConfig({
 
   icon: {
     mode: 'svg',
-  }
+  },
 })

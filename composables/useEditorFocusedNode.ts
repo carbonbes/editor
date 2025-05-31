@@ -1,9 +1,9 @@
 import { promiseTimeout } from '@vueuse/core'
 
 export function useEditorFocusedNode() {
-  const node = useState<Element | undefined>()
+  const node = useState<Element | null>(() => null)
 
-  function setFocusedNode(element: Element | undefined) {
+  function setFocusedNode(element: Element | null) {
     node.value = element
   }
 

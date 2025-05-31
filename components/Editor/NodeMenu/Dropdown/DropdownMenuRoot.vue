@@ -13,6 +13,6 @@ const { setFocusedNode } = useEditorFocusedNode()
 const { node } = useEditorNodesHoveringTracking()
 
 watch(open, (open) => {
-  setFocusedNode(open ? node.value : undefined)
+  setFocusedNode(open ? node.value : null)
 })
 </script>

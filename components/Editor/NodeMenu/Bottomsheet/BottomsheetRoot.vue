@@ -42,6 +42,6 @@ const { node } = useEditorNodesSwipingTracking({
 const { setFocusedNode } = useEditorFocusedNode()
 
 watch(open, (open) => {
-  setFocusedNode(open ? node.value : undefined)
+  setFocusedNode(open ? node.value : null)
 })
 </script>

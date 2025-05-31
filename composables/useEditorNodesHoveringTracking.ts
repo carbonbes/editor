@@ -1,5 +1,5 @@
 export function useEditorNodesHoveringTracking() {
-  const node = useState<Element | undefined>()
+  const node = useState<Element | null>(() => null)
 
   const { isTouch } = useDevice()
   const { node: focusedNode } = useEditorFocusedNode()
@@ -8,19 +8,7 @@ export function useEditorNodesHoveringTracking() {
   function handleMouseMove(e: MouseEvent) {
     if (isTouch.value || focusedNode.value || !dom.value) return
 
-    const { clientX, clientY } = e
-    const { left, right, top, bottom } = dom.value.getBoundingClientRect()
-
-    if (
-      clientX < left ||
-      clientX > right ||
-      clientY < top ||
-      clientY > bottom
-    ) {
-      node.value = undefined
-
-      return
-    }
+    const { clientY } = e
 
     for (const child of dom.value.children) {
       const { top: childTop, bottom: childBottom } =
@@ -33,11 +21,29 @@ export function useEditorNodesHoveringTracking() {
       }
     }
 
-    node.value = undefined
+    node.value = null
+  }
+
+  const { contentRef } = useEditorNodeMenuPopover()
+
+  function handleMouseLeave(e: MouseEvent) {
+    const relatedTarget = e.relatedTarget
+
+    if (
+      (relatedTarget &&
+        contentRef.value &&
+        contentRef.value.$el.contains(relatedTarget)) ||
+      focusedNode.value
+    ) {
+      return
+    }
+
+    node.value = null
   }
 
   function init() {
-    useEventListener(window, 'mousemove', handleMouseMove, { passive: true })
+    useEventListener(dom, 'mousemove', handleMouseMove, { passive: true })
+    useEventListener(dom, 'mouseleave', handleMouseLeave)
   }
 
   onMounted(init)

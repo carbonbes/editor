@@ -2,11 +2,10 @@ export function useEditorNodesHoveringTracking() {
   const node = useState<Element | null>(() => null)
 
   const { isTouch } = useDevice()
-  const { node: focusedNode } = useEditorFocusedNode()
   const { dom } = useEditorView()
 
   function handleMouseMove(e: MouseEvent) {
-    if (isTouch.value || focusedNode.value || !dom.value) return
+    if (isTouch.value || !dom.value) return
 
     const { clientY } = e
 
@@ -30,10 +29,9 @@ export function useEditorNodesHoveringTracking() {
     const relatedTarget = e.relatedTarget
 
     if (
-      (relatedTarget &&
-        contentRef.value &&
-        contentRef.value.$el.contains(relatedTarget)) ||
-      focusedNode.value
+      relatedTarget &&
+      contentRef.value &&
+      contentRef.value.$el.contains(relatedTarget)
     ) {
       return
     }

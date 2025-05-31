@@ -81,7 +81,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuRoot,
   DropdownMenuSubContent,
-} from '~/components/Editor/NodeMenu/Dropdown'
+} from '~/components/Editor/NodeMenu/DropdownMenu'
 import {
   ArrowIcon,
   HeadingIcon,
@@ -90,7 +90,14 @@ import {
   TrashIcon,
 } from '~/components/Shared/Icons'
 
-const open = defineModel<boolean>('open', { default: false })
+const open = ref(false)
+
+const { setFocusedNode } = useEditorFocusedNode()
+const { node } = useEditorNodesHoveringTracking()
+
+watch(open, (open) => {
+  setFocusedNode(open ? node.value : null)
+})
 
 const {
   canMoveNodeToUp,

@@ -8,6 +8,7 @@
         :reference="node"
         @open-auto-focus="(e) => e.preventDefault()"
         @interact-outside="(e) => e.preventDefault()"
+        @escape-key-down="(e) => e.preventDefault()"
       >
         <Buttons>
           <NodesListDropdownTrigger />

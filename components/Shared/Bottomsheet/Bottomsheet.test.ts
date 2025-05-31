@@ -3,6 +3,7 @@ import { flushPromises, mount } from '@vue/test-utils'
 import {
   BottomsheetContent,
   BottomsheetContentHeader,
+  BottomsheetContentHeaderTitle,
   BottomsheetContentScrollable,
   BottomsheetPortal,
   BottomsheetRoot,
@@ -13,6 +14,7 @@ async function mountBottomsheet(template?: string) {
     components: {
       BottomsheetContent,
       BottomsheetContentHeader,
+      BottomsheetContentHeaderTitle,
       BottomsheetContentScrollable,
       BottomsheetPortal,
       BottomsheetRoot,
@@ -41,10 +43,10 @@ async function mountBottomsheet(template?: string) {
 describe('Bottomsheet', () => {
   describe('BottomsheetContent', () => {
     const cases = [
-      ['should render without slot', '<BottomsheetContent />'],
+      ['should render without slot', '<BottomsheetContent aria-describedby="" />'],
       [
         'should render with slot',
-        '<BottomsheetContent><p>Bottomsheet Content Test</p></BottomsheetContent>',
+        '<BottomsheetContent aria-describedby=""><p>Bottomsheet Content Test</p></BottomsheetContent>',
       ],
     ]
 
@@ -100,6 +102,25 @@ describe('Bottomsheet', () => {
       await button.trigger('click')
 
       expect(wrapper.vm.open).toBe(false)
+
+      wrapper.unmount()
+    })
+  })
+
+  describe('BottomsheetContentHeaderTitle', () => {
+    const cases = [
+      ['should render without slot', '<BottomsheetContentHeaderTitle />'],
+      [
+        'should render with slot',
+        '<BottomsheetContentHeaderTitle><p>Test</p></BottomsheetContentHeaderTitle>',
+      ],
+    ]
+
+    test.each(cases)('%s', async (_, template) => {
+      const wrapper = await mountBottomsheet(template)
+      const title = wrapper.getComponent(BottomsheetContentHeaderTitle)
+
+      expect(title.html()).toMatchSnapshot()
 
       wrapper.unmount()
     })

@@ -8,5 +8,5 @@
 
 <script setup lang="ts">
 import { DialogTitle } from 'reka-ui'
-import ModalTitle from '~/components/Shared/Modal/ModalTitle.vue'
+import { ModalTitle } from '~/components/Shared/Modal'
 </script>

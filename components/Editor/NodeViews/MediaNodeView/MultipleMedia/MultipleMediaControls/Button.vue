@@ -1,6 +1,6 @@
 <template>
   <BaseButton
-    class="p-1.5 bg-white shadow rounded-xl cursor-pointer [&>.iconify]:!size-6"
+    class="p-2 bg-white shadow rounded-xl cursor-pointer [&>.iconify]:!size-6"
   >
     <slot />
   </BaseButton>

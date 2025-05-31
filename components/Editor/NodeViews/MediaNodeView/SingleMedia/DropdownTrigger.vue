@@ -1,7 +1,7 @@
 <template>
   <DropdownMenu>
     <BaseButton
-      class="absolute top-0 right-0 m-2 p-1.5 bg-white rounded-xl shadow z-[1]"
+      class="absolute top-0 right-0 m-2 p-2 bg-white rounded-xl shadow z-[1]"
     >
       <DotsIcon class="!size-6" />
     </BaseButton>

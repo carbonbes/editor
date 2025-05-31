@@ -121,11 +121,9 @@ export const MediaNode = Node.create({
 
   addNodeView() {
     return VueNodeViewRenderer(MediaNodeView, {
-      stopEvent() {
-        const selection = window.getSelection()
-
-        if (selection) {
-          selection.empty()
+      stopEvent({ event }) {
+        if (event.type === 'touchstart') {
+          event.preventDefault()
         }
 
         return true

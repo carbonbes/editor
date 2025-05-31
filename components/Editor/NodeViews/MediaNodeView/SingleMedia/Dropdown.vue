@@ -11,12 +11,10 @@
           Добавить еще с устройства
         </DropdownMenuItem>
 
-        <ClipboardMediaInsertionDialog>
-          <DropdownMenuItem>
-            <ClipboardPlusIcon />
-            Добавить еще из буфера
-          </DropdownMenuItem>
-        </ClipboardMediaInsertionDialog>
+        <DropdownMenuItem @click="clipboardDialogOpen = true">
+          <ClipboardPlusIcon />
+          Добавить еще из буфера
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
@@ -30,10 +28,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '~/components/Editor/NodeViews/MediaNodeView/SingleMedia/DropdownMenu'
-import ClipboardMediaInsertionDialog from '~/components/Editor/NodeViews/MediaNodeView/ClipboardMediaInsertionDialog.vue'
+import { injectMediaNodeViewContext } from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'
 import { ClipboardPlusIcon, DevicesPlusIcon } from '~/components/Shared/Icons'
 
 const open = ref(false)
 
 const { open: openFileDialog } = useEditorMediaNodeViewFileDialog()
+const { clipboardDialogOpen } = injectMediaNodeViewContext()
 </script>

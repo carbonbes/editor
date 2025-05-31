@@ -6,6 +6,8 @@
       <MultipleMedia v-else-if="multipleMedia" :media="multipleMedia" />
     </div>
   </NodeViewWrapper>
+
+  <ClipboardDialog v-model:open="clipboardDialogOpen" />
 </template>
 
 <script lang="ts" setup>
@@ -15,6 +17,7 @@ import {
   EmptyMedia,
   SingleMedia,
   MultipleMedia,
+  ClipboardDialog
 } from '~/components/Editor/NodeViews/MediaNodeView'
 import {
   getMediaItemsFromFiles,
@@ -55,13 +58,16 @@ function remove(id: MediaItemId) {
   media.value?.splice(index, 1)
 }
 
-provideMediaNodeViewContext({ add, remove })
+const clipboardDialogOpen = ref(false)
+
+provideMediaNodeViewContext({ add, remove, clipboardDialogOpen })
 </script>
 
 <script lang="ts">
 export interface MediaNodeViewContext {
   add: (files: File[]) => void
   remove: (id: MediaItemId) => void
+  clipboardDialogOpen: Ref<boolean>
 }
 
 export const [injectMediaNodeViewContext, provideMediaNodeViewContext] =

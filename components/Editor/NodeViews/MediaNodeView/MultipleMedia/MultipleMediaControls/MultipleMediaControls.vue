@@ -4,18 +4,17 @@
       <DevicesPlusIcon />
     </Button>
 
-    <ClipboardMediaInsertionDialog>
-      <Button>
-        <ClipboardPlusIcon />
-      </Button>
-    </ClipboardMediaInsertionDialog>
+    <Button @click="clipboardDialogOpen = true">
+      <ClipboardPlusIcon />
+    </Button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { DevicesPlusIcon, ClipboardPlusIcon } from '~/components/Shared/Icons'
+import { injectMediaNodeViewContext } from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'
 import Button from '~/components/Editor/NodeViews/MediaNodeView/MultipleMedia/MultipleMediaControls/Button.vue'
-import ClipboardMediaInsertionDialog from '~/components/Editor/NodeViews/MediaNodeView/ClipboardMediaInsertionDialog.vue'
+import { DevicesPlusIcon, ClipboardPlusIcon } from '~/components/Shared/Icons'
 
 const { open } = useEditorMediaNodeViewFileDialog()
+const { clipboardDialogOpen } = injectMediaNodeViewContext()
 </script>

@@ -9,14 +9,15 @@
 
       <DialogContent aria-describedby="">
         <DialogContentHeader class="p-4">
-          <DialogContentHeaderTitle>Вставка из буфера</DialogContentHeaderTitle>
+          <DialogContentHeaderTitle>
+            Вставка из буфера
+          </DialogContentHeaderTitle>
         </DialogContentHeader>
 
         <div class="px-4 pb-4">
           <TextArea
             placeholder="Вставьте файлы в это поле"
-            autofocus
-            class="w-full"
+            autofocus class="w-full"
             @paste="handlePaste"
           />
         </div>

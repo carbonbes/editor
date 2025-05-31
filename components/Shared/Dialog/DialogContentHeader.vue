@@ -3,7 +3,7 @@
     <slot />
 
     <DialogClose as-child data-testid="dialog-content-header/close-button">
-      <ModalCloseButton class="ml-8" />
+      <ModalClose class="ml-8" />
     </DialogClose>
   </Primitive>
 </template>
@@ -15,7 +15,7 @@ import {
   type PrimitiveProps,
   useForwardProps,
 } from 'reka-ui'
-import { ModalCloseButton } from '~/components/Shared/Modal'
+import { ModalClose } from '~/components/Shared/Modal'
 
 const props = defineProps<PrimitiveProps>()
 const forwarded = useForwardProps(props)

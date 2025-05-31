@@ -1,1 +1,1 @@
-export { default as ModalCloseButton } from './ModalCloseButton.vue'
+export { default as ModalClose } from './ModalClose.vue'

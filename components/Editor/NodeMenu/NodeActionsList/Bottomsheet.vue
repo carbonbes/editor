@@ -10,7 +10,7 @@
 
       <BottomsheetContent>
         <BottomsheetContentHeader>
-          <TransitionBetween :index="state.page" class="h-full">
+          <TransitionBetween :index="state.page" class="h-full flex items-center">
             <BottomsheetContentHeaderTitle v-if="state.page === 0">
               Настройки узла
             </BottomsheetContentHeaderTitle>

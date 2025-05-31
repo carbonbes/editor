@@ -22,4 +22,8 @@ export default defineNuxtConfig({
   fonts: {
     families: [{ name: 'Inter', provider: 'google' }],
   },
+
+  icon: {
+    mode: 'svg',
+  }
 })

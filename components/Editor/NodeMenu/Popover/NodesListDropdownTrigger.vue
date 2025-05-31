@@ -1,15 +1,13 @@
 <template>
-  <NodesListDropdown v-model:open="open">
-    <Button :active="open">
+  <NodesListDropdown>
+    <Button>
       <PlusIcon />
     </Button>
   </NodesListDropdown>
 </template>
 
 <script setup lang="ts">
+import NodesListDropdown from '~/components/Editor/NodeMenu/NodesList/Dropdown.vue'
 import Button from '~/components/Editor/NodeMenu/Popover/Button.vue'
 import { PlusIcon } from '~/components/Shared/Icons'
-import NodesListDropdown from '~/components/Editor/NodeMenu/NodesList/Dropdown.vue'
-
-const open = ref(false)
 </script>

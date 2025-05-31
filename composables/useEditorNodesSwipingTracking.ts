@@ -17,7 +17,7 @@ export function useEditorNodesSwipingTracking({
   bound = 0,
   handlers: { onSwipeStart, onSwipe, onSwipeEnd },
 }: UseEditorNodesSwipingTrackingOptions) {
-  const node = ref<Element>()
+  const node = useState<Element | null>(() => null)
   const pos = useEditorNodePos(node)
 
   const { setNodeStylesAttrs } = useEditorNodeSelectionCommands()

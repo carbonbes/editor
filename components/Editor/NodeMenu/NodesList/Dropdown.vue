@@ -48,6 +48,11 @@
         </DropdownMenuSubContent>
       </DropdownMenuSub>
 
+      <DropdownMenuItem @click="insertNode('media')">
+        <LibraryPhotoIcon />
+        Картинка / видео
+      </DropdownMenuItem>
+
       <DropdownMenuItem @click="insertNode('blockquote')">
         <QuoteIcon />
         Цитата
@@ -75,7 +80,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuRoot,
   DropdownMenuSubContent,
-} from '~/components/Editor/NodeMenu/Dropdown'
+} from '~/components/Editor/NodeMenu/DropdownMenu'
 import {
   CodeIcon,
   HeadingIcon,
@@ -83,9 +88,17 @@ import {
   QuoteIcon,
   SeparatorIcon,
   TextIcon,
+  LibraryPhotoIcon,
 } from '~/components/Shared/Icons'
 
-const open = defineModel<boolean>('open', { default: false })
+const open = ref(false)
+
+const { setFocusedNode } = useEditorFocusedNode()
+const { node } = useEditorNodesHoveringTracking()
+
+watch(open, (open) => {
+  setFocusedNode(open ? node.value : null)
+})
 
 const { insertNode } = useEditorNodeSelectionCommands()
 </script>

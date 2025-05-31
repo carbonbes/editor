@@ -3,39 +3,224 @@
 </template>
 
 <script lang="ts" setup>
-const content = `
-  <h2>Заголовок 2 уровня</h2>
-
-  <h3>Заголовок 3 уровня</h3>
-
-  <p>Обычный текст</p>
-
-  <ul>
-    <li>Маркированный список из единственного элемента</li>
-  </ul>
-
-  <ol>
-    <li>Нумерованный список из единственного элемента</li>
-  </ol>
-
-  <ul>
-    <li>Маркированный список, состоящий из нескольких элементов</li>
-    <li>Вот второй элемент</li>
-  </ul>
-
-  <ol>
-    <li>Нумерованный список, состоящий из нескольких элементов</li>
-    <li>Вот второй элемент</li>
-  </ol>
-
-  <hr />
-
-  <blockquote>
-    <p>Это цитата</p>
-  </blockquote>
-
-  <pre>
-    <code>Это код</code>
-  </pre>
-`
+const content = {
+  type: 'doc',
+  content: [
+    {
+      type: 'heading',
+      attrs: {
+        testid: null,
+        level: 2,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Заголовок 2 уровня',
+        },
+      ],
+    },
+    {
+      type: 'heading',
+      attrs: {
+        testid: null,
+        level: 3,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Заголовок 3 уровня',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        testid: null,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Обычный текст',
+        },
+      ],
+    },
+    {
+      type: 'bulletList',
+      attrs: {
+        testid: null,
+      },
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                testid: null,
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Маркированный список из единственного элемента',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'orderedList',
+      attrs: {
+        testid: null,
+        start: 1,
+        type: null,
+      },
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                testid: null,
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Нумерованный список из единственного элемента',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'bulletList',
+      attrs: {
+        testid: null,
+      },
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                testid: null,
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Маркированный список, состоящий из нескольких элементов',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                testid: null,
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Вот второй элемент',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'orderedList',
+      attrs: {
+        testid: null,
+        start: 1,
+        type: null,
+      },
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                testid: null,
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Нумерованный список, состоящий из нескольких элементов',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                testid: null,
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Вот второй элемент',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'horizontalRule',
+      attrs: {
+        testid: null,
+      },
+    },
+    {
+      type: 'blockquote',
+      attrs: {
+        testid: null,
+      },
+      content: [
+        {
+          type: 'paragraph',
+          attrs: {
+            testid: null,
+          },
+          content: [
+            {
+              type: 'text',
+              text: 'Это цитата',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'codeBlock',
+      attrs: {
+        testid: null,
+        language: null,
+      },
+      content: [
+        {
+          type: 'text',
+          text: '    Это код',
+        },
+      ],
+    },
+  ],
+}
 </script>

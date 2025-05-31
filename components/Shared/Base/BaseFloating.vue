@@ -1,7 +1,7 @@
 <template>
   <Primitive
     v-bind="forwarded"
-    class="bg-white ring-1 ring-gray-200 shadow-lg"
+    class="bg-white ring-1 ring-gray-200/50 shadow-lg"
   >
     <slot />
   </Primitive>

@@ -1,20 +1,28 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Bottomsheet > BottomsheetContent > should render with slot 1`] = `
-"<div data-dismissable-layer="" style="--snap-point-height: 0; pointer-events: auto;" id="" role="dialog" aria-describedby="" aria-labelledby="reka-dialog-title-v-0" data-state="open" vaul-drawer="" vaul-drawer-direction="bottom" vaul-drawer-visible="true" tabindex="-1" class="fixed right-0 bottom-0 left-0 w-full h-full max-h-[95%] flex flex-col bg-white rounded-t-3xl"><span aria-hidden="true" style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); clip-path: inset(50%); white-space: nowrap; word-wrap: normal;"><h2 id="reka-dialog-title-v-0"></h2></span>
+"<div data-dismissable-layer="" style="--snap-point-height: 0; pointer-events: auto;" id="" role="dialog" aria-describedby="" aria-labelledby="reka-dialog-title-v-0" data-state="open" vaul-drawer="" vaul-drawer-direction="bottom" vaul-drawer-visible="true" tabindex="-1" class="fixed right-0 bottom-0 left-0 w-full h-full max-h-[95%] flex flex-col bg-white rounded-t-3xl">
   <p>Bottomsheet Content Test</p>
 </div>"
 `;
 
-exports[`Bottomsheet > BottomsheetContent > should render without slot 1`] = `"<div data-dismissable-layer="" style="--snap-point-height: 0; pointer-events: auto;" id="" role="dialog" aria-describedby="" aria-labelledby="reka-dialog-title-v-0" data-state="open" vaul-drawer="" vaul-drawer-direction="bottom" vaul-drawer-visible="false" tabindex="-1" class="fixed right-0 bottom-0 left-0 w-full h-full max-h-[95%] flex flex-col bg-white rounded-t-3xl"><span aria-hidden="true" style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); clip-path: inset(50%); white-space: nowrap; word-wrap: normal;"><h2 id="reka-dialog-title-v-0"></h2></span></div>"`;
+exports[`Bottomsheet > BottomsheetContent > should render without slot 1`] = `"<div data-dismissable-layer="" style="--snap-point-height: 0; pointer-events: auto;" id="" role="dialog" aria-describedby="" aria-labelledby="reka-dialog-title-v-0" data-state="open" vaul-drawer="" vaul-drawer-direction="bottom" vaul-drawer-visible="false" tabindex="-1" class="fixed right-0 bottom-0 left-0 w-full h-full max-h-[95%] flex flex-col bg-white rounded-t-3xl"></div>"`;
 
 exports[`Bottomsheet > BottomsheetContentHeader > should render with slot 1`] = `
-"<div class="flex items-center">
-  <p>Bottomsheet Content Header Test</p><button type="button" class="ml-auto p-1.5 flex items-center justify-center bg-gray-200/50 rounded-full" data-testid="bottomsheet-content-header/close-button"><span class="iconify i-tabler:x size-5" aria-hidden="true"></span></button>
+"<div class="flex items-center justify-between">
+  <p>Bottomsheet Content Header Test</p><button class="p-1.5 flex items-center justify-center bg-gray-200/50 hover:bg-gray-300/50 rounded-full cursor-pointer ml-8" type="button" data-testid="bottomsheet-content-header/close-button"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="size-5" width="1em" height="1em" viewBox="0 0 16 16"></svg></button>
 </div>"
 `;
 
-exports[`Bottomsheet > BottomsheetContentHeader > should render without slot 1`] = `"<div class="flex items-center"><button type="button" class="ml-auto p-1.5 flex items-center justify-center bg-gray-200/50 rounded-full" data-testid="bottomsheet-content-header/close-button"><span class="iconify i-tabler:x size-5" aria-hidden="true"></span></button></div>"`;
+exports[`Bottomsheet > BottomsheetContentHeader > should render without slot 1`] = `"<div class="flex items-center justify-between"><button class="p-1.5 flex items-center justify-center bg-gray-200/50 hover:bg-gray-300/50 rounded-full cursor-pointer ml-8" type="button" data-testid="bottomsheet-content-header/close-button"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="size-5" width="1em" height="1em" viewBox="0 0 16 16"></svg></button></div>"`;
+
+exports[`Bottomsheet > BottomsheetContentHeaderTitle > should render with slot 1`] = `
+"<p class="text-xl font-bold whitespace-nowrap" id="">
+<p>Test</p>
+</p>"
+`;
+
+exports[`Bottomsheet > BottomsheetContentHeaderTitle > should render without slot 1`] = `"<p class="text-xl font-bold whitespace-nowrap" id=""></p>"`;
 
 exports[`Bottomsheet > BottomsheetContentScrollable > should render with slot 1`] = `
 "<div class="overflow-y-auto">

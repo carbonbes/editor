@@ -8,14 +8,12 @@
 </template>
 
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps, useForwardProps } from 'reka-ui'
+import { Primitive, useForwardProps } from 'reka-ui'
+import type { BaseButtonProps } from '~/components/Shared/Base/BaseButton'
 
-const props = withDefaults(
-  defineProps<PrimitiveProps>(),
-  {
-    as: 'button'
-  }
-)
+const props = withDefaults(defineProps<BaseButtonProps>(), {
+  as: 'button',
+})
 
 const forwarded = useForwardProps(props)
 </script>

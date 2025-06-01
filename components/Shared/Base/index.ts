@@ -1,4 +1,4 @@
-export { default as BaseButton } from './BaseButton.vue'
+export { default as BaseButton } from './BaseButton/BaseButton.vue'
 export { default as BaseFloating } from './BaseFloating.vue'
 export { default as BaseInnerBorder } from './BaseInnerBorder.vue'
 export { default as BaseInput } from './BaseInput.vue'

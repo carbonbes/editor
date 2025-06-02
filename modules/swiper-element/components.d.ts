@@ -7,7 +7,7 @@ interface SwiperContainerProps
   extends HTMLBaseProps,
     Omit<SwiperOptions, 'modules'> {}
 
-type SwiperEmits = {
+type SwiperContainerEmits = {
   [K in keyof SwiperEvents as K extends `_${string}`
     ? never
     : `swiper${Lowercase<K & string>}`]: (
@@ -27,7 +27,7 @@ declare module 'vue' {
       {},
       {},
       {},
-      SwiperEmits
+      SwiperContainerEmits
     >
     'swiper-slide': DefineComponent<SwiperSlideProps>
   }

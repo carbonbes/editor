@@ -6,17 +6,17 @@ export default defineNuxtModule({
   },
 
   setup(opts, nuxt) {
-    const resolver = createResolver(import.meta.url)
-
     nuxt.options.vue.compilerOptions.isCustomElement = (tag: string) =>
       ['swiper-container', 'swiper-slide'].includes(tag)
 
-    addPlugin(resolver.resolve('./components.client.ts'))
+    const resolver = createResolver(import.meta.url)
 
     nuxt.hook('prepare:types', ({ references }) => {
       references.push({
         path: resolver.resolve('./components.d.ts'),
       })
     })
+
+    addPlugin(resolver.resolve('./plugins/register.ts'))
   },
 })

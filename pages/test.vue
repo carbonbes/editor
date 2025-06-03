@@ -1,6 +1,8 @@
 <template>
   <LightboxRoot v-model:open="open">
-    <button @click="open = true">Открыть</button>
+    <LightboxTrigger>
+      <button>Открыть</button>
+    </LightboxTrigger>
 
     <LightboxPortal to="#teleports">
       <LightboxOverlay />
@@ -9,7 +11,7 @@
         <LightboxTitle />
 
         <LightboxPrevious class="absolute left-0 z-[2]">
-          <ChevronIcon left />
+          <ChevronIcon left class="!size-10 text-white" />
         </LightboxPrevious>
 
         <LightboxItems>
@@ -19,7 +21,7 @@
         </LightboxItems>
 
         <LightboxNext class="absolute right-0 z-[2]">
-          <ChevronIcon right />
+          <ChevronIcon right class="!size-10 text-white" />
         </LightboxNext>
       </LightboxContent>
     </LightboxPortal>
@@ -37,6 +39,7 @@ import {
   LightboxPrevious,
   LightboxRoot,
   LightboxTitle,
+  LightboxTrigger,
 } from '~/components/Shared/Lightbox'
 import { ChevronIcon } from '~/components/Shared/Icons'
 

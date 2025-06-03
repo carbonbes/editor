@@ -11,13 +11,6 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  vue: {
-    compilerOptions: {
-      isCustomElement: (tag) =>
-        ['swiper-container', 'swiper-slide'].includes(tag),
-    },
-  },
-
   modules: [
     '@nuxt/test-utils/module',
     '@nuxt/eslint',

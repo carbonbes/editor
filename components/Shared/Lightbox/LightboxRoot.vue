@@ -22,7 +22,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 const open = defineModel<boolean>('open', { default: false })
 
 const swiperContainerRef = ref<SwiperContainer | null>(null)
-const swiper = computed(() => swiperContainerRef.value?.swiper)
+const swiper = computed(() => swiperContainerRef.value?.swiper || null)
 
 provideLightboxContext({ open, swiperContainerRef, swiper })
 </script>
@@ -31,7 +31,7 @@ provideLightboxContext({ open, swiperContainerRef, swiper })
 export interface LightboxContext {
   open: Ref<boolean>
   swiperContainerRef: Ref<SwiperContainer | null>
-  swiper: Ref<Swiper | undefined>
+  swiper: Ref<Swiper | null>
 }
 
 export const [injectLightboxContext, provideLightboxContext] =

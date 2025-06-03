@@ -11,12 +11,13 @@ type SwiperContainerEmits = {
   [K in keyof SwiperEvents as K extends `_${string}`
     ? never
     : `swiper${Lowercase<K & string>}`]: (
-    e: CustomEvent<Parameters<SwiperEvents[K]>>,
+    e: CustomEvent<SwiperEvents[K]>,
   ) => void
 }
 
 type SwiperSlideProps = HTMLBaseProps
 
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 declare module 'vue' {
   interface GlobalComponents {
     'swiper-container': DefineComponent<
@@ -29,6 +30,7 @@ declare module 'vue' {
       {},
       SwiperContainerEmits
     >
+
     'swiper-slide': DefineComponent<SwiperSlideProps>
   }
 }

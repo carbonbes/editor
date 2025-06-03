@@ -13,7 +13,7 @@ export default defineNuxtModule({
 
     nuxt.hook('prepare:types', ({ references }) => {
       references.push({
-        path: resolver.resolve('./components.d.ts'),
+        path: resolver.resolve('./types'),
       })
     })
 

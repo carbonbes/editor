@@ -1,31 +1,29 @@
 <template>
-  <div>
+  <LightboxRoot v-model:open="open">
     <button @click="open = true">Открыть</button>
 
-    <LightboxRoot v-model:open="open">
-      <LightboxPortal to="#teleports">
-        <LightboxOverlay />
+    <LightboxPortal to="#teleports">
+      <LightboxOverlay />
 
-        <LightboxContent aria-describedby="" class="flex items-center">
-          <LightboxTitle />
+      <LightboxContent aria-describedby="" class="flex items-center">
+        <LightboxTitle />
 
-          <LightboxPrevious class="absolute left-0 z-[2]">
-            <ChevronIcon left />
-          </LightboxPrevious>
+        <LightboxPrevious class="absolute left-0 z-[2]">
+          <ChevronIcon left />
+        </LightboxPrevious>
 
-          <LightboxItems>
-            <LightboxItem>Первый слайд</LightboxItem>
+        <LightboxItems>
+          <LightboxItem>Первый слайд</LightboxItem>
 
-            <LightboxItem>Второй слайд</LightboxItem>
-          </LightboxItems>
+          <LightboxItem>Второй слайд</LightboxItem>
+        </LightboxItems>
 
-          <LightboxNext class="absolute right-0 z-[2]">
-            <ChevronIcon right />
-          </LightboxNext>
-        </LightboxContent>
-      </LightboxPortal>
-    </LightboxRoot>
-  </div>
+        <LightboxNext class="absolute right-0 z-[2]">
+          <ChevronIcon right />
+        </LightboxNext>
+      </LightboxContent>
+    </LightboxPortal>
+  </LightboxRoot>
 </template>
 
 <script setup lang="ts">

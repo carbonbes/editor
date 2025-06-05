@@ -1,9 +1,9 @@
 <template>
-  <swiper-slide>
+  <SwiperSlide>
     <slot />
-  </swiper-slide>
+  </SwiperSlide>
 </template>
 
 <script setup lang="ts">
-
+import { SwiperSlide } from '~/components/Shared/Swiper'
 </script>

@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { injectLightboxContext } from './LightboxRoot.vue'
 
-const { open, items } = injectLightboxContext()
+const { open } = injectLightboxContext()
 
 const slots = useSlots()
 

@@ -7,22 +7,30 @@
     <LightboxPortal to="#teleports">
       <LightboxOverlay />
 
-      <LightboxContent aria-describedby="" class="flex items-center">
-        <LightboxTitle />
+      <LightboxContent aria-describedby="">
+        <LightboxIndex class="m-4 text-lg text-white" />
 
-        <LightboxPrevious class="absolute left-0 z-[2]">
-          <ChevronIcon left class="!size-10 text-white" />
-        </LightboxPrevious>
+        <LightboxControlsOverlay class="mx-4">
+          <div class="size-full flex items-center justify-between">
+            <LightboxPrevious class="z-[2]">
+              <ChevronIcon left class="!size-12 text-white" />
+            </LightboxPrevious>
 
-        <LightboxItems>
-          <LightboxItem>Первый слайд</LightboxItem>
+            <LightboxNext class="z-[2]">
+              <ChevronIcon right class="!size-12 text-white" />
+            </LightboxNext>
+          </div>
+        </LightboxControlsOverlay>
 
-          <LightboxItem>Второй слайд</LightboxItem>
+        <LightboxItems :loop="true">
+          <LightboxItem class="flex items-center justify-center">
+            Первый слайд
+          </LightboxItem>
+
+          <LightboxItem class="flex items-center justify-center">
+            Второй слайд
+          </LightboxItem>
         </LightboxItems>
-
-        <LightboxNext class="absolute right-0 z-[2]">
-          <ChevronIcon right class="!size-10 text-white" />
-        </LightboxNext>
       </LightboxContent>
     </LightboxPortal>
   </LightboxRoot>
@@ -31,6 +39,8 @@
 <script setup lang="ts">
 import {
   LightboxContent,
+  LightboxControlsOverlay,
+  LightboxIndex,
   LightboxItem,
   LightboxItems,
   LightboxNext,
@@ -38,7 +48,6 @@ import {
   LightboxPortal,
   LightboxPrevious,
   LightboxRoot,
-  LightboxTitle,
   LightboxTrigger,
 } from '~/components/Shared/Lightbox'
 import { ChevronIcon } from '~/components/Shared/Icons'

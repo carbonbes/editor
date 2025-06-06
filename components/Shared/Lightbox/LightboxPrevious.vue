@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import LightboxNavigationControl from '~/components/Shared/Lightbox/LightboxNavigationControl.vue'
-import { injectLightboxContext } from './LightboxRoot.vue'
+import { injectLightboxContext } from './'
 
 const { swiper } = injectLightboxContext()
 

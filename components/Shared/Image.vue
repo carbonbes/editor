@@ -1,9 +1,12 @@
 <template>
-  <img v-bind="props" />
+  <img :src :alt>
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{ src: string; alt?: string }>(), {
-  alt: '',
-})
+const { src, alt } = withDefaults(
+  defineProps<{ src: string; alt?: string }>(),
+  {
+    alt: '',
+  },
+)
 </script>

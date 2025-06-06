@@ -10,6 +10,8 @@
 <script lang="ts" setup>
 import { Primitive, useForwardProps, type PrimitiveProps } from 'reka-ui'
 
-const props = defineProps<PrimitiveProps>()
+export type BaseOverlayProps = PrimitiveProps
+
+const props = defineProps<BaseOverlayProps>()
 const forwarded = useForwardProps(props)
 </script>

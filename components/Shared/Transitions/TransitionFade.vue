@@ -13,7 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import type { TransitionFadeProps } from '~/components/Shared/Transitions'
+import type { BaseTransitionProps } from './'
+
+export type TransitionFadeProps = BaseTransitionProps
 
 const { duration = 250 } = defineProps<TransitionFadeProps>()
 

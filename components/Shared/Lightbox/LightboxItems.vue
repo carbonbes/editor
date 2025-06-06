@@ -1,21 +1,20 @@
 <template>
-  <SwiperContainer
-    v-bind="forwarded"
-    ref="swiperContainerRef"
-    class="absolute inset-0"
-  >
+  <SwiperContainer v-bind="forwarded" ref="swiperContainerRef">
     <slot />
   </SwiperContainer>
 </template>
 
 <script setup lang="ts">
-import { SwiperContainer } from '~/components/Shared/Swiper'
-import type {
-  LightboxItemsEmits,
-  LightboxItemsProps,
-} from '~/components/Shared/Lightbox'
+import {
+  SwiperContainer,
+  type SwiperContainerEmits,
+  type SwiperContainerProps,
+} from '~/components/Shared/Swiper'
 import { useForwardPropsEmits } from 'reka-ui'
-import { injectLightboxContext } from './LightboxRoot.vue'
+import { injectLightboxContext } from './'
+
+export type LightboxItemsProps = SwiperContainerProps
+export type LightboxItemsEmits = SwiperContainerEmits
 
 const props = defineProps<LightboxItemsProps>()
 const emits = defineEmits<LightboxItemsEmits>()

@@ -3,23 +3,24 @@
 </template>
 
 <script setup lang="ts">
-import { Primitive, useForwardProps } from 'reka-ui'
-import type { LightboxIndexProps } from '~/components/Shared/Lightbox'
-import { injectLightboxContext } from './LightboxRoot.vue'
+import { Primitive, type PrimitiveProps, useForwardProps } from 'reka-ui'
+import { injectLightboxContext } from './'
 import type { SwiperEvents } from 'swiper/types'
 
-const props = defineProps<LightboxIndexProps>()
+export type LightboxActiveItemIndexProps = PrimitiveProps
+
+const props = defineProps<LightboxActiveItemIndexProps>()
 const forwarded = useForwardProps(props)
 
-const index = ref(0)
+const { swiper } = injectLightboxContext()
+
+const index = ref(swiper.value?.realIndex || 0)
 
 function handleRealIndexChange(
   e: Parameters<SwiperEvents['realIndexChange']>[0],
 ) {
   index.value = e.realIndex
 }
-
-const { swiper } = injectLightboxContext()
 
 function on() {
   swiper.value?.on('realIndexChange', handleRealIndexChange)

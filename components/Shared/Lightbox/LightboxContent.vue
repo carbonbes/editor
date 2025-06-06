@@ -1,9 +1,5 @@
 <template>
-  <DialogContent v-bind="forwarded" class="fixed inset-0">
-    <VisuallyHidden>
-      <DialogTitle />
-    </VisuallyHidden>
-
+  <DialogContent v-bind="forwarded">
     <slot />
   </DialogContent>
 </template>
@@ -13,9 +9,7 @@ import {
   DialogContent,
   type DialogContentEmits,
   type DialogContentProps,
-  DialogTitle,
   useForwardPropsEmits,
-  VisuallyHidden,
 } from 'reka-ui'
 
 const props = defineProps<DialogContentProps>()

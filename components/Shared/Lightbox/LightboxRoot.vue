@@ -25,9 +25,15 @@ const swiperContainerRef = ref<InstanceType<typeof SwiperContainer> | null>(
   null,
 )
 
-const swiper = computed(() => swiperContainerRef.value?.$el.swiper || null)
+const swiper = computed<Swiper | null>(
+  () => swiperContainerRef.value?.$el.swiper || null,
+)
 
-provideLightboxContext({ open, swiperContainerRef, swiper })
+provideLightboxContext({
+  open,
+  swiperContainerRef,
+  swiper,
+})
 </script>
 
 <script lang="ts">

@@ -3,9 +3,21 @@ export {
   type LightboxActiveItemIndexProps,
 } from './LightboxActiveItemIndex.vue'
 
-export { default as LightboxClose } from './LightboxClose.vue'
-export { default as LightboxContent } from './LightboxContent.vue'
-export { default as LightboxItem } from './LightboxItem.vue'
+export {
+  default as LightboxClose,
+  type LightboxCloseProps,
+} from './LightboxClose.vue'
+
+export {
+  default as LightboxContent,
+  type LightboxContentProps,
+  type LightboxContentEmits,
+} from './LightboxContent.vue'
+
+export {
+  default as LightboxItem,
+  type LightboxItemProps,
+} from './LightboxItem.vue'
 
 export {
   default as LightboxItems,
@@ -19,7 +31,11 @@ export {
 } from './LightboxItemsCount.vue'
 
 export { default as LightboxNext } from './LightboxNext.vue'
-export { default as LightboxOverlay } from './LightboxOverlay.vue'
+
+export {
+  default as LightboxOverlay,
+  type LightboxOverlayProps,
+} from './LightboxOverlay.vue'
 
 export {
   default as LightboxPortal,
@@ -32,3 +48,8 @@ export {
   default as LightboxRoot,
   injectLightboxContext,
 } from './LightboxRoot.vue'
+
+export {
+  default as LightboxTrigger,
+  type LightboxTriggerProps,
+} from './LightboxTrigger.vue'

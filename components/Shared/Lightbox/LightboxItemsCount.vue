@@ -13,5 +13,5 @@ const forwarded = useForwardProps(props)
 
 const { swiper } = injectLightboxContext()
 
-const itemsCount = computed(() => swiper.value?.slides?.length || 0)
+const itemsCount = computed(() => swiper.value?.slides?.length ?? 0)
 </script>

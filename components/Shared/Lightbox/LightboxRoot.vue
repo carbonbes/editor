@@ -13,7 +13,6 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui'
 import type Swiper from 'swiper'
-import type { SwiperContainer } from '~/components/Shared/Swiper'
 
 const props = defineProps<DialogRootProps>()
 const emits = defineEmits<DialogRootEmits>()
@@ -21,26 +20,21 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 const open = defineModel<boolean>('open', { default: false })
 
-const swiperContainerRef = ref<InstanceType<typeof SwiperContainer> | null>(
-  null,
-)
-
-const swiper = computed<Swiper | null>(
-  () => swiperContainerRef.value?.$el.swiper || null,
-)
+const swiper = ref<Swiper | null>(null)
+const activeItemIndex = ref(0)
 
 provideLightboxContext({
   open,
-  swiperContainerRef,
   swiper,
+  activeItemIndex,
 })
 </script>
 
 <script lang="ts">
 export interface LightboxContext {
   open: Ref<boolean>
-  swiperContainerRef: Ref<InstanceType<typeof SwiperContainer> | null>
   swiper: Ref<Swiper | null>
+  activeItemIndex: Ref<number>
 }
 
 export const [injectLightboxContext, provideLightboxContext] =

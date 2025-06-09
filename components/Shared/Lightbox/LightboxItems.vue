@@ -1,5 +1,5 @@
 <template>
-  <SwiperContainer v-bind="forwarded" ref="swiperContainerRef">
+  <SwiperContainer ref="swiperContainerRef" :init="false">
     <slot />
   </SwiperContainer>
 </template>
@@ -20,5 +20,22 @@ const props = defineProps<LightboxItemsProps>()
 const emits = defineEmits<LightboxItemsEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 
-const { swiperContainerRef } = injectLightboxContext()
+const swiperContainerRef =
+  useTemplateRef<typeof SwiperContainer>('swiperContainerRef')
+
+const { swiper, activeItemIndex } = injectLightboxContext()
+
+function init() {
+  if (!swiperContainerRef.value) return
+
+  Object.assign(swiperContainerRef.value.$el, {
+    ...forwarded.value,
+    initialSlide: activeItemIndex.value,
+  })
+
+  swiperContainerRef.value.$el.initialize()
+  swiper.value = swiperContainerRef.value.$el.swiper
+}
+
+onMounted(init)
 </script>

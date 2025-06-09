@@ -4,4 +4,7 @@ export {
   type SwiperContainerEmits,
 } from './SwiperContainer.vue'
 
-export { default as SwiperSlide } from './SwiperSlide.vue'
+export {
+  default as SwiperSlide,
+  type SwiperSlideProps,
+} from './SwiperSlide.vue'

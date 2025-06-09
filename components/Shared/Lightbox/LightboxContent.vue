@@ -12,7 +12,10 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui'
 
-const props = defineProps<DialogContentProps>()
-const emits = defineEmits<DialogContentEmits>()
+export type LightboxContentProps = DialogContentProps
+export type LightboxContentEmits = DialogContentEmits
+
+const props = defineProps<LightboxContentProps>()
+const emits = defineEmits<LightboxContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>

@@ -20,7 +20,7 @@ declare module '@tiptap/core' {
 function omitAttrs(attrs?: Attrs) {
   if (!attrs) return
 
-  const { ['testid']: _, ['selected']: __, ...rest } = attrs
+  const { testid, selected, ...rest } = attrs
 
   return rest
 }

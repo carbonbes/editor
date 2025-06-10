@@ -1,4 +1,6 @@
 import { Extension } from '@tiptap/vue-3'
+import { Decoration, DecorationSet } from 'prosemirror-view'
+import { Plugin, PluginKey } from '@tiptap/pm/state'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -8,6 +10,8 @@ declare module '@tiptap/core' {
     }
   }
 }
+
+const decorationKey = new PluginKey('nodeSelectionAttr')
 
 export const NodeSelectionAttr = Extension.create({
   name: 'nodeSelectionAttr',
@@ -34,32 +38,68 @@ export const NodeSelectionAttr = Extension.create({
     return {
       setSelected:
         (value) =>
-        ({ tr, dispatch }) => {
+        ({ dispatch, state: { selection, doc }, tr }) => {
           if (!dispatch) return false
 
-          const { from } = tr.selection
+          const { from } = selection
 
-          dispatch(tr.setNodeAttribute(from, 'selected', value))
+          const node = doc.nodeAt(from)
+          if (!node) return false
+
+          const deco = Decoration.node(from, from + node.nodeSize, {
+            'data-selected': value.toString(),
+          })
+
+          const decoSet = DecorationSet.create(doc, [deco])
+
+          dispatch(
+            tr.setMeta('addToHistory', false).setMeta(decorationKey, decoSet),
+          )
 
           return true
         },
 
       toggleSelected:
         () =>
-        ({ state: { doc }, tr, dispatch }) => {
-          if (!dispatch) return false
-
-          const { from } = tr.selection
+        ({ state: { selection, doc }, commands }) => {
+          const { from } = selection
 
           const node = doc.nodeAt(from)
           if (!node) return false
 
           const selected = node.attrs.selected as boolean
 
-          dispatch(tr.setNodeAttribute(from, 'selected', !selected))
-
-          return true
+          return commands.setSelected(!selected)
         },
     }
+  },
+
+  addProseMirrorPlugins() {
+    return [
+      new Plugin({
+        key: decorationKey,
+        state: {
+          init() {
+            return DecorationSet.empty
+          },
+
+          apply(tr, oldDecoSet) {
+            const newDecoSet = tr.getMeta(decorationKey)
+
+            if (newDecoSet) {
+              return newDecoSet
+            }
+
+            return oldDecoSet.map(tr.mapping, tr.doc)
+          },
+        },
+
+        props: {
+          decorations(state) {
+            return this.getState(state)
+          },
+        },
+      }),
+    ]
   },
 })

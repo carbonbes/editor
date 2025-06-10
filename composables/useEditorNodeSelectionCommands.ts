@@ -17,6 +17,13 @@ export function useEditorNodeSelectionCommands() {
     editor.value?.commands?.toggleSelected()
   }
 
+  function setNodeAttrs(
+    pos: number,
+    attrs: { class?: string; style?: string } & Record<string, any>,
+  ) {
+    editor.value?.commands?.setNodeAttr(pos, attrs)
+  }
+
   const canMoveNodeToUp = computed(() => editor.value?.can().moveUp() || false)
 
   const canMoveNodeToDown = computed(
@@ -75,6 +82,7 @@ export function useEditorNodeSelectionCommands() {
     setNodeSelection,
     setNodeSelectionAttr,
     toggleNodeSelectionAttr,
+    setNodeAttrs,
     canMoveNodeToUp,
     canMoveNodeToDown,
     moveNodeToUp,

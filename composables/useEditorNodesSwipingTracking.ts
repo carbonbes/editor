@@ -20,14 +20,13 @@ export function useEditorNodesSwipingTracking({
   const node = useState<Element | null>(() => null)
   const pos = useEditorNodePos(node)
 
-  const { setNodeStylesAttrs } = useEditorNodeSelectionCommands()
+  const { setNodeAttrs } = useEditorNodeSelectionCommands()
 
   function setNodeTranslateX(x?: number) {
     if (pos.value === undefined) return
 
-    setNodeStylesAttrs(pos.value, {
-      classes: x ? '!transition-none' : '',
-      styles: x ? `transform: translateX(${x}px)` : '',
+    setNodeAttrs(pos.value, {
+      style: x ? `--translate-x: ${x}px; transition: none;` : '',
     })
   }
 

@@ -6,6 +6,7 @@ import { NodeMoving } from '~/tiptap-extensions/nodeMoving'
 import { NodeTransform } from '~/tiptap-extensions/nodeTransform'
 import { NodeInsert } from '~/tiptap-extensions/nodeInsert'
 import { MediaNode } from '~/tiptap-extensions/mediaNode'
+import { NodeSelectionAttr } from '~/tiptap-extensions/nodeSelectionAttr'
 
 export function useEditor() {
   const editor = useState<Editor | undefined>()
@@ -24,11 +25,12 @@ export function useEditor() {
         NodeTransform,
         NodeInsert,
         MediaNode,
+        NodeSelectionAttr,
       ],
 
       editorProps: {
         attributes: {
-          class: `p-4 sm:pl-22 pb-50 overflow-x-hidden prose prose-img:my-0 prose-video:my-0 touch-pan-y focus:outline-none [&>*]:transition-transform`,
+          class: `p-4 sm:pl-22 pb-50 overflow-x-hidden prose prose-img:my-0 prose-video:my-0 touch-pan-y focus:outline-none [&>*]:data-selected:relative [&>*]:data-selected:before:absolute [&>*]:data-selected:before:inset-0 [&>*]:data-selected:before:-m-2 [&>*]:data-selected:before:bg-blue-50 [&>*]:data-selected:before:rounded-xl [&>*]:data-selected:before:z-[-1] [&>*]:transition-transform`,
         },
       },
     })

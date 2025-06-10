@@ -1,11 +1,9 @@
 <template>
-  <BaseButton
-    class="p-2 bg-white shadow rounded-xl cursor-pointer [&>.iconify]:!size-6"
-  >
+  <Button class="[&>.iconify]:!size-6">
     <slot />
-  </BaseButton>
+  </Button>
 </template>
 
 <script setup lang="ts">
-import { BaseButton } from '~/components/Shared/Base'
+import Button from '~/components/Editor/NodeViews/MediaNodeView/Shared/Button.vue'
 </script>

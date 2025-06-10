@@ -1,3 +1,5 @@
+import { promiseTimeout } from '@vueuse/shared'
+
 export function useEditorFocusedNode() {
   const node = useState<Element | null>(() => null)
 
@@ -17,7 +19,7 @@ export function useEditorFocusedNode() {
   })
 
   watch(node, async (node) => {
-    await nextTick()
+    await promiseTimeout(0)
 
     setNodeSelectionAttr(!!node)
   })

@@ -6,7 +6,7 @@ import { NodeTransform } from '~/tiptap-extensions/nodeTransform'
 import { NodeInsert } from '~/tiptap-extensions/nodeInsert'
 import { MediaNode } from '~/tiptap-extensions/mediaNode'
 import { NodeSelectionAttr } from '~/tiptap-extensions/nodeSelectionAttr'
-import { NodeAttr } from '~/tiptap-extensions/nodeAttr'
+import { NodeAttrs } from '~/tiptap-extensions/nodeAttrs'
 
 export function useEditor() {
   const editor = useState<Editor | undefined>()
@@ -25,7 +25,7 @@ export function useEditor() {
         NodeInsert,
         MediaNode,
         NodeSelectionAttr,
-        NodeAttr,
+        NodeAttrs,
       ],
 
       editorProps: {

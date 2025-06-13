@@ -4,8 +4,8 @@ import { Plugin, PluginKey } from '@tiptap/pm/state'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    NodeStyleAttr: {
-      setNodeAttr: (
+    NodeAttrs: {
+      setNodeAttrs: (
         pos: number,
         attrs: { class?: string; style?: string } & Record<string, any>,
       ) => ReturnType
@@ -13,14 +13,14 @@ declare module '@tiptap/core' {
   }
 }
 
-const decorationKey = new PluginKey('nodeAttr')
+const decorationKey = new PluginKey('nodeAttrs')
 
-export const NodeAttr = Extension.create({
-  name: 'nodeAttr',
+export const NodeAttrs = Extension.create({
+  name: 'nodeAttrs',
 
   addCommands() {
     return {
-      setNodeAttr:
+      setNodeAttrs:
         (pos, attrs) =>
         ({ dispatch, state: { doc }, tr }) => {
           if (!dispatch) return false

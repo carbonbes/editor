@@ -17,7 +17,7 @@ export function useEditorNodeSelectionCommands() {
     pos: number,
     attrs: { class?: string; style?: string } & Record<string, any>,
   ) {
-    editor.value?.commands?.setNodeAttr(pos, attrs)
+    editor.value?.commands?.setNodeAttrs(pos, attrs)
   }
 
   const canMoveNodeToUp = computed(() => editor.value?.can().moveUp() || false)

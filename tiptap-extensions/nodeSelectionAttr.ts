@@ -21,7 +21,7 @@ export const NodeSelectionAttr = Extension.create({
           const node = doc.nodeAt(from)
           if (!node) return false
 
-          return commands.setNodeAttr(from, { 'data-selected': value })
+          return commands.setNodeAttrs(from, { 'data-selected': value })
         },
     }
   },

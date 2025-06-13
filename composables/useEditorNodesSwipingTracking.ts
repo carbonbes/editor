@@ -26,7 +26,7 @@ export function useEditorNodesSwipingTracking({
     if (pos.value === undefined) return
 
     setNodeAttrs(pos.value, {
-      style: x ? `--translate-x: ${x}px; transition: none;` : '',
+      style: x ? `transform: translateX(${x}px); transition: none;` : '',
     })
   }
 

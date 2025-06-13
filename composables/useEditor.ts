@@ -30,7 +30,7 @@ export function useEditor() {
 
       editorProps: {
         attributes: {
-          class: `p-4 sm:pl-22 pb-50 overflow-x-hidden prose prose-img:my-0 prose-video:my-0 touch-pan-y focus:outline-none [&>*]:data-[selected=true]:relative [&>*]:data-[selected=true]:before:absolute [&>*]:data-[selected=true]:before:inset-0 [&>*]:data-[selected=true]:before:-m-2 [&>*]:data-[selected=true]:before:bg-blue-50 [&>*]:data-[selected=true]:before:rounded-xl [&>*]:data-[selected=true]:before:z-[-1] [&>*]:translate-x-(--translate-x) [&>*]:transition-transform`,
+          class: `p-4 sm:pl-22 pb-50 overflow-x-hidden prose prose-img:my-0 prose-video:my-0 touch-pan-y focus:outline-none [&>*]:data-[selected=true]:relative [&>*]:data-[selected=true]:before:absolute [&>*]:data-[selected=true]:before:inset-0 [&>*]:data-[selected=true]:before:-m-2 [&>*]:data-[selected=true]:before:bg-blue-50 [&>*]:data-[selected=true]:before:rounded-xl [&>*]:data-[selected=true]:before:z-[-1] [&>*]:transition-transform`,
         },
       },
     })

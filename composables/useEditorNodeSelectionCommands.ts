@@ -13,10 +13,6 @@ export function useEditorNodeSelectionCommands() {
     editor.value?.commands?.setSelected(value)
   }
 
-  function toggleNodeSelectionAttr() {
-    editor.value?.commands?.toggleSelected()
-  }
-
   function setNodeAttrs(
     pos: number,
     attrs: { class?: string; style?: string } & Record<string, any>,
@@ -81,7 +77,6 @@ export function useEditorNodeSelectionCommands() {
   return {
     setNodeSelection,
     setNodeSelectionAttr,
-    toggleNodeSelectionAttr,
     setNodeAttrs,
     canMoveNodeToUp,
     canMoveNodeToDown,

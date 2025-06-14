@@ -1,4 +1,4 @@
-type Node = Ref<Element | null> | Ref<Element | undefined>
+type Node = Ref<Element | null | undefined>
 
 export function useEditorNodePos(node: Node) {
   const { view } = useEditorView()
@@ -6,6 +6,8 @@ export function useEditorNodePos(node: Node) {
   return computed(() => {
     if (!view.value || !node.value) return
 
-    return view.value.posAtDOM(node.value, 0) - 1
+    const { left, top } = node.value.getBoundingClientRect()
+
+    return view.value.posAtCoords({ left, top })?.inside
   })
 }

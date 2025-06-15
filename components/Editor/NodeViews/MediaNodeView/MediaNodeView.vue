@@ -20,9 +20,17 @@ import {
   type MediaItemId,
 } from '~/tiptap-extensions/mediaNode'
 
-const { node } = defineProps<NodeViewProps>()
+const { node, updateAttributes } = defineProps<NodeViewProps>()
 
 const media = ref((node.attrs.media as MediaItem[]) || null)
+
+watch(
+  media,
+  (media) => {
+    updateAttributes({ media })
+  },
+  { deep: true },
+)
 
 const singleMedia = computed(
   () => (media.value && media.value.length === 1 && media.value[0]) || null,

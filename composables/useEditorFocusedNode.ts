@@ -13,7 +13,7 @@ export function useEditorFocusedNode() {
   const pos = useEditorNodePos(node)
 
   watch(pos, (pos) => {
-    if (pos !== undefined) {
+    if (pos !== null) {
       setNodeSelection(pos)
     }
   })

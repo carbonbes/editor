@@ -1,13 +1,9 @@
 <template>
-  <NodeViewWrapper>
-    <div class="my-8 text-black">
-      <EmptyMedia v-if="!media" />
-      <SingleMedia v-else-if="singleMedia" :media="singleMedia" />
-      <MultipleMedia v-else-if="multipleMedia" :media="multipleMedia" />
-    </div>
+  <NodeViewWrapper class="not-first:mt-8 not-last:mb-8 text-black">
+    <EmptyMedia v-if="!media" />
+    <SingleMedia v-else-if="singleMedia" :media="singleMedia" />
+    <MultipleMedia v-else-if="multipleMedia" :media="multipleMedia" />
   </NodeViewWrapper>
-
-  <ClipboardDialog v-model:open="clipboardDialogOpen" />
 </template>
 
 <script lang="ts" setup>
@@ -17,7 +13,6 @@ import {
   EmptyMedia,
   SingleMedia,
   MultipleMedia,
-  ClipboardDialog
 } from '~/components/Editor/NodeViews/MediaNodeView'
 import {
   getMediaItemsFromFiles,
@@ -25,9 +20,17 @@ import {
   type MediaItemId,
 } from '~/tiptap-extensions/mediaNode'
 
-const { node } = defineProps<NodeViewProps>()
+const { node, updateAttributes } = defineProps<NodeViewProps>()
 
 const media = ref((node.attrs.media as MediaItem[]) || null)
+
+watch(
+  media,
+  (media) => {
+    updateAttributes({ media })
+  },
+  { deep: true },
+)
 
 const singleMedia = computed(
   () => (media.value && media.value.length === 1 && media.value[0]) || null,
@@ -58,16 +61,13 @@ function remove(id: MediaItemId) {
   media.value?.splice(index, 1)
 }
 
-const clipboardDialogOpen = ref(false)
-
-provideMediaNodeViewContext({ add, remove, clipboardDialogOpen })
+provideMediaNodeViewContext({ add, remove })
 </script>
 
 <script lang="ts">
 export interface MediaNodeViewContext {
   add: (files: File[]) => void
   remove: (id: MediaItemId) => void
-  clipboardDialogOpen: Ref<boolean>
 }
 
 export const [injectMediaNodeViewContext, provideMediaNodeViewContext] =

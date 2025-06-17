@@ -26,13 +26,13 @@ function isExpectedDirection(directionX: number) {
 function handleSwipeEnd({
   direction: [directionX],
   movement: [movementX],
-}: EditorSwipeGestureState) {
+}: UseEditorNodesSwipeTrackingSwipeState) {
   if (isExpectedDirection(directionX) && Math.abs(movementX) >= threshold) {
     open.value = true
   }
 }
 
-const { node } = useEditorNodesSwipingTracking({
+const { node } = useEditorNodesSwipeTracking({
   bound: threshold,
   handlers: {
     onSwipeEnd: handleSwipeEnd,

@@ -1,37 +1,34 @@
-import { Extension } from '@tiptap/core'
-import { Plugin, PluginKey } from 'prosemirror-state'
+import { Extension } from '@tiptap/vue-3'
 import { Decoration, DecorationSet } from 'prosemirror-view'
+import { Plugin, PluginKey } from '@tiptap/pm/state'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    NodeStylesAttrs: {
-      setNodeStylesAttrs: (
+    NodeAttrs: {
+      setNodeAttrs: (
         pos: number,
-        { classes, styles }: { classes?: string; styles?: string },
+        attrs: { class?: string; style?: string } & Record<string, any>,
       ) => ReturnType
     }
   }
 }
 
-const decorationKey = new PluginKey('nodeStylesAttrs')
+const decorationKey = new PluginKey('nodeAttrs')
 
-export const NodeStylesAttrs = Extension.create({
-  name: 'nodeStylesAttrs',
+export const NodeAttrs = Extension.create({
+  name: 'nodeAttrs',
+
   addCommands() {
     return {
-      setNodeStylesAttrs:
-        (pos, { classes, styles }) =>
+      setNodeAttrs:
+        (pos, attrs) =>
         ({ dispatch, state: { doc }, tr }) => {
           if (!dispatch) return false
 
           const node = doc.nodeAt(pos)
-
           if (!node) return false
 
-          const deco = Decoration.node(pos, pos + node.nodeSize, {
-            class: classes,
-            style: styles,
-          })
+          const deco = Decoration.node(pos, pos + node.nodeSize, attrs)
 
           const decoSet = DecorationSet.create(doc, [deco])
 

@@ -1,5 +1,8 @@
 <template>
-  <DropdownMenuItem class="flex items-center gap-3 [&>.iconify]:!size-6">
+  <DropdownMenuItem
+    class="flex items-center gap-3 [&>.iconify]:!size-5"
+    @select="(e) => e.preventDefault()"
+  >
     <slot />
   </DropdownMenuItem>
 </template>

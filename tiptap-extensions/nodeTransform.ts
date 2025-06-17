@@ -17,10 +17,10 @@ declare module '@tiptap/core' {
   }
 }
 
-function omitTestId(attrs?: Attrs) {
-  if (!attrs) return attrs
+function omitAttrs(attrs?: Attrs) {
+  if (!attrs) return
 
-  const { ['testid']: _, ...rest } = attrs
+  const { testid, selected, ...rest } = attrs
 
   return rest
 }
@@ -74,7 +74,7 @@ function transformTo(targetNodeName: EditorRootNodes, targetNodeAttrs?: Attrs) {
     if (
       targetNodeName === selectedNodeName &&
       (!targetNodeAttrs ||
-        isEqual(omitTestId(targetNodeAttrs), omitTestId(selectedNodeAttrs)))
+        isEqual(omitAttrs(targetNodeAttrs), omitAttrs(selectedNodeAttrs)))
     ) {
       return false
     }

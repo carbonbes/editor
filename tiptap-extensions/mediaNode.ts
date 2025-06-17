@@ -1,4 +1,4 @@
-import { mergeAttributes, Node, VueNodeViewRenderer } from '@tiptap/vue-3'
+import { Node, VueNodeViewRenderer } from '@tiptap/vue-3'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import type { EditorView } from '@tiptap/pm/view'
 import MediaNodeView from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'
@@ -83,7 +83,7 @@ async function createMediaNode(
     media,
   })
 
-  dispatch(tr.insert(tr.selection.anchor, mediaNode))
+  dispatch(tr.replaceSelectionWith(mediaNode))
 }
 
 async function handleEvent(
@@ -106,6 +106,7 @@ export const MediaNode = Node.create({
   name: 'media',
   group: 'block',
   atom: true,
+  content: 'block*',
 
   addAttributes() {
     return {
@@ -115,8 +116,8 @@ export const MediaNode = Node.create({
     }
   },
 
-  renderHTML({ HTMLAttributes }) {
-    return ['div', mergeAttributes(HTMLAttributes, { 'data-type': 'media' }), 0]
+  renderHTML() {
+    return 'div'
   },
 
   addNodeView() {

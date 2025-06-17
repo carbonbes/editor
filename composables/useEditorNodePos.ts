@@ -4,10 +4,8 @@ export function useEditorNodePos(node: Node) {
   const { view } = useEditorView()
 
   return computed(() => {
-    if (!view.value || !node.value) return
+    if (!view.value || !node.value) return null
 
-    const { left, top } = node.value.getBoundingClientRect()
-
-    return view.value.posAtCoords({ left, top })?.inside
+    return view.value.posAtDOM(node.value, 0) - 1
   })
 }

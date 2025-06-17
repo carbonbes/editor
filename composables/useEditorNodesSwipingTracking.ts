@@ -20,8 +20,6 @@ export function useEditorNodesSwipingTracking({
   const node = useState<Element | null>(() => null)
   const pos = useEditorNodePos(node)
 
-  watch(pos, (pos) => console.log(pos))
-
   const { setNodeAttrs } = useEditorNodeSelectionCommands()
 
   function setNodeTranslateX(x?: number) {
@@ -29,7 +27,7 @@ export function useEditorNodesSwipingTracking({
 
     setNodeAttrs(pos.value, {
       style: x ? `transform: translateX(${x}px); transition: none;` : '',
-      'data-swiping': true
+      'data-swiping': true,
     })
   }
 

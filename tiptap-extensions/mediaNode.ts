@@ -106,6 +106,7 @@ export const MediaNode = Node.create({
   name: 'media',
   group: 'block',
   atom: true,
+  content: 'block*',
 
   addAttributes() {
     return {

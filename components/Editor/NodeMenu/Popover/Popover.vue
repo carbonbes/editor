@@ -11,7 +11,6 @@
         class="flex gap-1"
         @open-auto-focus="(e) => e.preventDefault()"
         @interact-outside="(e) => e.preventDefault()"
-        @pointer-down-outside="handlePointerDownOutside"
         @escape-key-down="(e) => e.preventDefault()"
       >
         <NodesListDropdownTrigger />
@@ -25,28 +24,11 @@
 import { PopoverRoot, PopoverPortal, PopoverContent } from 'reka-ui'
 import NodesListDropdownTrigger from '~/components/Editor/NodeMenu/Popover/NodesListDropdownTrigger.vue'
 import NodeActionsListDropdownTrigger from '~/components/Editor/NodeMenu/Popover/NodeActionsListDropdownTrigger.vue'
-import type { PointerDownOutsideEvent } from '~/types'
 
 const open = ref(false)
 
 const { contentRef } = useEditorNodeMenuPopover()
-const { node } = useEditorNodesHoveringTracking()
 
-watch(node, (node) => {
-  open.value = !!node
-})
-
-const { dom } = useEditorView()
-
-function handlePointerDownOutside(e: PointerDownOutsideEvent) {
-  const eventTarget = e.target as HTMLElement
-
-  if (!dom.value || !eventTarget || dom.value.contains(eventTarget)) {
-    e.preventDefault()
-
-    return
-  }
-
-  open.value = false
-}
+const { node } = useEditorNodesHoverTracking()
+watch(node, (node) => (open.value = !!node))
 </script>

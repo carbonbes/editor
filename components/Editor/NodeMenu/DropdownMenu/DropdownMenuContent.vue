@@ -1,6 +1,10 @@
 <template>
   <DropdownMenuPortal>
-    <DropdownMenuContent v-bind="forwarded">
+    <DropdownMenuContent
+      v-bind="forwarded"
+      :side-offset="5"
+      :collision-padding="16"
+    >
       <slot />
     </DropdownMenuContent>
   </DropdownMenuPortal>

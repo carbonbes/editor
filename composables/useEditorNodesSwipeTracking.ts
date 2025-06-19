@@ -63,7 +63,6 @@ export function useEditorNodesSwipeTracking({
     onSwipeEnd?.(state)
   }
 
-  const { isTouch } = useDevice()
   const { isDragging } = useEditorMediaNodeViewItemDragging()
 
   function handleDragEvent(
@@ -72,7 +71,7 @@ export function useEditorNodesSwipeTracking({
   ) {
     const { cancel } = state
 
-    if (!isTouch.value || isDragging.value) {
+    if (isDragging.value) {
       cancel()
 
       return
@@ -83,22 +82,12 @@ export function useEditorNodesSwipeTracking({
     if (type === 'end') handleDragEnd(state)
   }
 
-  const { dom } = useEditorView()
-
-  useDragGesture({
-    target: dom,
-
+  useEditorSwipeTracking({
+    bound,
     handlers: {
-      onDragStart: (state) => handleDragEvent('start', state),
-      onDrag: (state) => handleDragEvent('drag', state),
-      onDragEnd: (state) => handleDragEvent('end', state),
-    },
-
-    config: {
-      axis: 'x',
-      bounds: { left: bound * -1, right: bound },
-      rubberband: true,
-      from: [0, 0],
+      onSwipeStart: (state) => handleDragEvent('start', state),
+      onSwipe: (state) => handleDragEvent('drag', state),
+      onSwipeEnd: (state) => handleDragEvent('end', state),
     },
   })
 

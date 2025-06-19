@@ -1,22 +1,17 @@
 <template>
-  <BottomsheetRoot
-    v-model:open="state.open"
-    direction-trigger="left"
-    :threshold="75"
-    @animation-end="handleAnimationEnd"
-  >
+  <BottomsheetRoot v-model:open="open" @animation-end="handleAnimationEnd">
     <BottomsheetPortal>
       <BottomsheetOverlay />
 
       <BottomsheetContent>
         <BottomsheetContentHeader>
-          <TransitionBetween :index="state.page" class="h-full flex items-center">
-            <BottomsheetContentHeaderTitle v-if="state.page === 0">
+          <TransitionBetween :index="page" class="h-full flex items-center">
+            <BottomsheetContentHeaderTitle v-if="page === 0">
               Настройки узла
             </BottomsheetContentHeaderTitle>
 
             <div v-else class="flex items-center gap-3">
-              <ChevronIcon left class="!size-6" @click="state.page--" />
+              <ChevronIcon left class="!size-6" @click="page--" />
 
               <BottomsheetContentHeaderTitle>
                 Поменять на
@@ -26,8 +21,8 @@
         </BottomsheetContentHeader>
 
         <BottomsheetContentScrollable>
-          <TransitionBetween :index="state.page" class="h-full">
-            <BottomsheetContentButtons v-if="state.page === 0">
+          <TransitionBetween :index="page" class="h-full">
+            <BottomsheetContentButtons v-if="page === 0">
               <BottomsheetContentButton
                 v-if="canMoveNodeToUp"
                 @click="moveNodeToUp"
@@ -44,7 +39,7 @@
                 Переместить вниз
               </BottomsheetContentButton>
 
-              <BottomsheetContentButtonSub @click="state.page++">
+              <BottomsheetContentButtonSub @click="page++">
                 <RefreshIcon />
                 Поменять на
               </BottomsheetContentButtonSub>
@@ -130,13 +125,12 @@ import {
   ChevronIcon,
 } from '~/components/Shared/Icons'
 
-const state = reactive({
-  open: false,
-  page: 0,
-})
+const { open } = useEditorNodeActionsListBottomsheet()
+
+const page = ref(0)
 
 function handleAnimationEnd() {
-  if (!state.open) state.page = 0
+  if (!open.value) page.value = 0
 }
 
 const {

@@ -11,7 +11,7 @@ export type DragGestureState = Omit<FullGestureState<'drag'>, 'event'> & {
 
 type DragGestureHandler = (state: DragGestureState) => void
 
-type DragGestureTarget = Ref<Element | null> | Ref<Element | undefined>
+type DragGestureTarget = Ref<Element | null | undefined>
 
 interface DragGestureHandlers {
   onDragStart?: DragGestureHandler
@@ -34,8 +34,8 @@ export function useDragGesture({
 }: UseDragGestureOptions) {
   const gesture = ref<Gesture | null>(null)
 
-  function init() {
-    if (gesture.value) return
+  async function init() {
+    await until(target).toBeTruthy()
 
     gesture.value = new Gesture(target.value as EventTarget, handlers, {
       drag: config,
@@ -43,20 +43,9 @@ export function useDragGesture({
   }
 
   function destroy() {
-    if (!gesture.value) return
-
-    gesture.value.destroy()
+    gesture.value?.destroy()
     gesture.value = null
   }
-
-  const unwatch = watch(target, (target) => {
-    if (target) {
-      init()
-      unwatch()
-    }
-  })
-
-  onBeforeUnmount(destroy)
 
   return { gesture, init, destroy }
 }

@@ -21,7 +21,7 @@ export function useEditorNodesSwipeTracking({
 }: UseEditorNodesSwipeTrackingOptions) {
   const node = useState<Element | null>(() => null)
 
-  function handleDragStart(state: DragGestureState) {
+  function handleSwipeStart(state: DragGestureState) {
     const {
       xy: [x, y],
       cancel,
@@ -49,7 +49,7 @@ export function useEditorNodesSwipeTracking({
     })
   }
 
-  function handleDrag(state: DragGestureState) {
+  function handleSwipe(state: DragGestureState) {
     const {
       movement: [movementX],
     } = state
@@ -58,15 +58,15 @@ export function useEditorNodesSwipeTracking({
     onSwipe?.(state)
   }
 
-  function handleDragEnd(state: DragGestureState) {
+  function handleSwipeEnd(state: DragGestureState) {
     setNodeTranslateX()
     onSwipeEnd?.(state)
   }
 
   const { isDragging } = useEditorMediaNodeViewItemDragging()
 
-  function handleDragEvent(
-    type: 'start' | 'drag' | 'end',
+  function handleSwipeEvent(
+    type: 'start' | 'swipe' | 'end',
     state: DragGestureState,
   ) {
     const { cancel } = state
@@ -77,17 +77,17 @@ export function useEditorNodesSwipeTracking({
       return
     }
 
-    if (type === 'start') handleDragStart(state)
-    if (type === 'drag') handleDrag(state)
-    if (type === 'end') handleDragEnd(state)
+    if (type === 'start') handleSwipeStart(state)
+    if (type === 'swipe') handleSwipe(state)
+    if (type === 'end') handleSwipeEnd(state)
   }
 
   useEditorSwipeTracking({
     bound,
     handlers: {
-      onSwipeStart: (state) => handleDragEvent('start', state),
-      onSwipe: (state) => handleDragEvent('drag', state),
-      onSwipeEnd: (state) => handleDragEvent('end', state),
+      onSwipeStart: (state) => handleSwipeEvent('start', state),
+      onSwipe: (state) => handleSwipeEvent('swipe', state),
+      onSwipeEnd: (state) => handleSwipeEvent('end', state),
     },
   })
 

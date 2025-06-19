@@ -4,7 +4,7 @@
       <slot />
     </DropdownMenuTrigger>
 
-    <DropdownMenuContent :side-offset="5" :collision-padding="16">
+    <DropdownMenuContent>
       <DropdownMenuItem v-if="canMoveNodeToUp" @click="moveNodeToUp">
         <ArrowIcon up />
         Переместить наверх
@@ -90,14 +90,7 @@ import {
   TrashIcon,
 } from '~/components/Shared/Icons'
 
-const open = ref(false)
-
-const { setFocusedNode } = useEditorFocusedNode()
-const { node } = useEditorNodesHoveringTracking()
-
-watch(open, (open) => {
-  setFocusedNode(open ? node.value : null)
-})
+const { open } = useEditorNodeActionsListDropdownMenu()
 
 const {
   canMoveNodeToUp,

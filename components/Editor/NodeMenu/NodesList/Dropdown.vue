@@ -4,7 +4,7 @@
       <slot />
     </DropdownMenuTrigger>
 
-    <DropdownMenuContent :side-offset="5" :collision-padding="16">
+    <DropdownMenuContent>
       <DropdownMenuSub>
         <DropdownMenuSubTrigger>
           <HeadingIcon />
@@ -91,14 +91,7 @@ import {
   LibraryPhotoIcon,
 } from '~/components/Shared/Icons'
 
-const open = ref(false)
-
-const { setFocusedNode } = useEditorFocusedNode()
-const { node } = useEditorNodesHoveringTracking()
-
-watch(open, (open) => {
-  setFocusedNode(open ? node.value : null)
-})
+const { open } = useEditorNodesListDropdownMenu()
 
 const { insertNode } = useEditorNodeSelectionCommands()
 </script>

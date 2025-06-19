@@ -1,5 +1,5 @@
 <template>
-  <BottomsheetRoot direction-trigger="right" :threshold="75">
+  <BottomsheetRoot v-model:open="open">
     <BottomsheetPortal>
       <BottomsheetOverlay />
 
@@ -88,6 +88,8 @@ import {
   TextIcon,
   LibraryPhotoIcon,
 } from '~/components/Shared/Icons'
+
+const { open } = useEditorNodesListBottomsheet()
 
 const { insertNode } = useEditorNodeSelectionCommands()
 </script>

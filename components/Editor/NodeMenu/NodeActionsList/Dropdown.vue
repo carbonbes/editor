@@ -90,7 +90,12 @@ import {
   TrashIcon,
 } from '~/components/Shared/Icons'
 
-const { open } = useEditorNodeActionsListDropdownMenu()
+const open = ref(false)
+
+const { setFocusedNode } = useEditorFocusedNode()
+const { node } = useEditorNodesHoverTracking()
+
+watch(open, (open) => setFocusedNode(open ? node.value : null))
 
 const {
   canMoveNodeToUp,

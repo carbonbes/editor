@@ -89,7 +89,13 @@ import {
   LibraryPhotoIcon,
 } from '~/components/Shared/Icons'
 
-const { open } = useEditorNodesListBottomsheet()
+const open = ref(false)
+
+useEditorNodeMenuBottomsheet({
+  open,
+  directionTrigger: 'right',
+  threshold: 75,
+})
 
 const { insertNode } = useEditorNodeSelectionCommands()
 </script>

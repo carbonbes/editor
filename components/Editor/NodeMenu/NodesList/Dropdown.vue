@@ -91,7 +91,12 @@ import {
   LibraryPhotoIcon,
 } from '~/components/Shared/Icons'
 
-const { open } = useEditorNodesListDropdownMenu()
+const open = ref(false)
+
+const { setFocusedNode } = useEditorFocusedNode()
+const { node } = useEditorNodesHoverTracking()
+
+watch(open, (open) => setFocusedNode(open ? node.value : null))
 
 const { insertNode } = useEditorNodeSelectionCommands()
 </script>

@@ -125,7 +125,13 @@ import {
   ChevronIcon,
 } from '~/components/Shared/Icons'
 
-const { open } = useEditorNodeActionsListBottomsheet()
+const open = ref(false)
+
+useEditorNodeMenuBottomsheet({
+  open,
+  directionTrigger: 'left',
+  threshold: 75,
+})
 
 const page = ref(0)
 

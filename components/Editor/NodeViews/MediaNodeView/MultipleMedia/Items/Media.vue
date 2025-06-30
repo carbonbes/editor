@@ -7,14 +7,13 @@
 
   <VideoThumbnail
     v-else
-    :thumbnail="media.meta.thumbnail as string"
-    class="w-18 aspect-square bg-cover"
+    :thumbnail="media.meta.thumbnail!"
+    class="w-18 aspect-square object-cover"
   />
 </template>
 
 <script lang="ts" setup>
-import Image from '~/components/Shared/Image.vue'
-import VideoThumbnail from '~/components/Shared/Video/VideoThumbnail.vue'
+import { Image, VideoThumbnail } from '~/components/Shared/Media'
 import type { MediaItem } from '~/tiptap-extensions/mediaNode'
 
 const { media } = defineProps<{ media: MediaItem }>()

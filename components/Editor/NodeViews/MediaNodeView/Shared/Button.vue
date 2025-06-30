@@ -1,5 +1,5 @@
 <template>
-  <BaseButton class="p-2 bg-white rounded-xl shadow">
+  <BaseButton class="p-1.5 bg-white rounded-xl shadow">
     <slot />
   </BaseButton>
 </template>

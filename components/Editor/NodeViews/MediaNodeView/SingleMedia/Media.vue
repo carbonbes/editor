@@ -8,14 +8,13 @@
   <Video
     v-else
     :src="media.src"
-    :thumbnail="media.meta.thumbnail as string"
+    controls
     class="size-full"
   />
 </template>
 
 <script lang="ts" setup>
-import Image from '~/components/Shared/Image.vue'
-import Video from '~/components/Shared/Video/Video.vue'
+import { Image, Video } from '~/components/Shared/Media'
 import type { MediaItem } from '~/tiptap-extensions/mediaNode'
 
 const { media } = defineProps<{ media: MediaItem }>()

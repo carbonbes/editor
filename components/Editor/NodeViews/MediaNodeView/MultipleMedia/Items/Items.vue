@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import Item from '~/components/Editor/NodeViews/MediaNodeView/MultipleMedia/MultipleMediaItems/Item.vue'
+import Item from '~/components/Editor/NodeViews/MediaNodeView/MultipleMedia/Items/Item.vue'
 import Draggable from 'vuedraggable'
 import type { MediaItem } from '~/tiptap-extensions/mediaNode'
 

@@ -1,17 +1,16 @@
 <template>
-  <BaseMediaNodeView as-child>
+  <BaseNodeView as-child>
     <BaseInnerBorder
-      class="relative min-h-[100px] flex items-center justify-center aspect-video"
+      class="relative flex items-center justify-center aspect-video"
     >
       <DropdownMenuTrigger />
-
       <Media :media />
     </BaseInnerBorder>
-  </BaseMediaNodeView>
+  </BaseNodeView>
 </template>
 
 <script setup lang="ts">
-import BaseMediaNodeView from '~/components/Editor/NodeViews/MediaNodeView/BaseMediaNodeView.vue'
+import BaseNodeView from '~/components/Editor/NodeViews/MediaNodeView/Shared/BaseNodeView.vue'
 import { BaseInnerBorder } from '~/components/Shared/Base'
 import DropdownMenuTrigger from '~/components/Editor/NodeViews/MediaNodeView/SingleMedia/DropdownTrigger.vue'
 import Media from '~/components/Editor/NodeViews/MediaNodeView/SingleMedia/Media.vue'

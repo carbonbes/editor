@@ -1,7 +1,7 @@
 import { Node, VueNodeViewRenderer } from '@tiptap/vue-3'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import type { EditorView } from '@tiptap/pm/view'
-import MediaNodeView from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'
+import { MediaNodeView } from '~/components/Editor/NodeViews/MediaNodeView'
 
 export type MediaItemId = ReturnType<typeof window.crypto.randomUUID>
 

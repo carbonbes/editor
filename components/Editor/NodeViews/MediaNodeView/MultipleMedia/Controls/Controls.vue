@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import Button from '~/components/Editor/NodeViews/MediaNodeView/MultipleMedia/MultipleMediaControls/Button.vue'
+import Button from '~/components/Editor/NodeViews/MediaNodeView/MultipleMedia/Controls/Button.vue'
 import { DevicesPlusIcon, ClipboardPlusIcon } from '~/components/Shared/Icons'
 import ClipboardDialogTrigger from '~/components/Editor/NodeViews/MediaNodeView/Shared/ClipboardDialogTrigger.vue'
 

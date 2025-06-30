@@ -1,6 +1,6 @@
 <template>
   <NodeViewWrapper class="not-first:mt-8 not-last:mb-8 text-black">
-    <EmptyMedia v-if="!media" />
+    <EmptyMedia v-if="isEmptyMedia" />
     <SingleMedia v-else-if="singleMedia" :media="singleMedia" />
     <MultipleMedia v-else-if="multipleMedia" :media="multipleMedia" />
   </NodeViewWrapper>
@@ -22,7 +22,7 @@ import {
 
 const { node, updateAttributes } = defineProps<NodeViewProps>()
 
-const media = ref((node.attrs.media as MediaItem[]) || null)
+const media = ref((node.attrs.media as MediaItem[]) ?? [])
 
 watch(
   media,
@@ -32,33 +32,28 @@ watch(
   { deep: true },
 )
 
+const isEmptyMedia = computed(() => !media.value.length)
+
 const singleMedia = computed(
-  () => (media.value && media.value.length === 1 && media.value[0]) || null,
+  () => (!isEmptyMedia.value && media.value.length === 1 && media.value[0]) ?? null,
 )
 
 const multipleMedia = computed(
-  () => (media.value && media.value.length > 1 && media.value) || null,
+  () => (!isEmptyMedia.value && media.value.length > 1 && media.value) ?? null,
 )
 
 async function add(files: File[]) {
   const items = await getMediaItemsFromFiles(files)
   if (!items) return
 
-  if (!media.value) {
-    media.value = []
-    media.value.push(...items)
-
-    return
-  }
-
   media.value.push(...items)
 }
 
 function remove(id: MediaItemId) {
-  const index = media.value?.findIndex((item) => item.id === id)
-  if (index === undefined || index === -1) return
+  const index = media.value.findIndex((item) => item.id === id)
+  if (index === -1) return
 
-  media.value?.splice(index, 1)
+  media.value.splice(index, 1)
 }
 
 provideMediaNodeViewContext({ add, remove })

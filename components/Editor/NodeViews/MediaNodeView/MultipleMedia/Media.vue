@@ -13,7 +13,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Image, VideoThumbnail } from '~/components/Shared/Media'
+import Image from '~/components/Editor/NodeViews/MediaNodeView/Shared/Image.vue'
+import VideoThumbnail from '~/components/Editor/NodeViews/MediaNodeView/Shared/VideoThumbnail.vue'
 import type { MediaItem } from '~/tiptap-extensions/mediaNode'
 
 const { media } = defineProps<{ media: MediaItem }>()

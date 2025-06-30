@@ -3,7 +3,7 @@
     v-model="media"
     item-key="id"
     :animation="200"
-    class="flex flex-wrap gap-4"
+    class="flex flex-wrap gap-4 media-items"
   >
     <template #item="{ element }">
       <Item
@@ -33,4 +33,6 @@ function handleTouchStart() {
 function handleTouchEnd() {
   isDragging.value = false
 }
+
+usePhotoSwipe({ gallery: '.media-items', children: 'a' })
 </script>

@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { BaseButton, BaseInnerBorder } from '~/components/Shared/Base'
-import Media from '~/components/Editor/NodeViews/MediaNodeView/MultipleMedia/Items/Media.vue'
+import Media from '~/components/Editor/NodeViews/MediaNodeView/MultipleMedia/Media.vue'
 import { CrossIcon } from '~/components/Shared/Icons'
 import type { MediaItem } from '~/tiptap-extensions/mediaNode'
 import { injectMediaNodeViewContext } from '~/components/Editor/NodeViews/MediaNodeView/MediaNodeView.vue'

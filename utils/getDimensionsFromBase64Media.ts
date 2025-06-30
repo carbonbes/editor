@@ -1,4 +1,4 @@
-type DimensionsFromBase64MediaReturn = {
+export type DimensionsFromBase64MediaReturn = {
   width: number
   height: number
 }

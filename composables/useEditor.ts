@@ -7,6 +7,7 @@ import { NodeInsert } from '~/tiptap-extensions/nodeInsert'
 import { MediaNode } from '~/tiptap-extensions/mediaNode'
 import { NodeSelectionAttr } from '~/tiptap-extensions/nodeSelectionAttr'
 import { NodeAttrs } from '~/tiptap-extensions/nodeAttrs'
+import { YoutubeVideoNode } from '~/tiptap-extensions/youtubeVideoNode'
 
 export function useEditor() {
   const editor = useState<Editor | undefined>()
@@ -23,9 +24,9 @@ export function useEditor() {
         NodeMoving,
         NodeTransform,
         NodeInsert,
-        MediaNode,
         NodeSelectionAttr,
         NodeAttrs,
+        YoutubeVideoNode
       ],
 
       editorProps: {

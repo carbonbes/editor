@@ -19,6 +19,7 @@ export const EDITOR_LIST_NODES = [
 export const EDITOR_BLOCKQUOTE_NODE = 'blockquote' as const
 export const EDITOR_HORIZONTALRULE_NODE = 'horizontalRule' as const
 export const EDITOR_MEDIA_NODE = 'media' as const
+export const EDITOR_YOUTUBE_VIDEO_NODE = 'youtubeVideo' as const
 
 export const EDITOR_ROOT_NODES = [
   ...EDITOR_TEXTBLOCK_NODES,
@@ -26,6 +27,7 @@ export const EDITOR_ROOT_NODES = [
   EDITOR_BLOCKQUOTE_NODE,
   EDITOR_HORIZONTALRULE_NODE,
   EDITOR_MEDIA_NODE,
+  EDITOR_YOUTUBE_VIDEO_NODE,
 ] as const
 
 export const EDITOR_BOLD_MARK = 'bold' as const

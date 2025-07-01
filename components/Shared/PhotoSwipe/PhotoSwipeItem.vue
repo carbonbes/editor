@@ -1,5 +1,5 @@
 <template>
-  <a :href target="_blank" v-bind="pswpAttrs">
+  <a v-bind="pswpAttrs" :href target="_blank" rel="noreferrer">
     <slot />
   </a>
 </template>

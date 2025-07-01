@@ -1,26 +1,31 @@
 <template>
-  <Image
+  <PhotoSwipeContainer
     v-if="isImage"
-    :src="media.src"
-    class="h-full max-h-fit object-contain image"
-  />
+    gallery=".media-item"
+    class="h-full max-h-fit media-item"
+  >
+    <Image :src="media.src" class="h-full max-h-fit object-contain" />
+  </PhotoSwipeContainer>
 
-  <Video
+  <VideoPlayer
     v-else
     :src="media.src"
+    :thumbnail="media.meta.thumbnail!"
+    auto-play
+    muted
+    plays-inline
     controls
-    class="size-full"
+    class="size-full object-contain cursor-pointer"
   />
 </template>
 
 <script lang="ts" setup>
+import { PhotoSwipeContainer } from '~/components/Shared/PhotoSwipe'
 import Image from '~/components/Editor/NodeViews/MediaNodeView/Shared/Image.vue'
-import { Video } from '~/components/Shared/Media'
+import { VideoPlayer } from '~/components/Shared/VideoPlayer'
 import type { MediaItem } from '~/tiptap-extensions/mediaNode'
 
 const { media } = defineProps<{ media: MediaItem }>()
 
 const isImage = computed(() => media.meta.mime.startsWith('image/'))
-
-usePhotoSwipe({ gallery: '.image' })
 </script>

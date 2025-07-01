@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import { useForwardProps } from 'reka-ui'
-import PhotoSwipeItem from '~/components/Shared/PhotoSwipeItem.vue'
+import PhotoSwipeItem from '~/components/Shared/PhotoSwipe/PhotoSwipeItem.vue'
 import { Image, type ImageProps } from '~/components/Shared/Media'
 
 const props = defineProps<ImageProps>()

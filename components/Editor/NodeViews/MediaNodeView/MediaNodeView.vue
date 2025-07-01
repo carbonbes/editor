@@ -1,8 +1,8 @@
 <template>
   <NodeViewWrapper class="not-first:mt-8 not-last:mb-8 text-black">
     <EmptyMedia v-if="isEmptyMedia" />
-    <SingleMedia v-else-if="singleMedia" :media="singleMedia" />
-    <MultipleMedia v-else-if="multipleMedia" :media="multipleMedia" />
+    <SingleMedia v-else-if="isSingleMedia" :media="media[0]" />
+    <MultipleMedia v-else-if="isMultipleMedia" v-model="media" />
   </NodeViewWrapper>
 </template>
 
@@ -34,12 +34,12 @@ watch(
 
 const isEmptyMedia = computed(() => !media.value.length)
 
-const singleMedia = computed(
-  () => (!isEmptyMedia.value && media.value.length === 1 && media.value[0]) ?? null,
+const isSingleMedia = computed(
+  () => !isEmptyMedia.value && media.value.length === 1,
 )
 
-const multipleMedia = computed(
-  () => (!isEmptyMedia.value && media.value.length > 1 && media.value) ?? null,
+const isMultipleMedia = computed(
+  () => !isEmptyMedia.value && media.value.length > 1,
 )
 
 async function add(files: File[]) {

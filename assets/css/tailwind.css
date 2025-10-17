@@ -3,4 +3,21 @@
 
 @theme {
     --font-sans: 'Inter', sans-serif;
+    --animate-loader: loader 1.25s infinite;
+
+    @keyframes loader {
+        0% {
+            opacity: 0.2;
+        }
+        25% {
+            opacity: 0.8;
+        }
+        50% {
+            opacity: 0.8;
+        }
+    }
+}
+
+@utility animation-delay-* {
+    animation-delay: calc(--value(integer) * 1ms);
 }

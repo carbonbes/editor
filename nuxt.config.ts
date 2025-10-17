@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/icon',
     '@vueuse/nuxt',
+    '@nuxt/scripts',
   ],
 
   fonts: {
@@ -25,5 +26,11 @@ export default defineNuxtConfig({
 
   icon: {
     mode: 'svg',
-  }
+    customCollections: [
+      {
+        prefix: 'local',
+        dir: './assets/icons',
+      },
+    ],
+  },
 })

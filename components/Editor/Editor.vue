@@ -25,7 +25,7 @@ import { NodeAttrs } from '~/tiptap-extensions/nodeAttrs'
 
 const { content } = defineProps<{ content?: Content }>()
 
-const editor = ref<Editor>()
+const editor = shallowRef<Editor>()
 
 provide(editorInjectionKey, editor)
 

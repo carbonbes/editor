@@ -1,6 +1,28 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+@layer base {
+  html,
+  body,
+  #__nuxt {
+    height: 100%;
+  }
+
+  #teleports {
+    position: relative;
+    z-index: 999;
+  }
+}
+
 @theme {
-    --font-sans: 'Inter', sans-serif;
+  --color-black: #000;
+  --font-sans: 'Inter', sans-serif;
+}
+
+@utility prose-black {
+  --tw-prose-body: var(--color-black);
+  --tw-prose-headings: var(--color-black);
+  --tw-prose-counters: var(--color-black);
+  --tw-prose-bullets: var(--color-black);
+  --tw-prose-quotes: var(--color-black);
 }

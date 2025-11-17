@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
-import EditorContent from '~/components/Editor/EditorContent.client.vue'
+import EditorContent from '~/components/Editor/Editor.client.vue'
 import type { Content } from '@tiptap/vue-3'
 
-describe('EditorContent', () => {
+describe('Editor', () => {
   test('should be defined', () => {
     expect(EditorContent).toBeDefined()
   })

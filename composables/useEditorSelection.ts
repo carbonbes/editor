@@ -1,7 +1,7 @@
 import { TextSelection, NodeSelection } from '@tiptap/pm/state'
 
 export function useEditorSelection() {
-  const { editor } = useEditor()
+  const editor = useEditor()
 
   const selection = computed(() => editor.value?.state.selection)
 

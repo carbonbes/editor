@@ -3,7 +3,7 @@ import type { Attrs } from '@tiptap/pm/model'
 import type { EditorRootNodes } from '~/types'
 
 export function useEditorNodeSelectionCommands() {
-  const { editor } = useEditor()
+  const editor = useEditor()
 
   function setNodeSelection(pos: number) {
     editor.value?.commands.setNodeSelection(pos)

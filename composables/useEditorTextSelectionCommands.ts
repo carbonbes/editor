@@ -1,5 +1,5 @@
 export function useEditorTextSelectionCommands() {
-  const { editor } = useEditor()
+  const editor = useEditor()
 
   const canToggleBold = computed(
     () => editor.value?.can().toggleBold() || false,

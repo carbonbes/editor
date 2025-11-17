@@ -3,6 +3,8 @@
 </template>
 
 <script lang="ts" setup>
+import Editor from '~/components/Editor/Editor.vue'
+
 const content = {
   type: 'doc',
   content: [

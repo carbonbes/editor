@@ -34,6 +34,8 @@ export function useEditorNodeSelectionCommands() {
     editor.value?.chain().focus().moveDown().run()
   }
 
+  const canNodeTransform = computed(() => editor.value?.can().canTransform() || false)
+
   const canTransformToHeading2 = computed(
     () => editor.value?.can().transformToHeading(2) || false,
   )
@@ -82,6 +84,7 @@ export function useEditorNodeSelectionCommands() {
     canMoveNodeToDown,
     moveNodeToUp,
     moveNodeToDown,
+    canNodeTransform,
     canTransformToHeading2,
     canTransformToHeading3,
     canTransformToParagraph,

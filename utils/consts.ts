@@ -40,6 +40,12 @@ export const EDITOR_MARKS = [
   EDITOR_STRIKE_MARK,
 ] as const
 
+export const EDITOR_NON_TRANSFORM_NODES = [
+  EDITOR_HORIZONTALRULE_NODE,
+  EDITOR_MEDIA_NODE,
+  EDITOR_CODEBLOCK_NODE
+] as const
+
 export const ALLOWED_IMAGE_MIME_TYPES = [
   'image/png',
   'image/webp',

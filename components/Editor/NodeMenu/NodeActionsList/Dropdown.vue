@@ -15,7 +15,7 @@
         Переместить вниз
       </DropdownMenuItem>
 
-      <DropdownMenuSub>
+      <DropdownMenuSub v-if="canNodeTransform">
         <DropdownMenuSubTrigger>
           <RefreshIcon />
           Поменять на
@@ -101,6 +101,7 @@ const {
   canMoveNodeToDown,
   moveNodeToUp,
   moveNodeToDown,
+  canNodeTransform,
   canTransformToHeading2,
   canTransformToHeading3,
   transformToHeading,

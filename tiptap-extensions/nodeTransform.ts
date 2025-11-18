@@ -8,6 +8,7 @@ import type { EditorRootNodes } from '~/types'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     NodeTransform: {
+      canTransform: () => ReturnType
       transformToHeading: (level: Level) => ReturnType
       transformToParagraph: () => ReturnType
       transformToList: (
@@ -61,10 +62,28 @@ function getTargetContent(
   return content
 }
 
+function canTransform() {
+  return ({ state }: CommandProps) => {
+    const { selection } = state
+    if (!(selection instanceof NodeSelection)) return false
+
+    const selectedNode = selection.node
+    const selectedNodeType = selectedNode.type
+
+    if (
+      (EDITOR_NON_TRANSFORM_NODES as unknown as string[]).includes(
+        selectedNodeType.name,
+      )
+    )
+      return false
+
+    return true
+  }
+}
+
 function transformTo(targetNodeName: EditorRootNodes, targetNodeAttrs?: Attrs) {
   return ({ state, dispatch, tr }: CommandProps) => {
     const { selection, schema } = state
-
     if (!(selection instanceof NodeSelection)) return false
 
     const selectedNode = selection.node
@@ -98,6 +117,7 @@ export const NodeTransform = new Extension({
   name: 'nodeTransform',
   addCommands() {
     return {
+      canTransform: () => canTransform(),
       transformToHeading: (level) => transformTo('heading', { level }),
       transformToParagraph: () => transformTo('paragraph'),
       transformToList: (type) => transformTo(type),

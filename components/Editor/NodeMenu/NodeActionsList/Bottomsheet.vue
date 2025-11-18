@@ -39,7 +39,10 @@
                 Переместить вниз
               </BottomsheetContentButton>
 
-              <BottomsheetContentButtonSub @click="page++">
+              <BottomsheetContentButtonSub
+                v-if="canNodeTransform"
+                @click="page++"
+              >
                 <RefreshIcon />
                 Поменять на
               </BottomsheetContentButtonSub>
@@ -144,6 +147,7 @@ const {
   canMoveNodeToDown,
   moveNodeToUp,
   moveNodeToDown,
+  canNodeTransform,
   canTransformToHeading2,
   canTransformToHeading3,
   canTransformToParagraph,

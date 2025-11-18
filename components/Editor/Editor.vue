@@ -22,7 +22,7 @@ import { NodeInsert } from '~/tiptap-extensions/nodeInsert'
 import { MediaNode } from '~/tiptap-extensions/mediaNode'
 import { NodeSelectionAttr } from '~/tiptap-extensions/nodeSelectionAttr'
 import { NodeAttrs } from '~/tiptap-extensions/nodeAttrs'
-import { HorizontalRule } from '@tiptap/extension-horizontal-rule'
+import { HorizontalRuleNode } from '~/tiptap-extensions/horizontalRuleNode'
 
 const { content } = defineProps<{ content?: Content }>()
 
@@ -40,17 +40,7 @@ function init() {
       StarterKit.configure({
         horizontalRule: false
       }),
-      HorizontalRule.extend({
-        content: 'horizontalRule',
-
-        parseHTML() {
-          return [{ tag: 'hr' }, { tag: 'div[data-type="horizontalRule"]' }]
-        },
-
-        renderHTML() {
-          return ['div', { 'data-type': 'horizontalRule' }, ['hr']]
-        },
-      }),
+      HorizontalRuleNode,
       NodeTestIdAttr,
       NodeMoving,
       NodeTransform,

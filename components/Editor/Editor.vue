@@ -11,9 +11,9 @@
 import { type Content, Editor, EditorContent } from '@tiptap/vue-3'
 import NodesListBottomsheet from '~/components/Editor/NodeMenu/NodesList/Bottomsheet.vue'
 import NodeActionsListBottomsheet from '~/components/Editor/NodeMenu/NodeActionsList/Bottomsheet.vue'
-import { Popover as NodeMenuPopover, type EditorNodeMenuPopoverContext } from '~/components/Editor/NodeMenu/Popover'
+import NodeMenuPopover from '~/components/Editor/NodeMenu/Popover.vue'
 import SelectionFormattingPopover from '~/components/Editor/SelectionFormattingPopover/Popover.vue'
-import { editorInjectionKey, editorNodeMenuPopoverInjectionKey } from '~/injectionKeys'
+import { editorInjectionKey } from '~/injectionKeys'
 import StarterKit from '@tiptap/starter-kit'
 import { NodeTestIdAttr } from '~/tiptap-extensions/nodeTestIdAttr'
 import { NodeMoving } from '~/tiptap-extensions/nodeMoving'
@@ -67,11 +67,4 @@ function destroy() {
 
 onMounted(init)
 onUnmounted(destroy)
-
-const editorNodeMenuPopoverContext = shallowReactive<EditorNodeMenuPopoverContext>({
-  open: ref(false),
-  contentRef: ref(null)
-})
-
-provide(editorNodeMenuPopoverInjectionKey, editorNodeMenuPopoverContext)
 </script>

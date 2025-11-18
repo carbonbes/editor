@@ -4,7 +4,7 @@
       <slot />
     </DropdownMenuTrigger>
 
-    <DropdownMenuContent>
+    <DropdownMenuContent @interact-outside="handleInteractOutside">
       <DropdownMenuItem v-if="canMoveNodeToUp" @click="moveNodeToUp">
         <ArrowIcon up />
         Переместить наверх
@@ -90,8 +90,7 @@ import {
   TrashIcon,
 } from '~/components/Shared/Icons'
 
-const open = ref(false)
-
+const { nodeActionsListDropdownOpen: open } = useEditorNodeMenuDropdown()
 const { setFocusedNode } = useEditorFocusedNode()
 const { node } = useEditorNodesHoverTracking()
 
@@ -112,4 +111,18 @@ const {
   transformToList,
   removeNode,
 } = useEditorNodeSelectionCommands()
+
+const { dom } = useEditorView()
+const { open: editorNodeMenuPopover } = useEditorNodeMenuPopover()
+
+function handleInteractOutside(e: Event) {
+  if (!dom.value) return
+
+  const target = e.target as HTMLElement
+
+  if (dom.value.contains(target)) return
+
+  editorNodeMenuPopover.value = false
+  setFocusedNode(null)
+}
 </script>

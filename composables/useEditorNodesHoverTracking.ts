@@ -2,9 +2,13 @@ export function useEditorNodesHoverTracking() {
   const node = useState<Element | null>(() => null)
 
   const { dom } = useEditorView()
+  const { nodesListDropdownOpen, nodeActionsListDropdownOpen } =
+    useEditorNodeMenuDropdown()
+
+  const dropdownIsOpen = computed(() => nodesListDropdownOpen.value || nodeActionsListDropdownOpen.value)
 
   function handleMouseMove(e: UseEditorMouseTrackingEvent) {
-    if (!dom.value) return
+    if (!dom.value || dropdownIsOpen.value) return
 
     const { clientY } = e
 
@@ -25,7 +29,7 @@ export function useEditorNodesHoverTracking() {
   const { contentRef } = useEditorNodeMenuPopover()
 
   function handleMouseLeave(e: UseEditorMouseTrackingEvent) {
-    if (!e.relatedTarget || !contentRef.value) return
+    if (!e.relatedTarget || !contentRef.value || dropdownIsOpen.value) return
 
     const popoverContent = contentRef.value.$el as HTMLElement
     const relatedTarget = e.relatedTarget as HTMLElement

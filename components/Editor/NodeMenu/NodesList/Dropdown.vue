@@ -4,7 +4,7 @@
       <slot />
     </DropdownMenuTrigger>
 
-    <DropdownMenuContent>
+    <DropdownMenuContent @interact-outside="handleInteractOutside">
       <DropdownMenuSub>
         <DropdownMenuSubTrigger>
           <HeadingIcon />
@@ -91,12 +91,25 @@ import {
   LibraryPhotoIcon,
 } from '~/components/Shared/Icons'
 
-const open = ref(false)
-
+const { nodesListDropdownOpen: open } = useEditorNodeMenuDropdown()
 const { setFocusedNode } = useEditorFocusedNode()
 const { node } = useEditorNodesHoverTracking()
 
 watch(open, (open) => setFocusedNode(open ? node.value : null))
 
 const { insertNode } = useEditorNodeSelectionCommands()
+
+const { dom } = useEditorView()
+const { open: editorNodeMenuPopover } = useEditorNodeMenuPopover()
+
+function handleInteractOutside(e: Event) {
+  if (!dom.value) return
+
+  const target = e.target as HTMLElement
+
+  if (dom.value.contains(target)) return
+
+  editorNodeMenuPopover.value = false
+  setFocusedNode(null)
+}
 </script>

@@ -27,10 +27,10 @@ export function useEditorNodesHoverTracking() {
   function handleMouseLeave(e: UseEditorMouseTrackingEvent) {
     if (!e.relatedTarget || !contentRef.value) return
 
-    const contentRefEl = contentRef.value.$el as HTMLElement
+    const popoverContent = contentRef.value.$el as HTMLElement
     const relatedTarget = e.relatedTarget as HTMLElement
 
-    if (contentRefEl.contains(relatedTarget)) {
+    if (popoverContent.contains(relatedTarget)) {
       return
     }
 
@@ -38,7 +38,10 @@ export function useEditorNodesHoverTracking() {
   }
 
   useEditorMouseTracking({
-    handlers: { onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave },
+    handlers: {
+      onMouseMove: handleMouseMove,
+      onMouseLeave: handleMouseLeave,
+    },
   })
 
   return { node }

@@ -9,9 +9,9 @@
         :collision-padding="15"
         :reference="node"
         class="flex gap-1"
-        @open-auto-focus="(e) => e.preventDefault()"
-        @interact-outside="(e) => e.preventDefault()"
-        @escape-key-down="(e) => e.preventDefault()"
+        @open-auto-focus="preventDefault"
+        @interact-outside="preventDefault"
+        @escape-key-down="preventDefault"
       >
         <NodesListDropdownTrigger />
         <NodeActionsListDropdownTrigger />
@@ -28,7 +28,11 @@ import NodeActionsListDropdownTrigger from '~/components/Editor/NodeMenu/Popover
 const open = ref(false)
 
 const { contentRef } = useEditorNodeMenuPopover()
-
 const { node } = useEditorNodesHoverTracking()
+
 watch(node, (node) => (open.value = !!node))
+
+function preventDefault(e: Event) {
+  e.preventDefault()
+}
 </script>

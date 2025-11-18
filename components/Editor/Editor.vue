@@ -11,7 +11,7 @@
 import { type Content, Editor, EditorContent } from '@tiptap/vue-3'
 import NodesListBottomsheet from '~/components/Editor/NodeMenu/NodesList/Bottomsheet.vue'
 import NodeActionsListBottomsheet from '~/components/Editor/NodeMenu/NodeActionsList/Bottomsheet.vue'
-import NodeMenuPopover from '~/components/Editor/NodeMenu/Popover/Popover.vue'
+import NodeMenuPopover from '~/components/Editor/NodeMenu/Popover.vue'
 import SelectionFormattingPopover from '~/components/Editor/SelectionFormattingPopover/Popover.vue'
 import { editorInjectionKey } from '~/injectionKeys'
 import StarterKit from '@tiptap/starter-kit'

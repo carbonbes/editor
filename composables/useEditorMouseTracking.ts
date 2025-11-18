@@ -29,6 +29,7 @@ export function useEditorMouseTracking({
 
   const cleanup = ref<ReturnType<typeof useEventListener>>()
 
+  const { isTouch } = useDevice()
   const { dom } = useEditorView()
 
   function init() {
@@ -47,12 +48,7 @@ export function useEditorMouseTracking({
     cleanup.value()
   }
 
-  const { isTouch } = useDevice()
-
-  watch(isTouch, (isTouch) => {
-    if (isTouch) destroy()
-    else init()
-  })
+  watch(isTouch, (value) => (value ? destroy() : init()))
 
   onMounted(init)
   onBeforeUnmount(destroy)

@@ -1,9 +1,8 @@
-import type { PopoverContent } from 'reka-ui'
+import type { EditorNodeMenuPopoverContext } from '~/components/Editor/NodeMenu/Popover'
+import { editorNodeMenuPopoverInjectionKey } from '~/injectionKeys'
 
 export function useEditorNodeMenuPopover() {
-  const contentRef = useState<InstanceType<typeof PopoverContent> | null>(
-    () => null,
-  )
-
-  return { contentRef }
+  return inject(
+    editorNodeMenuPopoverInjectionKey,
+  ) as EditorNodeMenuPopoverContext
 }

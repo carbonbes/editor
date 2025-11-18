@@ -25,12 +25,15 @@ import { PopoverRoot, PopoverPortal, PopoverContent } from 'reka-ui'
 import NodesListDropdownTrigger from '~/components/Editor/NodeMenu/Popover/NodesListDropdownTrigger.vue'
 import NodeActionsListDropdownTrigger from '~/components/Editor/NodeMenu/Popover/NodeActionsListDropdownTrigger.vue'
 
-const open = ref(false)
+export type EditorNodeMenuPopoverContext = {
+  open: Ref<boolean>,
+  contentRef: Ref<InstanceType<typeof PopoverContent> | null>
+}
 
-const { contentRef } = useEditorNodeMenuPopover()
+const { open, contentRef } = useEditorNodeMenuPopover()
 const { node } = useEditorNodesHoverTracking()
 
-watch(node, (node) => (open.value = !!node))
+watch(node, (value) => (open.value = !!value))
 
 function preventDefault(e: Event) {
   e.preventDefault()

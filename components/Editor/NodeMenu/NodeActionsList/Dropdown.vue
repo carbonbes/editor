@@ -95,7 +95,7 @@ const open = ref(false)
 const { setFocusedNode } = useEditorFocusedNode()
 const { node } = useEditorNodesHoverTracking()
 
-watch(open, (open) => setFocusedNode(open ? node.value : null))
+watch(open, (value) => setFocusedNode(value ? node.value : null))
 
 const {
   canMoveNodeToUp,

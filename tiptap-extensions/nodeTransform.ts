@@ -8,7 +8,7 @@ import type { EditorRootNodes } from '~/types'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     NodeTransform: {
-      canTransform: () => ReturnType
+      transform: () => ReturnType
       transformToHeading: (level: Level) => ReturnType
       transformToParagraph: () => ReturnType
       transformToList: (
@@ -16,6 +16,51 @@ declare module '@tiptap/core' {
       ) => ReturnType
     }
   }
+}
+
+function getTargetNodeContent(
+  selectedNode: Node,
+  targetNodeName: string,
+  schema: Schema,
+) {
+  const {
+    childCount: selectedNodeChildCount,
+    firstChild: selectedNodeFirstChild,
+    type: { name: selectedNodeName },
+    content: selectedNodeContent,
+  } = selectedNode
+  const textBlockNodes = EDITOR_TEXTBLOCK_NODES as ReadonlyArray<string>
+  const listNodes = EDITOR_LIST_NODES as ReadonlyArray<string>
+
+  const isSelectedList = listNodes.includes(selectedNodeName)
+  const isTargetToTextBlockNode = textBlockNodes.includes(targetNodeName)
+  const isTargetToList = listNodes.includes(targetNodeName)
+
+  if (isTargetToTextBlockNode) {
+    if (isSelectedList) {
+      if (selectedNodeChildCount > 1) {
+        return null
+      }
+
+      const listItem = selectedNodeFirstChild
+      const paragraph = listItem?.firstChild
+
+      return paragraph?.content || Fragment.empty
+    }
+
+    return selectedNodeContent
+  } else if (isTargetToList) {
+    if (isSelectedList) {
+      return selectedNodeContent
+    }
+
+    const paragraph = schema.nodes.paragraph.create(null, selectedNodeContent)
+    const listItem = schema.nodes.listItem.create(null, paragraph)
+
+    return Fragment.from(listItem)
+  }
+
+  return selectedNodeContent
 }
 
 function omitAttrs(attrs?: Attrs) {
@@ -26,85 +71,47 @@ function omitAttrs(attrs?: Attrs) {
   return rest
 }
 
-function getTargetContent(
-  selectedNode: Node,
-  targetNodeName: string,
-  schema: Schema,
+function transformTo(
+  targetNodeName?: EditorRootNodes,
+  targetNodeAttrs?: Attrs,
 ) {
-  const { type, content } = selectedNode
-  const textBlockNodes = EDITOR_TEXTBLOCK_NODES as ReadonlyArray<string>
-  const listNodes = EDITOR_LIST_NODES as ReadonlyArray<string>
-
-  const isSelectedList = listNodes.includes(type.name)
-
-  if (textBlockNodes.includes(targetNodeName)) {
-    if (isSelectedList) {
-      if (selectedNode.childCount > 1) {
-        return null
-      }
-
-      const listItem = selectedNode.firstChild
-      const paragraph = listItem?.firstChild
-
-      return paragraph?.content || Fragment.empty
-    }
-
-    return content
-  } else if (listNodes.includes(targetNodeName)) {
-    if (isSelectedList) return content
-
-    const paragraph = schema.nodes.paragraph.create(null, content)
-    const listItem = schema.nodes.listItem.create(null, paragraph)
-
-    return Fragment.from(listItem)
-  }
-
-  return content
-}
-
-function canTransform() {
-  return ({ state }: CommandProps) => {
-    const { selection } = state
-    if (!(selection instanceof NodeSelection)) return false
-
-    const selectedNode = selection.node
-    const selectedNodeType = selectedNode.type
-
-    if (
-      (EDITOR_NON_TRANSFORM_NODES as unknown as string[]).includes(
-        selectedNodeType.name,
-      )
-    )
-      return false
-
-    return true
-  }
-}
-
-function transformTo(targetNodeName: EditorRootNodes, targetNodeAttrs?: Attrs) {
   return ({ state, dispatch, tr }: CommandProps) => {
     const { selection, schema } = state
     if (!(selection instanceof NodeSelection)) return false
 
     const selectedNode = selection.node
-    const selectedNodeName = selectedNode.type.name
-    const selectedNodeAttrs = selectedNode.attrs
+    const {
+      type: { name: selectedNodeName },
+      attrs: selectedNodeAttrs,
+    } = selectedNode
 
-    if (
+    if (!targetNodeName) {
+      const editorNonTransformNodes =
+        EDITOR_NON_TRANSFORM_NODES as ReadonlyArray<string>
+
+      return !editorNonTransformNodes.includes(selectedNodeName)
+    }
+
+    const isTargetToSameNode =
       targetNodeName === selectedNodeName &&
       (!targetNodeAttrs ||
         isEqual(omitAttrs(targetNodeAttrs), omitAttrs(selectedNodeAttrs)))
-    ) {
+
+    if (isTargetToSameNode) {
       return false
     }
 
-    const targetContent = getTargetContent(selectedNode, targetNodeName, schema)
+    const targetNodeContent = getTargetNodeContent(
+      selectedNode,
+      targetNodeName,
+      schema,
+    )
 
-    if (targetContent === null) return false
+    if (targetNodeContent === null) return false
 
     const node = schema.nodes[targetNodeName].create(
       targetNodeAttrs,
-      targetContent,
+      targetNodeContent,
     )
 
     dispatch?.(tr.replaceSelectionWith(node))
@@ -117,7 +124,7 @@ export const NodeTransform = new Extension({
   name: 'nodeTransform',
   addCommands() {
     return {
-      canTransform: () => canTransform(),
+      transform: () => transformTo(),
       transformToHeading: (level) => transformTo('heading', { level }),
       transformToParagraph: () => transformTo('paragraph'),
       transformToList: (type) => transformTo(type),

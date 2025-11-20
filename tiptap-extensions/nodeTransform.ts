@@ -63,9 +63,7 @@ function getTargetNodeContent(
   return selectedNodeContent
 }
 
-function omitAttrs(attrs?: Attrs) {
-  if (!attrs) return
-
+function omitAttrs(attrs: Attrs) {
   const { testid, selected, ...rest } = attrs
 
   return rest

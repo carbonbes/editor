@@ -142,7 +142,9 @@ export const MediaNode = Node.create({
         key: new PluginKey('handleMediaPaste'),
 
         props: {
-          handlePaste: handleEvent,
+          handlePaste: (view, event) => {
+            handleEvent(view, event)
+          },
         },
       }),
 
@@ -150,7 +152,9 @@ export const MediaNode = Node.create({
         key: new PluginKey('handleMediaDrop'),
 
         props: {
-          handleDrop: handleEvent,
+          handleDrop: (view, event) => {
+            handleEvent(view, event)
+          },
         },
       }),
     ]

@@ -29,15 +29,16 @@ function getTargetNodeContent(
     type: { name: selectedNodeName },
     content: selectedNodeContent,
   } = selectedNode
+
   const textBlockNodes = EDITOR_TEXTBLOCK_NODES as ReadonlyArray<string>
   const listNodes = EDITOR_LIST_NODES as ReadonlyArray<string>
 
-  const isSelectedList = listNodes.includes(selectedNodeName)
-  const isTargetToTextBlockNode = textBlockNodes.includes(targetNodeName)
-  const isTargetToList = listNodes.includes(targetNodeName)
+  const isSelectedListNode = listNodes.includes(selectedNodeName)
+  const isTargetTextBlockNode = textBlockNodes.includes(targetNodeName)
+  const isTargetListNode = listNodes.includes(targetNodeName)
 
-  if (isTargetToTextBlockNode) {
-    if (isSelectedList) {
+  if (isTargetTextBlockNode) {
+    if (isSelectedListNode) {
       if (selectedNodeChildCount > 1) {
         return null
       }
@@ -49,8 +50,8 @@ function getTargetNodeContent(
     }
 
     return selectedNodeContent
-  } else if (isTargetToList) {
-    if (isSelectedList) {
+  } else if (isTargetListNode) {
+    if (isSelectedListNode) {
       return selectedNodeContent
     }
 
@@ -90,12 +91,15 @@ function transformTo(
       return !editorNonTransformNodes.includes(selectedNodeName)
     }
 
-    const isTargetToSameNode =
-      targetNodeName === selectedNodeName &&
-      (!targetNodeAttrs ||
-        isEqual(omitAttrs(targetNodeAttrs), omitAttrs(selectedNodeAttrs)))
+    const isTargetSameNodeName = targetNodeName === selectedNodeName
 
-    if (isTargetToSameNode) {
+    const isTargetSameNodeAttrs =
+      !targetNodeAttrs ||
+      isEqual(omitAttrs(targetNodeAttrs), omitAttrs(selectedNodeAttrs))
+
+    const isTargetSameNode = isTargetSameNodeName && isTargetSameNodeAttrs
+
+    if (isTargetSameNode) {
       return false
     }
 
@@ -120,6 +124,7 @@ function transformTo(
 
 export const NodeTransform = new Extension({
   name: 'nodeTransform',
+
   addCommands() {
     return {
       transform: () => transformTo(),
